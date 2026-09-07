@@ -49,26 +49,35 @@ Before public hosting, add an application-appropriate access/rate limit to the g
 
 There is no framework, build step, database, or runtime package dependency. The browser loads native ES modules from the Node server.
 
-1. **Choose a puzzle.** `app.js` manages the controls, selected cell/clue, letter entry, checking, reveals, timer, and rendering. On a new game it requests candidate words from `POST /api/words`. A `503` means AI is unconfigured, so it uses the local theme banks instead. The initial demo skips that request.
-2. **Generate off the main thread.** `puzzle-worker.js` calls `engine.js` and returns either a puzzle or an error. The engine combines the theme vocabulary, optional AI candidates, and general crossing words. The AI supplies answers and clues—not the grid.
-3. **Fill and validate the grid.** `dense.js` fills word slots in predefined patterns, narrowing candidates when crossing letters impose constraints and backtracking when a choice fails. It enforces a thematic majority and rejects previously used answer sets. `engine.js` coordinates time limits, saved fallback layouts, and the alternative placement search. Hard minis cannot fall back below 90% crossing coverage.
+1. **Choose a puzzle.** `public/app.js` manages the controls, selected cell/clue, letter entry, checking, reveals, timer, and rendering. On a new game it requests candidate words from `POST /api/words`. A `503` means AI is unconfigured, so it uses the local theme banks instead. The initial demo skips that request.
+2. **Generate off the main thread.** `public/puzzle-worker.js` calls `public/engine.js` and returns either a puzzle or an error. The engine combines the theme vocabulary, optional AI candidates, and general crossing words. The AI supplies answers and clues—not the grid.
+3. **Fill and validate the grid.** `public/dense.js` fills word slots in predefined patterns, narrowing candidates when crossing letters impose constraints and backtracking when a choice fails. It enforces a thematic majority and rejects previously used answer sets. `public/engine.js` coordinates time limits, saved fallback layouts, and the alternative placement search. Hard minis cannot fall back below 90% crossing coverage.
 4. **Play and save locally.** A puzzle contains a two-dimensional `grid` of letters or `null` blocks, plus `entries` with answers, clues, zero-based row/column positions, directions, clue numbers, and theme flags. Progress and recent answer sets live in browser `localStorage`; there are no accounts or server-side saves.
+
+### Layout
+
+```
+public/    Static assets served to the browser (HTML, CSS, and all client-side JS)
+server/    Node HTTP server (static-file allowlist and server-side OpenRouter request)
+scripts/   Dictionary and fallback-data generation utilities
+test/      Automated tests
+```
 
 ### File guide
 
 | Files | Responsibility |
 | --- | --- |
-| `index.html`, `style.css`, `app.js` | Page structure, responsive styling, and game interaction |
-| `server.js` | Static-file allowlist and optional server-side OpenRouter request |
-| `puzzle-worker.js`, `engine.js`, `dense.js` | Worker boundary, generation policy, and constraint solver |
-| `fill-words.js`, `theme-fill.js`, `theme-plurals.js`, `theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues |
-| `mini-patterns.js`, `dense-fallbacks.js` | Mini grid shapes and pre-generated fallback puzzles |
-| `wordnet-words.js`, `WORDNET-LICENSE.txt` | Generated dictionary supplement and its license |
+| `public/index.html`, `public/style.css`, `public/app.js` | Page structure, responsive styling, and game interaction |
+| `server/index.js` | Static-file allowlist and optional server-side OpenRouter request |
+| `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js` | Worker boundary, generation policy, and constraint solver |
+| `public/fill-words.js`, `public/theme-fill.js`, `public/theme-plurals.js`, `public/theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues |
+| `public/mini-patterns.js`, `public/dense-fallbacks.js` | Mini grid shapes and pre-generated fallback puzzles |
+| `public/wordnet-words.js`, `public/WORDNET-LICENSE.txt` | Generated dictionary supplement and its license |
 | `scripts/` | Dictionary and fallback-data generation utilities |
-| `engine.test.js` | Grid validity, theme majority, crossing coverage, and variety tests |
+| `test/engine.test.js` | Grid validity, theme majority, crossing coverage, and variety tests |
 
-When adding a browser-loaded module, also add it to `PUBLIC_FILES` in `server.js`. Keep API credentials in server environment variables. Vocabulary or solver changes should be checked with `npm test`; interaction changes also need a browser check on desktop and at phone width.
+When adding a browser-loaded module, also add it to `PUBLIC_FILES` in `server/index.js` and place the file in `public/`. Keep API credentials in server environment variables. Vocabulary or solver changes should be checked with `npm test`; interaction changes also need a browser check on desktop and at phone width.
 
 ## Dictionary attribution
 
-Additional short answers and definitions are selected from [Princeton WordNet 3.0](https://wordnet.princeton.edu/). See `WORDNET-LICENSE.txt`; the license is also embedded in the generated dictionary module. Curated vocabulary and context-specific clues take precedence where applicable. Rebuild that supplement using `node scripts/build-wordnet.mjs /path/to/WordNet-3.0/dict`.
+Additional short answers and definitions are selected from [Princeton WordNet 3.0](https://wordnet.princeton.edu/). See `public/WORDNET-LICENSE.txt`; the license is also embedded in the generated dictionary module. Curated vocabulary and context-specific clues take precedence where applicable. Rebuild that supplement using `node scripts/build-wordnet.mjs /path/to/WordNet-3.0/dict`.

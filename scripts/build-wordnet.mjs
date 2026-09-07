@@ -6,7 +6,7 @@ const directory=process.argv[2];
 if(!directory)throw new Error('Pass the WordNet 3.0 dict directory');
 const data=fs.readFileSync(path.join(directory,'data.noun'),'utf8');
 const license=data.split('\n').filter(l=>/^\s/.test(l)).map(l=>l.replace(/^\s*\d+\s?/, '')).join('\n');
-fs.writeFileSync('WORDNET-LICENSE.txt',license+'\n');
+fs.writeFileSync('public/WORDNET-LICENSE.txt',license+'\n');
 const matchers={
  ocean:/\b(marine|ocean|sea|seas|saltwater|tidal|coastal|coral|reef|ship|sail|nautical|seawater)\b/i,
  space:/\b(celestial|astronomical|astronomy|planet|solar|lunar|cosmic|orbit|galaxy|spacecraft|astronaut|sun|moon)\b/i,
@@ -31,5 +31,5 @@ for(const kind of ['noun','verb','adj','adv'])for(const line of fs.readFileSync(
   for(const theme of memberships)if(!(theme==='ocean'&&/sea level/i.test(clue))&&!themes[theme].has(answer))themes[theme].set(answer,entry);
  }
 }
-fs.writeFileSync('wordnet-words.js','/*\nDerived from WordNet 3.0; modified by selecting short entries and definitions.\n'+license+'\n*/\nexport const dictionaryWords = '+JSON.stringify([...general.values()])+';\nexport const dictionaryThemes = '+JSON.stringify(Object.fromEntries(Object.entries(themes).map(([key,value])=>[key,[...value.values()]])))+';\n');
+fs.writeFileSync('public/wordnet-words.js','/*\nDerived from WordNet 3.0; modified by selecting short entries and definitions.\n'+license+'\n*/\nexport const dictionaryWords = '+JSON.stringify([...general.values()])+';\nexport const dictionaryThemes = '+JSON.stringify(Object.fromEntries(Object.entries(themes).map(([key,value])=>[key,[...value.values()]])))+';\n');
 console.log('General words:',general.size,'Theme counts:',Object.fromEntries(Object.entries(themes).map(([k,v])=>[k,v.size])));

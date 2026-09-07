@@ -5,10 +5,11 @@ Read the developer overview and run instructions in `README.md` before changing 
 ## Project conventions
 
 - This is a native JavaScript ES-module app with a dependency-free Node server. Keep changes consistent with that structure; avoid introducing a framework or build system for routine changes.
+- Layout: `public/` holds every browser-loaded file (HTML, CSS, client JS), `server/` holds the Node HTTP server, `scripts/` holds data-generation utilities, and `test/` holds automated tests.
 - For coding tasks, use judgment to select an appropriate lower-power model for a concrete subagent task. Delegate only work that can run independently of useful local work.
 - If working on C# or Python tooling, prefer the Rider or PyCharm MCP respectively for inspections, symbol lookup, search, and refactoring when available.
-- Keep UI state and interactions in `app.js`, generation policy in `engine.js`, and constraint solving in `dense.js`. Run generation through `puzzle-worker.js` so it does not block the UI.
-- Add new browser-loaded files to the explicit `PUBLIC_FILES` allowlist in `server.js`. Do not replace the allowlist with unrestricted directory serving.
+- Keep UI state and interactions in `public/app.js`, generation policy in `public/engine.js`, and constraint solving in `public/dense.js`. Run generation through `public/puzzle-worker.js` so it does not block the UI.
+- Add new browser-loaded files to `public/` and to the explicit `PUBLIC_FILES` allowlist in `server/index.js`. Do not replace the allowlist with unrestricted directory serving.
 
 ## Product requirements to preserve
 
@@ -23,7 +24,7 @@ Read the developer overview and run instructions in `README.md` before changing 
 
 - Keep `OPENROUTER_API_KEY` on the server. Never put credentials in client modules, generated data, or committed files.
 - AI supplies candidate answers and clues; local code constructs the grid. Preserve the explicit unconfigured-AI fallback and useful errors for unsupported or unsatisfiable themes.
-- Prefer editing curated vocabulary files for targeted word/clue fixes. Regenerate `wordnet-words.js` with `scripts/build-wordnet.mjs` when changing dictionary selection logic, and preserve the embedded WordNet license and `WORDNET-LICENSE.txt`.
+- Prefer editing curated vocabulary files for targeted word/clue fixes. Regenerate `public/wordnet-words.js` with `scripts/build-wordnet.mjs` when changing dictionary selection logic, and preserve the embedded WordNet license and `public/WORDNET-LICENSE.txt`.
 - Validate generated fallback puzzles against current theme and crossing rules; historical generated data is not automatically valid after rules change.
 
 ## Verification

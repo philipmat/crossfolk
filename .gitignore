@@ -5,3 +5,4 @@ node_modules/
 
 # IDE and Agent folders:
 .idea/
+.claude/

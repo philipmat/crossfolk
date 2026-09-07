@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generatePuzzle, supportedThemes } from './engine.js';
+import { generatePuzzle, supportedThemes } from '../public/engine.js';
 
 function assertValidPuzzle(puzzle) {
   assert.equal(puzzle.grid.length, puzzle.size);
