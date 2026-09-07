@@ -10,6 +10,7 @@ Read the developer overview and run instructions in `README.md` before changing 
 - If working on C# or Python tooling, prefer the Rider or PyCharm MCP respectively for inspections, symbol lookup, search, and refactoring when available.
 - Keep UI state and interactions in `public/app.js`, generation policy in `public/engine.js`, and constraint solving in `public/dense.js`. Run generation through `public/puzzle-worker.js` so it does not block the UI.
 - Add new browser-loaded files to `public/` and to the explicit `PUBLIC_FILES` allowlist in `server/index.js`. Do not replace the allowlist with unrestricted directory serving.
+- Write code as a human would: leave blank lines between logical steps within a function (setup, main logic, return/result) instead of producing dense, uninterrupted blocks. Do not add a blank line between every statement, and do not add blank lines inside short (under ~5 line) functions.
 
 ## Product requirements to preserve
 
