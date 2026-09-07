@@ -27,7 +27,7 @@ export OPENROUTER_API_KEY='your-key'
 npm start
 ```
 
-Optionally set `OPENROUTER_MODEL` (default `openai/gpt-4.1-mini`; the model must support structured JSON schema output) and `OPENROUTER_SITE_URL` (sent as the `HTTP-Referer` attribution header). The key remains on the server. Theme text and recently used answers are sent to OpenRouter when generating a new game with AI enabled. This requires an account with API access and incurs API usage charges. Live AI generation has not been tested with credentials in this workspace.
+Optionally set `OPENROUTER_MODELS` to a comma-separated, preference-ordered list of models (default `deepseek/deepseek-v4-flash,openai/gpt-4.1-mini`; each must support structured JSON schema output). The server tries each model in turn and falls back to the next when a request fails, times out, or returns unusable output. `OPENROUTER_MODEL` is still accepted as a single-model alias. and `OPENROUTER_SITE_URL` (sent as the `HTTP-Referer` attribution header). The key remains on the server. Theme text and recently used answers are sent to OpenRouter when generating a new game with AI enabled. This requires an account with API access and incurs API usage charges. Live AI generation has not been tested with credentials in this workspace.
 
 Each generated puzzle uses a different answer set from the last 100 locally saved games. Individual words can recur, especially with finite curated banks; less-used words are favored. If the generator cannot find a fresh valid set, it reports that instead of knowingly repeating a game. Browser data clearing resets this history.
 
