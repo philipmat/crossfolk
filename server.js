@@ -7,6 +7,9 @@ const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const PORT = Number(process.env.PORT || 3000);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png' };
 const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style.css', 'dense.js', 'fill-words.js', 'puzzle-worker.js', 'theme-fill.js', 'wordnet-words.js', 'WORDNET-LICENSE.txt', 'mini-patterns.js', 'theme-plurals.js', 'theme-clues.js', 'dense-fallbacks.js']);
+// const DEFAULT_MODEL = 'openai/gpt-4.1-mini';
+// const DEFAULT_MODEL = 'openai/gpt-5.6-luna';
+const DEFAULT_MODEL = 'deepseek/deepseek-v4-flash';
 
 function json(response, status, body) {
   response.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -53,7 +56,7 @@ async function createWords(request, response) {
           'x-title': 'Crossfolk',
         },
         body: JSON.stringify({
-          model: process.env.OPENROUTER_MODEL || 'openai/gpt-4.1-mini',
+          model: process.env.OPENROUTER_MODEL || DEFAULT_MODEL,
           messages: [
             { role: 'system', content: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.' },
             { role: 'user', content: `Theme: ${cleanTheme}\nMaximum answer length: ${numericSize}\nDifficulty: ${cleanDifficulty}\nAvoid these answers: ${exclude.join(', ')}\nGenerate ${count} varied, strongly theme-related entries with intersecting letter patterns.` },
