@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generatePuzzle, supportedThemes } from '../public/engine.js';
+import {generatePuzzle, supportedThemes} from '../public/engine.js';
 
 function assertValidPuzzle(puzzle) {
   assert.equal(puzzle.grid.length, puzzle.size);
   assert.ok(puzzle.entries.length >= 3);
-  const coverage = Array.from({ length: puzzle.size }, () => Array.from({ length: puzzle.size }, () => []));
+  const coverage = Array.from({length: puzzle.size}, () => Array.from({length: puzzle.size}, () => []));
   for (const entry of puzzle.entries) {
     assert.match(entry.answer, /^[A-Z]+$/);
     assert.ok(entry.clue);
@@ -24,7 +24,10 @@ function assertValidPuzzle(puzzle) {
     changed = false;
     for (const cell of coverage.flat()) {
       if (cell.some((entry) => connected.has(entry))) {
-        for (const entry of cell) if (!connected.has(entry)) { connected.add(entry); changed = true; }
+        for (const entry of cell) if (!connected.has(entry)) {
+          connected.add(entry);
+          changed = true;
+        }
       }
     }
   }
@@ -52,11 +55,18 @@ test('exposes broad built-in themes', () => {
 });
 
 test('generates valid connected puzzles at every size', () => {
-  for (const size of ['small', 'medium', 'large']) assertValidPuzzle(generatePuzzle({ theme: 'ocean reef', size, difficulty: 'medium' }));
+  for (const size of ['small', 'medium', 'large']) assertValidPuzzle(generatePuzzle({
+    theme: 'ocean reef',
+    size,
+    difficulty: 'medium'
+  }));
 });
 
 test('uses difficulty-specific thematic clues', () => {
-  const words = ['ARC','AMP','REEF','CEDAR','MEET','TAKE','PEDAL','LED','FAKE','RED'].map(answer => ({answer, clues: {easy: 'Easy hint for ' + answer, hard: 'Hard hint for ' + answer}}));
+  const words = ['ARC', 'AMP', 'REEF', 'CEDAR', 'MEET', 'TAKE', 'PEDAL', 'LED', 'FAKE', 'RED'].map(answer => ({
+    answer,
+    clues: {easy: 'Easy hint for ' + answer, hard: 'Hard hint for ' + answer}
+  }));
   for (const difficulty of ['easy', 'hard']) {
     const puzzle = generatePuzzle({theme: 'celestial laboratory', size: 5, difficulty, words});
     assertValidPuzzle(puzzle);
@@ -67,28 +77,28 @@ test('uses difficulty-specific thematic clues', () => {
 });
 
 test('history steers generation away from reused words', () => {
-  const first = generatePuzzle({ theme: 'food', size: 5 });
-  const second = generatePuzzle({ theme: 'food', size: 5, history: [first.entries.map(({ answer }) => answer)] });
-  assert.notDeepEqual(first.entries.map(({ answer }) => answer).sort(), second.entries.map(({ answer }) => answer).sort());
+  const first = generatePuzzle({theme: 'food', size: 5});
+  const second = generatePuzzle({theme: 'food', size: 5, history: [first.entries.map(({answer}) => answer)]});
+  assert.notDeepEqual(first.entries.map(({answer}) => answer).sort(), second.entries.map(({answer}) => answer).sort());
 });
 
 test('accepts arbitrary themes when custom words are supplied', () => {
   const words = [
-    { answer: 'ROBOT', clue: 'A programmable machine' },
-    { answer: 'BOLT', clue: 'A threaded fastener' },
-    { answer: 'GEAR', clue: 'A toothed wheel' },
-    { answer: 'LASER', clue: 'A focused beam' },
-    { answer: 'WIRE', clue: 'A metal conductor' },
-    { answer: 'MOTOR', clue: 'It makes machinery move' },
-    { answer: 'RELAY', clue: 'An electrical switch' },
+    {answer: 'ROBOT', clue: 'A programmable machine'},
+    {answer: 'BOLT', clue: 'A threaded fastener'},
+    {answer: 'GEAR', clue: 'A toothed wheel'},
+    {answer: 'LASER', clue: 'A focused beam'},
+    {answer: 'WIRE', clue: 'A metal conductor'},
+    {answer: 'MOTOR', clue: 'It makes machinery move'},
+    {answer: 'RELAY', clue: 'An electrical switch'},
   ];
-  assertValidPuzzle(generatePuzzle({ theme: 'friendly robots', size: 9, words }));
+  assertValidPuzzle(generatePuzzle({theme: 'friendly robots', size: 9, words}));
 });
 
 test('rejects unsupported themes and invalid options clearly', () => {
-  assert.throws(() => generatePuzzle({ theme: 'medieval poetry' }), /Unsupported theme/);
-  assert.throws(() => generatePuzzle({ theme: 'ocean', size: 7 }), /Size must/);
-  assert.throws(() => generatePuzzle({ theme: 'ocean', difficulty: 'expert' }), /Difficulty must/);
+  assert.throws(() => generatePuzzle({theme: 'medieval poetry'}), /Unsupported theme/);
+  assert.throws(() => generatePuzzle({theme: 'ocean', size: 7}), /Size must/);
+  assert.throws(() => generatePuzzle({theme: 'ocean', difficulty: 'expert'}), /Difficulty must/);
 });
 
 function checkedRatio(puzzle) {
@@ -104,10 +114,10 @@ function checkedRatio(puzzle) {
 
 test('hard minis combine at least 90% crossing coverage with a thematic majority', () => {
   for (const theme of supportedThemes) {
-    const puzzle = generatePuzzle({ theme, size: 5, difficulty: 'hard' });
+    const puzzle = generatePuzzle({theme, size: 5, difficulty: 'hard'});
     assertValidPuzzle(puzzle);
     assert.ok(checkedRatio(puzzle) >= 0.9, `${theme}: nearly all letters must have both clues`);
-    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2, `${theme}: a strict majority must be themed`);
+    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2, `${theme}: a strict majority must be themed`);
     assert.ok(puzzle.grid.flat().filter(Boolean).length >= 19, 'at least 76% of the board is playable');
     assert.equal(new Set(puzzle.entries.map(e => e.answer)).size, puzzle.entries.length, 'no duplicate answers');
   }
@@ -116,10 +126,10 @@ test('hard minis combine at least 90% crossing coverage with a thematic majority
 test('repeated hard minis keep full interlocking and distinct answer sets', () => {
   const history = [];
   for (let i = 0; i < 8; i++) {
-    const puzzle = generatePuzzle({ theme: 'ocean', size: 5, difficulty: 'hard', history });
+    const puzzle = generatePuzzle({theme: 'ocean', size: 5, difficulty: 'hard', history});
     assertValidPuzzle(puzzle);
     assert.ok(checkedRatio(puzzle) >= 0.9);
-    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2);
+    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2);
     const answers = puzzle.entries.map(e => e.answer).sort();
     assert.ok(!history.some(old => old.join('|') === answers.join('|')));
     history.push(answers);
@@ -128,10 +138,10 @@ test('repeated hard minis keep full interlocking and distinct answer sets', () =
 
 test('larger grids improve crossing density and preserve a thematic majority', () => {
   for (const size of [9, 13]) {
-    const puzzle = generatePuzzle({ theme: 'nature', size, difficulty: 'hard' });
+    const puzzle = generatePuzzle({theme: 'nature', size, difficulty: 'hard'});
     assertValidPuzzle(puzzle);
     assert.ok(checkedRatio(puzzle) >= 0.35, `${size}: crossing density must improve on the old sparse grids`);
-    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2);
+    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2);
     assert.ok(puzzle.grid.flat().filter(Boolean).length >= size * size * 0.35);
   }
 });
