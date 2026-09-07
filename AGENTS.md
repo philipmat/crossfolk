@@ -21,7 +21,7 @@ Read the developer overview and run instructions in `README.md` before changing 
 
 ## Data and server boundaries
 
-- Keep `OPENAI_API_KEY` on the server. Never put credentials in client modules, generated data, or committed files.
+- Keep `OPENROUTER_API_KEY` on the server. Never put credentials in client modules, generated data, or committed files.
 - AI supplies candidate answers and clues; local code constructs the grid. Preserve the explicit unconfigured-AI fallback and useful errors for unsupported or unsatisfiable themes.
 - Prefer editing curated vocabulary files for targeted word/clue fixes. Regenerate `wordnet-words.js` with `scripts/build-wordnet.mjs` when changing dictionary selection logic, and preserve the embedded WordNet license and `WORDNET-LICENSE.txt`.
 - Validate generated fallback puzzles against current theme and crossing rules; historical generated data is not automatically valid after rules change.

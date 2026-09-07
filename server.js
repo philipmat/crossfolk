@@ -25,7 +25,7 @@ async function bodyJson(request) {
 }
 
 async function createWords(request, response) {
-  if (!process.env.OPENAI_API_KEY) return json(response, 503, { error: 'AI theme generation is not configured.' });
+  if (!process.env.OPENROUTER_API_KEY) return json(response, 503, { error: 'AI theme generation is not configured.' });
   try {
     const { theme, size = 5, difficulty = 'easy', exclude = [] } = await bodyJson(request);
     const cleanTheme = String(theme ?? '').trim();
@@ -43,17 +43,24 @@ async function createWords(request, response) {
     const timeout = setTimeout(() => controller.abort(), 20_000);
     let apiResponse;
     try {
-      apiResponse = await fetch('https://api.openai.com/v1/responses', {
+      apiResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         signal: controller.signal,
-        headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'content-type': 'application/json' },
+        headers: {
+          authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'content-type': 'application/json',
+          'http-referer': process.env.OPENROUTER_SITE_URL || `http://localhost:${PORT}`,
+          'x-title': 'Crossfolk',
+        },
         body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || 'gpt-4.1-mini',
-          instructions: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.',
-          input: `Theme: ${cleanTheme}\nMaximum answer length: ${numericSize}\nDifficulty: ${cleanDifficulty}\nAvoid these answers: ${exclude.join(', ')}\nGenerate ${count} varied, strongly theme-related entries with intersecting letter patterns.`,
-          text: {
-            format: {
-              type: 'json_schema',
+          model: process.env.OPENROUTER_MODEL || 'openai/gpt-4.1-mini',
+          messages: [
+            { role: 'system', content: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.' },
+            { role: 'user', content: `Theme: ${cleanTheme}\nMaximum answer length: ${numericSize}\nDifficulty: ${cleanDifficulty}\nAvoid these answers: ${exclude.join(', ')}\nGenerate ${count} varied, strongly theme-related entries with intersecting letter patterns.` },
+          ],
+          response_format: {
+            type: 'json_schema',
+            json_schema: {
               name: 'crossword_words',
               strict: true,
               schema: {
@@ -66,6 +73,7 @@ async function createWords(request, response) {
               },
             },
           },
+          provider: { require_parameters: true },
         }),
       });
     } catch (error) {
@@ -75,9 +83,11 @@ async function createWords(request, response) {
     }
     const payload = await apiResponse.json();
     if (!apiResponse.ok) return json(response, 502, { error: payload?.error?.message || 'Theme generation failed.' });
-    const output = payload.output?.flatMap((item) => item.content ?? []).find((item) => item.type === 'output_text')?.text;
-    const parsed = JSON.parse(output);
-    const words = parsed.words
+    const content = payload.choices?.[0]?.message?.content;
+    const output = Array.isArray(content) ? content.filter((part) => part.type === 'text').map((part) => part.text).join('') : content;
+    if (typeof output !== 'string' || !output.trim()) return json(response, 502, { error: 'The AI returned an empty response.' });
+    const parsed = JSON.parse(output.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ''));
+    const words = (Array.isArray(parsed.words) ? parsed.words : [])
       .map(({ answer, clue }) => ({ answer: String(answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: String(clue) }))
       .filter(({ answer, clue }) => answer.length >= 2 && answer.length <= numericSize && clue);
     if (words.length < 3) return json(response, 502, { error: 'The AI did not return enough usable words.' });

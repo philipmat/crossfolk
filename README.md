@@ -23,11 +23,11 @@ Generation runs in a web worker so controls remain responsive. Some hard themes 
 Ten curated theme families work without a key: nature, ocean, space, food, music, travel, sports, animals, weather, and garden. Other themes require server-side AI generation:
 
 ```sh
-export OPENAI_API_KEY='your-key'
+export OPENROUTER_API_KEY='your-key'
 npm start
 ```
 
-Optionally set `OPENAI_MODEL` (default `gpt-4.1-mini`). The key remains on the server. Theme text and recently used answers are sent to OpenAI when generating a new game with AI enabled. This requires an account with API access and incurs API usage charges. Live AI generation has not been tested with credentials in this workspace.
+Optionally set `OPENROUTER_MODEL` (default `openai/gpt-4.1-mini`; the model must support structured JSON schema output) and `OPENROUTER_SITE_URL` (sent as the `HTTP-Referer` attribution header). The key remains on the server. Theme text and recently used answers are sent to OpenRouter when generating a new game with AI enabled. This requires an account with API access and incurs API usage charges. Live AI generation has not been tested with credentials in this workspace.
 
 Each generated puzzle uses a different answer set from the last 100 locally saved games. Individual words can recur, especially with finite curated banks; less-used words are favored. If the generator cannot find a fresh valid set, it reports that instead of knowingly repeating a game. Browser data clearing resets this history.
 
@@ -59,7 +59,7 @@ There is no framework, build step, database, or runtime package dependency. The 
 | Files | Responsibility |
 | --- | --- |
 | `index.html`, `style.css`, `app.js` | Page structure, responsive styling, and game interaction |
-| `server.js` | Static-file allowlist and optional server-side OpenAI request |
+| `server.js` | Static-file allowlist and optional server-side OpenRouter request |
 | `puzzle-worker.js`, `engine.js`, `dense.js` | Worker boundary, generation policy, and constraint solver |
 | `fill-words.js`, `theme-fill.js`, `theme-plurals.js`, `theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues |
 | `mini-patterns.js`, `dense-fallbacks.js` | Mini grid shapes and pre-generated fallback puzzles |
