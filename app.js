@@ -1,4 +1,13 @@
-import { generatePuzzle } from './engine.js';
+function generatePuzzle(options) {
+ return new Promise((resolve,reject)=>{
+  const worker=new Worker(new URL('./puzzle-worker.js',import.meta.url),{type:'module'});
+  const timeout=setTimeout(()=>{worker.terminate();reject(new Error('This grid is taking too long. Please try generating again.'));},15000);
+  const finish=()=>{clearTimeout(timeout);worker.terminate();};
+  worker.onmessage=({data})=>{finish();data.error?reject(new Error(data.error)):resolve(data.puzzle);};
+  worker.onerror=()=>{finish();reject(new Error('The puzzle generator could not load. Refresh the page and try again.'));};
+  worker.postMessage(options);
+ });
+}
 const $ = s => document.querySelector(s);
 $('.board-actions').after($('#keyboard'));
 let size = 5, difficulty = 'easy', puzzle, letters = {}, selected = null, active = 0, elapsed = 0, solved = false, wrong = new Set(), history = [];
@@ -15,7 +24,9 @@ function render() {
  $('#puzzle-title').textContent=puzzle.theme;
  $('#puzzle-size').textContent=`${puzzle.size} × ${puzzle.size}`;
  $('#puzzle-difficulty').textContent=puzzle.difficulty || difficulty;
- $('#word-count').textContent=`${puzzle.entries.length} words`;
+ $('#word-count').textContent=`${puzzle.entries.length} words${puzzle.entries.some(e=>e.isTheme!==undefined)?' · '+puzzle.entries.filter(e=>e.isTheme).length+' themed':''}`;
+ const coverage=new Map();puzzle.entries.forEach(e=>cellsFor(e).forEach(k=>coverage.set(k,(coverage.get(k)||0)+1)));
+ $('#crossing-count').textContent=`${Math.round([...coverage.values()].filter(n=>n===2).length/coverage.size*100)}% crossed`;
  $('#active-clue').replaceChildren(); const b=document.createElement('b'); b.textContent=`${entry.number} ${entry.direction==='across'?'→':'↓'}`; const t=document.createElement('span');t.textContent=entry.clue;$('#active-clue').append(b,t);
  const board=$('#board');board.style.setProperty('--size',puzzle.size);board.replaceChildren();$('.board-scroll').className=`board-scroll ${puzzle.size===13?'large':puzzle.size===9?'medium':''}`;
  let filled=0,total=0,correct=0;
@@ -53,7 +64,7 @@ function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.len
  async function create(initial=false){const theme=$('#theme').value.trim();if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
  try {let words;
  if(!initial){const response=await fetch('/api/words',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)}),signal:AbortSignal.timeout(60000)});if(response.ok){words=(await response.json()).words;}else if(response.status!==503){const data=await response.json().catch(()=>({}));throw new Error(data.error||'Could not generate this theme. Please try again.');}}
- const next=generatePuzzle({theme,size,difficulty,history,words});puzzle={...next,difficulty};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';render();updateTimer();
+ const next=await generatePuzzle({theme,size,difficulty,history,words});puzzle={...next,difficulty};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';render();updateTimer();
  }catch(error){$('#error').textContent=error.message||'Something went wrong. Please try again.';}finally{$('#generate').disabled=false;$('#generate').innerHTML='Create my crossword <span>→</span>';}}
  $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme').oninput=()=>$('#theme').setCustomValidity('');
  $('#check').onclick=()=>{wrong.clear();for(const [k,v]of Object.entries(letters)){const[r,c]=k.split(',').map(Number);if(v!==puzzle.grid[r][c])wrong.add(k);}$('#game-message').textContent=wrong.size?`${wrong.size} ${wrong.size===1?'letter needs':'letters need'} another look. Marked in red.`:Object.keys(letters).length?'Looking good. Your filled letters are correct!':'Add a few letters, then check your work.';render();};

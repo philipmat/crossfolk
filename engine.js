@@ -1,5 +1,16 @@
+import { generateDense } from './dense.js';
+import { fillWords } from './fill-words.js';
+import { themeVocabulary } from './theme-fill.js';
+import { themedPlurals } from './theme-plurals.js';
+import { themeClues } from './theme-clues.js';
+import { dictionaryWords, dictionaryThemes } from './wordnet-words.js';
+import { denseFallbacks } from './dense-fallbacks.js';
+
 const BANKS = {
   nature: [
+    ["OAK","An acorn-bearing tree","A hardwood with lobed leaves","A Quercus specimen"],
+    ["ELM","A shady street tree","Tree once common along avenues","An Ulmus specimen"],
+    ["IVY","A climbing plant","Evergreen wall climber","A Hedera vine"],
     ['TREE', 'A tall plant with a trunk', 'It has bark and branches', 'A woody perennial'],
     ['RIVER', 'Flowing natural water', 'It runs toward a lake or sea', 'A fluvial channel'],
     ['LEAF', 'Flat green part of a plant', 'It grows from a stem', 'Photosynthesis site'],
@@ -14,6 +25,9 @@ const BANKS = {
     ['DEER', 'A woodland animal with hooves', 'An animal whose males may have antlers', 'A cervid'],
   ],
   ocean: [
+    ["SEA","A large body of salt water","An expanse of ocean","A saline expanse"],
+    ["EEL","A long slippery fish","A snakelike swimmer","An anguilliform fish"],
+    ["COD","A fish used in fish and chips","Atlantic food fish","A Gadus species"],
     ['TIDE', 'The sea rising and falling', 'A change in sea level', 'A lunar-driven water cycle'],
     ['REEF', 'A rocky home for sea life', 'Coral may build this', 'A shallow marine ridge'],
     ['WAVE', 'A rolling swell of water', 'It may break on a beach', 'An oscillation at the surface'],
@@ -28,6 +42,9 @@ const BANKS = {
     ['SHELL', 'A hard cover found on a beach', 'A mollusk may live inside it', 'A calcareous exoskeleton'],
   ],
   space: [
+    ["SUN","The star that lights Earth","Our solar system’s central star","A G-type main-sequence star"],
+    ["SKY","The space above us","Where constellations appear","The celestial vault"],
+    ["ION","An electrically charged particle","Charged particle in the solar wind","A particle with unequal proton and electron counts"],
     ['STAR', 'A bright light in the night sky', 'A glowing ball of hot gas', 'A self-luminous celestial body'],
     ['MOON', 'Earth\'s night-sky neighbor', 'A natural satellite', 'A tidally locked companion'],
     ['MARS', 'The red planet', 'Fourth planet from the Sun', 'Home of Olympus Mons'],
@@ -42,6 +59,9 @@ const BANKS = {
     ['ROCKET', 'A vehicle launched into space', 'It flies using thrust', 'A reaction-propelled craft'],
   ],
   food: [
+    ["PIE","Pastry with a filling","A dessert with a crust","A filled pastry case"],
+    ["TEA","A drink made by steeping leaves","A cup brewed from leaves","A Camellia sinensis infusion"],
+    ["EGG","What a hen lays","An omelet ingredient","An oval breakfast staple"],
     ['TACO', 'A folded Mexican favorite', 'A filled tortilla', 'A tortilla-based antojito'],
     ['RICE', 'Small grains served with meals', 'A staple grain', 'Seed of Oryza sativa'],
     ['PEAR', 'A sweet bell-shaped fruit', 'A fruit related to the apple', 'Fruit of a Pyrus tree'],
@@ -56,6 +76,9 @@ const BANKS = {
     ['TOAST', 'Bread browned by heat', 'Crisp breakfast bread', 'A Maillard-browned slice'],
   ],
   music: [
+    ["AMP","A device that makes a guitar louder","Stage sound booster","An electronic signal-gain device"],
+    ["RAP","Music with rhythmic spoken lyrics","A genre built on rhymed verses","A rhythmically delivered vocal form"],
+    ["KEY","A piano part you press","A composition’s tonal center","A tonal framework"],
     ['NOTE', 'A single musical sound', 'A mark showing pitch and length', 'A notated tone'],
     ['SONG', 'Music with words', 'A piece meant to be sung', 'A vocal composition'],
     ['PIANO', 'A keyboard instrument', 'An instrument with black and white keys', 'A hammer-action keyboard'],
@@ -70,6 +93,8 @@ const BANKS = {
     ['CHOIR', 'A group of singers', 'An organized vocal ensemble', 'A choral body'],
   ],
   travel: [
+    ["VAN","A vehicle with room for passengers","A roomy road-trip vehicle","A box-bodied road vehicle"],
+    ["CAB","A taxi","A hired city ride","A metered conveyance"],
     ['MAP', 'A picture that shows where places are', 'A guide to roads and places', 'A cartographic representation'],
     ['ROAD', 'A way for cars to travel', 'A paved route between places', 'A vehicular thoroughfare'],
     ['TRAIN', 'A vehicle that runs on rails', 'Rail transportation', 'A linked set of railway cars'],
@@ -84,6 +109,9 @@ const BANKS = {
     ['SHIP', 'A large vessel for sea travel', 'An ocean-going vessel', 'A seagoing craft'],
   ],
   sports: [
+    ["NET","A mesh barrier in tennis","It divides a tennis court","A court-spanning mesh"],
+    ["SKI","A long board for gliding on snow","A snow sport’s runner","An alpine runner"],
+    ["GYM","A place to exercise","An indoor training venue","A conditioning facility"],
     ['BALL', 'A round object used in games', 'It is kicked, hit, or thrown', 'A spherical game implement'],
     ['TEAM', 'Players on the same side', 'A group competing together', 'A coordinated sporting side'],
     ['GOLF', 'A sport played with clubs', 'A game aiming for small holes', 'An eighteen-hole links game'],
@@ -98,6 +126,9 @@ const BANKS = {
     ['TRACK', 'An oval racing course', 'A marked path for runners', 'An athletics circuit'],
   ],
   animals: [
+    ["ANT","A tiny six-legged insect","A colony-building insect","A formicid"],
+    ["EMU","A large Australian bird","An Australian flightless bird","A Dromaius species"],
+    ["OWL","A bird known for hooting","A nocturnal hunter","A strigiform bird"],
     ['BEAR', 'A large furry animal', 'A mammal that may hibernate', 'An ursid'],
     ['LION', 'A big cat with a mane', 'The so-called king of beasts', 'Panthera leo'],
     ['TIGER', 'A striped big cat', 'An orange-and-black predator', 'Panthera tigris'],
@@ -112,6 +143,9 @@ const BANKS = {
     ['DEER', 'An animal with hooves and often antlers', 'A graceful woodland cervid', 'A ruminant of family Cervidae'],
   ],
   weather: [
+    ["FOG","A cloud near the ground","Visibility-reducing low cloud","A surface-level droplet suspension"],
+    ["DEW","Morning water drops on grass","Moisture that forms overnight","Surface condensation"],
+    ["ICE","Frozen water","Water in solid form","Crystalline H2O"],
     ['RAIN', 'Water falling from clouds', 'Wet weather', 'Liquid precipitation'],
     ['SNOW', 'Soft white winter flakes', 'Frozen precipitation', 'Ice crystals falling in flakes'],
     ['WIND', 'Moving air', 'It makes flags flutter', 'Bulk atmospheric motion'],
@@ -126,6 +160,9 @@ const BANKS = {
     ['BREEZE', 'A gentle wind', 'Light moving air', 'A mild current of air'],
   ],
   garden: [
+    ["HOE","A tool for loosening soil","A long-handled weeding tool","A cultivation blade on a shaft"],
+    ["PEA","A small green vegetable","A pod-grown vegetable","A Pisum sativum seed"],
+    ["BUD","A flower before it opens","An unopened shoot","An embryonic plant outgrowth"],
     ['ROSE', 'A flower with thorns', 'A fragrant flowering shrub', 'A flower of genus Rosa'],
     ['SEED', 'The start of a new plant', 'What a gardener plants', 'A mature plant ovule'],
     ['SOIL', 'Earth where plants grow', 'The material filling a garden bed', 'The pedologic growth medium'],
@@ -302,7 +339,7 @@ function buildCandidate(words, size, target) {
       const options = placementOptions(board, directions, word.answer, entries);
       for (const option of options) {
         const centrality = -Math.abs(option.row - size / 2) - Math.abs(option.col - size / 2);
-        const score = option.crossings * 12 + centrality + Math.random() * 5;
+        const score = option.crossings * 24 - word.answer.length * 4 + centrality + Math.random() * 5;
         if (!best || score > best.score) best = { word, option, score };
       }
     }
@@ -335,27 +372,51 @@ export function generatePuzzle(options = {}) {
   const themedWords = category
     ? BANKS[category].map(([answer, easy, medium, hard]) => ({ answer, clue: { easy, medium, hard }[difficulty] }))
     : [];
-  const byAnswer = new Map([...themedWords, ...customWords].map((word) => [word.answer, word]));
+  const related = new Set((themeVocabulary[category] || '').split(' '));
+  const relatedWords = [...fillWords.filter(word => related.has(word.answer)), ...themedPlurals.filter(word=>related.has(word.base))];
+  const byAnswer = new Map([...relatedWords, ...(dictionaryThemes[category] || []), ...themedWords, ...customWords].map((word) => [word.answer, word]));
+  for(const [answer,clue] of Object.entries(themeClues[category] || {}))if(byAnswer.has(answer))byAnswer.set(answer,{answer,clue});
   const { sets, wordUses } = historyData(options.history);
   const words = [...byAnswer.values()]
     .filter(({ answer }) => answer.length <= size)
     .sort((a, b) => (wordUses.get(a.answer) ?? 0) - (wordUses.get(b.answer) ?? 0) || Math.random() - 0.5);
   if (words.length < 3) throw new Error(`Not enough usable themed words to build a ${size}x${size} crossword.`);
 
-  const target = size === 5 ? 5 : size === 9 ? 9 : 14;
+  const commonAnswers = new Set(fillWords.map(word=>word.answer));
+  const denseOptions = { size, difficulty, theme: String(options.theme).trim(), themeWords: words.map(word=>({...word,common:commonAnswers.has(word.answer)})), fillWords: [...dictionaryWords, ...fillWords.map(word=>({...word,common:true})), ...themedPlurals.map(word=>({...word,common:true}))], history: options.history };
+  let dense = generateDense({...denseOptions,timeLimitMs:2500});
+  if (dense) return { ...dense, layoutVersion: 3 };
+  if(size===5) {
+    const available=(denseFallbacks[category] || []).filter(p=>!sets.has(p.entries.map(e=>e.answer).sort().join('|')));
+    available.sort((a,b)=>a.entries.reduce((n,e)=>n+(wordUses.get(e.answer)||0),0)-b.entries.reduce((n,e)=>n+(wordUses.get(e.answer)||0),0));
+    if(available.length) {
+      const chosen=structuredClone(available[0]);
+      chosen.entries=chosen.entries.map(entry=>({...entry,clue:byAnswer.get(entry.answer)?.clue || entry.clue,isTheme:byAnswer.has(entry.answer)}));
+      if(chosen.entries.filter(e=>e.isTheme).length>chosen.entries.length/2)return{...chosen,theme:String(options.theme).trim(),layoutVersion:3};
+    }
+    if(difficulty==='hard') {
+      dense=generateDense({...denseOptions,timeLimitMs:6500});
+      if(dense)return{...dense,layoutVersion:3};
+      throw new Error('Could not fit a new mostly themed mini with at least 90% crossed letters. Try another theme or generate again.');
+    }
+  }
+  const target = size === 5 ? 7 : size === 9 ? 22 : 38;
   let best = null;
   let bestFresh = null;
-  for (let attempt = 0; attempt < 180; attempt += 1) {
-    const pool = shuffle(words.slice(0, Math.max(target * 2, Math.ceil(words.length * 0.8))));
+  const placementDeadline=Date.now()+1500;
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    if(bestFresh && Date.now()>=placementDeadline)break;
+    const pool = [...shuffle(words.filter(word=>word.answer.length<=4)).slice(0, Math.max(24,target*2)), ...shuffle(words.filter(word=>word.answer.length>4)).slice(0,6)];
     const candidate = buildCandidate(pool, size, target);
     const signature = candidate.entries.map(({ answer }) => answer).sort().join('|');
     const repeatPenalty = sets.has(signature) ? 100 : 0;
     const reusePenalty = candidate.entries.reduce((sum, entry) => sum + (wordUses.get(entry.answer) ?? 0), 0) * 1.5;
     const crossings = candidate.entries.reduce((sum, entry) => sum + entry.crossings, 0);
-    const score = candidate.entries.length * 20 + crossings * 3 - repeatPenalty - reusePenalty + Math.random();
+    const occupied = candidate.board.flat().filter(Boolean).length;
+    const score = (crossings / occupied) * 200 + crossings * 15 + candidate.entries.length * 10 - repeatPenalty - reusePenalty + Math.random();
     if (!best || score > best.score) best = { ...candidate, score, signature };
     if (!sets.has(signature) && (!bestFresh || score > bestFresh.score)) bestFresh = { ...candidate, score, signature };
-    if (candidate.entries.length >= target && !sets.has(signature) && reusePenalty === 0) break;
+    if (candidate.entries.length >= target && !sets.has(signature) && reusePenalty === 0 && crossings / occupied >= 0.65) break;
   }
   if (!best || best.entries.length < 3) throw new Error('Could not build a connected crossword from these themed words. Try a broader theme or more candidate words.');
   if (sets.size) {
@@ -365,7 +426,7 @@ export function generatePuzzle(options = {}) {
   return {
     size,
     theme: String(options.theme).trim(),
-    entries: numberEntries(best.entries),
+    entries: numberEntries(best.entries).map(entry=>({...entry,isTheme:true})),
     grid: best.board,
   };
 }

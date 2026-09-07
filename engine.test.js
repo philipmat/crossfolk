@@ -55,14 +55,15 @@ test('generates valid connected puzzles at every size', () => {
   for (const size of ['small', 'medium', 'large']) assertValidPuzzle(generatePuzzle({ theme: 'ocean reef', size, difficulty: 'medium' }));
 });
 
-test('uses difficulty-specific clues', () => {
-  const easy = generatePuzzle({ theme: 'space', size: 5, difficulty: 'easy' });
-  const hard = generatePuzzle({ theme: 'space', size: 5, difficulty: 'hard' });
-  const easyClues = new Map(easy.entries.map((entry) => [entry.answer, entry.clue]));
-  const shared = hard.entries.find((entry) => easyClues.has(entry.answer));
-  if (shared) assert.notEqual(shared.clue, easyClues.get(shared.answer));
-  assertValidPuzzle(easy);
-  assertValidPuzzle(hard);
+test('uses difficulty-specific thematic clues', () => {
+  const words = ['ARC','AMP','REEF','CEDAR','MEET','TAKE','PEDAL','LED','FAKE','RED'].map(answer => ({answer, clues: {easy: 'Easy hint for ' + answer, hard: 'Hard hint for ' + answer}}));
+  for (const difficulty of ['easy', 'hard']) {
+    const puzzle = generatePuzzle({theme: 'celestial laboratory', size: 5, difficulty, words});
+    assertValidPuzzle(puzzle);
+    const themed = puzzle.entries.filter(entry => words.some(word => word.answer === entry.answer));
+    assert.ok(themed.length > 0, 'at least one thematic answer must be included');
+    for (const entry of themed) assert.ok(entry.clue.startsWith(difficulty === 'easy' ? 'Easy hint' : 'Hard hint'));
+  }
 });
 
 test('history steers generation away from reused words', () => {
@@ -88,4 +89,49 @@ test('rejects unsupported themes and invalid options clearly', () => {
   assert.throws(() => generatePuzzle({ theme: 'medieval poetry' }), /Unsupported theme/);
   assert.throws(() => generatePuzzle({ theme: 'ocean', size: 7 }), /Size must/);
   assert.throws(() => generatePuzzle({ theme: 'ocean', difficulty: 'expert' }), /Difficulty must/);
+});
+
+function checkedRatio(puzzle) {
+  const cells = new Map();
+  for (const entry of puzzle.entries) {
+    for (let i = 0; i < entry.answer.length; i++) {
+      const key = `${entry.row + (entry.direction === 'down' ? i : 0)},${entry.col + (entry.direction === 'across' ? i : 0)}`;
+      cells.set(key, (cells.get(key) ?? 0) + 1);
+    }
+  }
+  return [...cells.values()].filter(count => count === 2).length / cells.size;
+}
+
+test('hard minis combine at least 90% crossing coverage with a thematic majority', () => {
+  for (const theme of supportedThemes) {
+    const puzzle = generatePuzzle({ theme, size: 5, difficulty: 'hard' });
+    assertValidPuzzle(puzzle);
+    assert.ok(checkedRatio(puzzle) >= 0.9, `${theme}: nearly all letters must have both clues`);
+    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2, `${theme}: a strict majority must be themed`);
+    assert.ok(puzzle.grid.flat().filter(Boolean).length >= 19, 'at least 76% of the board is playable');
+    assert.equal(new Set(puzzle.entries.map(e => e.answer)).size, puzzle.entries.length, 'no duplicate answers');
+  }
+});
+
+test('repeated hard minis keep full interlocking and distinct answer sets', () => {
+  const history = [];
+  for (let i = 0; i < 8; i++) {
+    const puzzle = generatePuzzle({ theme: 'ocean', size: 5, difficulty: 'hard', history });
+    assertValidPuzzle(puzzle);
+    assert.ok(checkedRatio(puzzle) >= 0.9);
+    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2);
+    const answers = puzzle.entries.map(e => e.answer).sort();
+    assert.ok(!history.some(old => old.join('|') === answers.join('|')));
+    history.push(answers);
+  }
+});
+
+test('larger grids improve crossing density and preserve a thematic majority', () => {
+  for (const size of [9, 13]) {
+    const puzzle = generatePuzzle({ theme: 'nature', size, difficulty: 'hard' });
+    assertValidPuzzle(puzzle);
+    assert.ok(checkedRatio(puzzle) >= 0.35, `${size}: crossing density must improve on the old sparse grids`);
+    assert.ok(puzzle.entries.filter(e=>e.isTheme).length > puzzle.entries.length/2);
+    assert.ok(puzzle.grid.flat().filter(Boolean).length >= size * size * 0.35);
+  }
 });

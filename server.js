@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const PORT = Number(process.env.PORT || 3000);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png' };
-const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style.css']);
+const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style.css', 'dense.js', 'fill-words.js', 'puzzle-worker.js', 'theme-fill.js', 'wordnet-words.js', 'WORDNET-LICENSE.txt', 'mini-patterns.js', 'theme-plurals.js', 'theme-clues.js', 'dense-fallbacks.js']);
 
 function json(response, status, body) {
   response.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -38,7 +38,7 @@ async function createWords(request, response) {
     }
     const numericSize = ({ small: 5, medium: 9, large: 13 })[String(size).toLowerCase()] ?? Number(size);
     if (![5, 9, 13].includes(numericSize)) return json(response, 400, { error: 'Size must be small (5), medium (9), or large (13).' });
-    const count = numericSize <= 5 ? 14 : numericSize <= 9 ? 24 : 34;
+    const count = numericSize <= 5 ? 60 : 90;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
     let apiResponse;
