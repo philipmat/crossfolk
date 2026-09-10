@@ -29,7 +29,11 @@ async function toWebRequest(request) {
   let length = 0;
   for await (const chunk of request) {
     length += chunk.length;
-    if (length > MAX_BODY) throw new Error('Request body is too large.');
+    if (length > MAX_BODY) {
+      const error = new Error('Request body is too large.');
+      error.tooLarge = true;
+      throw error;
+    }
     chunks.push(chunk);
   }
   const headers = new Headers();
@@ -46,9 +50,10 @@ async function apiWords(request, response) {
   let webRequest;
   try {
     webRequest = await toWebRequest(request);
-  } catch {
+  } catch (error) {
     request.resume();
-    return json(response, 413, {error: 'Request body is too large.'});
+    if (error.tooLarge) return json(response, 413, {error: 'Request body is too large.'});
+    return json(response, 400, {error: 'Invalid request.'});
   }
   const webResponse = await handleWords(webRequest, {env: process.env});
   response.writeHead(webResponse.status, Object.fromEntries(webResponse.headers));
