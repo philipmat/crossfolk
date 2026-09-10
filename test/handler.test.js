@@ -42,6 +42,14 @@ test('rejects oversized bodies before parsing them', async () => {
   assert.deepEqual(await response.json(), {error: 'Request body is too large.'});
 });
 
+test('rejects an oversized body even without a truthful Content-Length header', async () => {
+  const oversized = post({theme: 'x'.repeat(40_000)});
+  oversized.headers.delete('content-length');
+  const response = await handleWords(oversized, {env: {OPENROUTER_API_KEY: 'test'}});
+  assert.equal(response.status, 413);
+  assert.deepEqual(await response.json(), {error: 'Request body is too large.'});
+});
+
 test('rejects malformed JSON as a bad request', async () => {
   const response = await handleWords(post('{"theme":'), {env: {OPENROUTER_API_KEY: 'test'}});
   assert.equal(response.status, 400);
