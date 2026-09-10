@@ -43,7 +43,7 @@ npm test
 
 Tests cover connected grids, legal placement and crossings, numbering, sizes, difficulty, history, custom themed words, invalid input, at least 90% crossed hard minis with a strict thematic majority across all built-in themes, and repeat-game variety. They also cover the generation API — request methods, body size caps, every validation rule, model fallback, answer normalisation, the `public/` allowlist, and the local server's HTTP bridge to the portable handler — using a stubbed OpenRouter. Desktop and 390px phone layouts were reviewed in the browser. Keyboard entry, touch keyboard, answer checking, letter reveal, puzzle regeneration, large size, and hard clues were exercised; HTTP smoke checks cover public assets and blocked private paths.
 
-The generation endpoint is rate-limited on both deployment targets — a Cloudflare binding and a Vercel WAF rule — and unlimited on the local server. Live AI generation has not been tested with credentials in this workspace.
+The generation endpoint is unlimited on the local server. Cloudflare enforces the `WORDS_LIMIT` binding automatically on deploy; Vercel has no built-in limiter, so its rate limit is not in effect until a WAF rule is provisioned — see Deploy. Live AI generation has not been tested with credentials in this workspace.
 
 ## Deploy
 
@@ -68,12 +68,14 @@ npx wrangler deploy
 
 ### Vercel
 
-`public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`, bounding it just past the 20 s upstream timeout. It takes no runtime dependency: configure the rate limit as a WAF rule against `/api/words` rather than importing an SDK.
+`public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`, bounding it just past the 20 s upstream timeout. It takes no runtime dependency, so the generation endpoint is unprotected until a rate limit is provisioned as a WAF rule — this is a required deploy step, not optional hardening.
 
 ```sh
 npx vercel env add OPENROUTER_API_KEY production
 npx vercel deploy --prod
 ```
+
+Before sending real traffic, add a rate-limit rule against `/api/words` under Project Settings → Firewall in the Vercel dashboard.
 
 `OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each platform's environment. `OPENROUTER_MODELS` falls back to the defaults above when unset; `OPENROUTER_SITE_URL` is optional attribution and is simply omitted from the OpenRouter request when unset. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and `node:` imports — see `AGENTS.md`.
 
