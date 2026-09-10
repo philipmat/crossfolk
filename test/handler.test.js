@@ -162,9 +162,9 @@ test('the local server bridges /api/words through the same handler', async (t) =
   assert.equal(unconfigured.headers.get('cache-control'), 'no-store');
   assert.deepEqual(await unconfigured.json(), {error: 'AI theme generation is not configured.'});
 
-  // Only `POST /api/words` is routed; other methods fall through to static serving.
+  // /api/words is routed regardless of method, matching the Worker and Vercel adapters.
   const wrongMethod = await fetch(`${base}/api/words`);
-  assert.equal(wrongMethod.status, 404);
+  assert.equal(wrongMethod.status, 405);
 
   const malformed = await fetch(`${base}/api/words`, {method: 'POST', headers: {'content-type': 'application/json'}, body: '{"theme":'});
   assert.equal(malformed.status, 400);

@@ -39,10 +39,12 @@ async function toWebRequest(request) {
   const headers = new Headers();
   for (let index = 0; index < request.rawHeaders.length; index += 2) headers.append(request.rawHeaders[index], request.rawHeaders[index + 1]);
 
+  const hasBody = request.method !== 'GET' && request.method !== 'HEAD';
+
   return new Request(new URL(request.url, `http://localhost:${PORT}`), {
     method: request.method,
     headers,
-    body: Buffer.concat(chunks).toString('utf8')
+    ...(hasBody ? {body: Buffer.concat(chunks).toString('utf8')} : {})
   });
 }
 
@@ -77,7 +79,7 @@ async function staticFile(request, response) {
 }
 
 const server = createServer(async (request, response) => {
-  if (request.method === 'POST' && request.url === '/api/words') return apiWords(request, response);
+  if (request.url === '/api/words') return apiWords(request, response);
   if (request.method !== 'GET' && request.method !== 'HEAD') return json(response, 405, {error: 'Method not allowed.'});
   return staticFile(request, response);
 });
