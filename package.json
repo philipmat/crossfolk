@@ -5,6 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "node server/index.js",
-    "test": "node --test test/engine.test.js"
+    "test": "node --test test/engine.test.js test/handler.test.js"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }

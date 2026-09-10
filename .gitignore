@@ -1,7 +1,11 @@
 .env
 .env.*
+.dev.vars
 node_modules/
 .DS_Store
+.wrangler/
+.vercel/
+.local/
 
 # IDE and Agent folders:
 .idea/

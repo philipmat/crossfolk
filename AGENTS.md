@@ -5,12 +5,23 @@ Read the developer overview and run instructions in `README.md` before changing 
 ## Project conventions
 
 - This is a native JavaScript ES-module app with a dependency-free Node server. Keep changes consistent with that structure; avoid introducing a framework or build system for routine changes.
-- Layout: `public/` holds every browser-loaded file (HTML, CSS, client JS), `server/` holds the Node HTTP server, `scripts/` holds data-generation utilities, and `test/` holds automated tests.
+- Layout: `public/` holds every browser-loaded file (HTML, CSS, client JS), `server/` holds all server-side code, `scripts/` holds data-generation utilities, and `test/` holds automated tests. `worker/` and `api/` hold deployment adapters only — both directory names are dictated by Cloudflare and Vercel.
+- `server/handler.js` and `server/words.js` are the portable core: `server/index.js` bridges local HTTP requests to them, and `worker/index.js` and `api/words.js` adapt them for Cloudflare and Vercel.
 - For coding tasks, use judgment to select an appropriate lower-power model for a concrete subagent task. Delegate only work that can run independently of useful local work.
 - If working on C# or Python tooling, prefer the Rider or PyCharm MCP respectively for inspections, symbol lookup, search, and refactoring when available.
 - Keep UI state and interactions in `public/app.js`, generation policy in `public/engine.js`, and constraint solving in `public/dense.js`. Run generation through `public/puzzle-worker.js` so it does not block the UI.
-- Add new browser-loaded files to `public/` and to the explicit `PUBLIC_FILES` allowlist in `server/index.js`. Do not replace the allowlist with unrestricted directory serving.
+- Add new browser-loaded files to `public/` and to the explicit `PUBLIC_FILES` allowlist in `server/index.js`. The allowlist is both the local request-time guard and the definition of which files may exist in `public/` at all: production CDNs serve that directory wholesale, so it must match the directory contents exactly and `npm test` enforces that. Do not replace the allowlist with unrestricted directory serving.
 - Write code as a human would: leave blank lines between logical steps within a function (setup, main logic, return/result) instead of producing dense, uninterrupted blocks. Do not add a blank line between every statement, and do not add blank lines inside short (under ~5 line) functions.
+
+## Server portability rules
+
+The core must run unmodified on Node 22, `workerd`, and Vercel's Node runtime. Check these on every review of `server/words.js` and `server/handler.js`:
+
+1. Never touch `process`. `process.env` does not exist in `workerd` and throws at runtime; each adapter passes an `env` object inward and the core reads configuration only from that argument.
+2. Never import a platform package or a `node:` builtin. `@vercel/firewall`, Cloudflare bindings, and `node:fs` are reached only through injected functions or the adapter layer; an import inside the core would be bundled into the other platform's build.
+3. Use only APIs common to all three runtimes: `fetch`, `Request`, `Response`, `Headers`, `URL`, `AbortController`, `setTimeout`, and `JSON`. `fetch` is an injectable parameter defaulting to the global so tests can stub OpenRouter without credentials.
+
+Adapters stay thin: they supply environment access, rate limiting, and static file serving, and nothing else. Vercel's limit is a WAF rule rather than a runtime dependency, so the repo stays dependency-free.
 
 ## Product requirements to preserve
 
@@ -32,5 +43,5 @@ Read the developer overview and run instructions in `README.md` before changing 
 
 - Run `npm test` after changing generation, vocabulary, patterns, or fallback data. Add focused regression coverage for changed requirements rather than weakening tests to accept a regression.
 - For UI changes, check desktop keyboard navigation and letter entry, then a phone-width layout and touch keyboard. Confirm errors and loading states remain usable.
-- For server changes, check public assets, blocked private paths, and API error handling. Live AI verification requires configured credentials; distinguish that from local tests.
+- For server changes, run `npm test` (it covers the handler, the `public/` allowlist, and the local HTTP bridge), then check public assets, blocked private paths, and API error handling over HTTP. Live AI verification requires configured credentials; distinguish that from local tests. A deployed worker can be checked with `npx wrangler dev`.
 - Documentation-only changes need a consistency review, not an application test run. Keep the README current when architecture, commands, or product behavior changes.

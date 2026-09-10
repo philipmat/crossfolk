@@ -1,0 +1,11 @@
+{
+  "name": "crossfolk",
+  "main": "./worker/index.js",
+  "compatibility_date": "2026-09-07",
+  "assets": { "directory": "./public" },
+  "observability": { "enabled": true },
+  "vars": { "OPENROUTER_MODELS": "", "OPENROUTER_SITE_URL": "" },
+  "ratelimits": [
+    { "name": "WORDS_LIMIT", "namespace_id": "1001", "simple": { "limit": 20, "period": 60 } }
+  ]
+}
