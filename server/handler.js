@@ -6,7 +6,7 @@ export const MAX_BODY = 32_000;
 
 const json = (status, body) => Response.json(body, {status, headers: {'cache-control': 'no-store'}});
 
-export async function handleWords(request, {env = {}, rateLimit} = {}) {
+export async function handleWords(request, {env = {}, rateLimit, fetchImpl} = {}) {
   if (request.method !== 'POST') return json(405, {error: 'Method not allowed.'});
   if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY) return json(413, {error: 'Request body is too large.'});
 
@@ -19,6 +19,11 @@ export async function handleWords(request, {env = {}, rateLimit} = {}) {
     return json(400, {error: 'Invalid request.'});
   }
 
-  const {status, body} = await generateWords(input, env);
-  return json(status, body);
+  try {
+    const {status, body} = await generateWords(input, env, {fetchImpl});
+    return json(status, body);
+  } catch (error) {
+    console.error('Unexpected error generating words:', error);
+    return json(500, {error: 'Something went wrong generating words.'});
+  }
 }

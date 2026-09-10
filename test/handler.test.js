@@ -109,6 +109,13 @@ test('reports the failure when every model fails', async () => {
   assert.equal(body.error, 'Could not reach theme generation.');
 });
 
+test('reports 500 instead of crashing when the AI response is malformed in an unexpected way', async () => {
+  const fetchImpl = async () => aiResponse([null]);
+  const response = await handleWords(post({theme: 'ocean'}), {env: {OPENROUTER_API_KEY: 'test'}, fetchImpl});
+  assert.equal(response.status, 500);
+  assert.deepEqual(await response.json(), {error: 'Something went wrong generating words.'});
+});
+
 test('normalises answers and drops unusable ones', async () => {
   const fetchImpl = async () => aiResponse([
     {answer: 'Reef!', clue: 'Coral ridge'},
