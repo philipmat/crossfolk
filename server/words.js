@@ -47,7 +47,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
       headers: {
         authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
         'content-type': 'application/json',
-        'http-referer': env.OPENROUTER_SITE_URL || `http://localhost:${env.PORT || 3000}`,
+        ...(env.OPENROUTER_SITE_URL ? {'http-referer': env.OPENROUTER_SITE_URL} : {}),
         'x-title': 'Crossfolk',
       },
       body: JSON.stringify({

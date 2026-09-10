@@ -75,7 +75,7 @@ npx vercel env add OPENROUTER_API_KEY production
 npx vercel deploy --prod
 ```
 
-`OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each platform's environment and fall back to the defaults above when unset. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and `node:` imports — see `AGENTS.md`.
+`OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each platform's environment. `OPENROUTER_MODELS` falls back to the defaults above when unset; `OPENROUTER_SITE_URL` is optional attribution and is simply omitted from the OpenRouter request when unset. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and `node:` imports — see `AGENTS.md`.
 
 ## How the app works
 

@@ -94,6 +94,20 @@ test('rejects each invalid option before calling the AI', async () => {
   assert.equal(validateOptions({theme: 'ocean', size: 5}).count, 60);
 });
 
+test('sends the HTTP-Referer header only when OPENROUTER_SITE_URL is configured', async () => {
+  let seenHeaders;
+  const fetchImpl = async (url, init) => {
+    seenHeaders = init.headers;
+    return aiResponse([{answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}]);
+  };
+
+  await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test'}, {fetchImpl});
+  assert.equal('http-referer' in seenHeaders, false);
+
+  await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test', OPENROUTER_SITE_URL: 'https://crossfolk.example'}, {fetchImpl});
+  assert.equal(seenHeaders['http-referer'], 'https://crossfolk.example');
+});
+
 test('falls back to the next model when one fails', async () => {
   const called = [];
   const fetchImpl = async (url, {body}) => {
