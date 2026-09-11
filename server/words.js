@@ -1,5 +1,7 @@
 // Platform-neutral OpenRouter logic. No `process`, no platform imports, no `node:` imports:
 // callers pass an `env` object and (optionally) a `fetch` implementation.
+import {logger as defaultLogger} from './logger.js';
+
 export const DEFAULT_MODELS = [
   'nvidia/nemotron-3-nano-30b-a3b:nitro', 'openai/gpt-oss-20b', 'google/gemini-2.5-flash-lite:nitro',
   'deepseek/deepseek-v4-flash', 'openai/gpt-4.1-mini', 'openai/gpt-5.6-luna'];
@@ -160,7 +162,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
 
 // Returns plain `{status, body}` data rather than a `Response`, so this layer stays
 // testable and reusable off any HTTP runtime.
-export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, maxModelTimeoutMs = MAX_MODEL_TIMEOUT_MS, signal} = {}) {
+export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, maxModelTimeoutMs = MAX_MODEL_TIMEOUT_MS, signal, logger = defaultLogger} = {}) {
   if (!env.OPENROUTER_API_KEY) return {status: 503, body: {error: 'AI theme generation is not configured.'}};
 
   const options = validateOptions(input);
@@ -189,17 +191,17 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
     // across a long fallback list aborts every otherwise-successful completion.
     const modelTimeoutMs = Math.min(modelBudgetMs, remainingMs);
     const model = models[index];
-    console.log(`Requesting theme words from OpenRouter model ${model}`);
+    logger.info(`Requesting theme words from OpenRouter model ${model}`);
     const startedAt = Date.now();
     try {
       const attempt = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs, signal);
-      console.log(`OpenRouter model ${model} answered in ${elapsedSeconds(startedAt)}s`);
+      logger.info(`OpenRouter model ${model} answered in ${elapsedSeconds(startedAt)}s`);
       return {status: 200, body: {words: attempt.words, source: {model, usage: addUsage(usage, attempt.usage)}}};
     } catch (error) {
       if (!(error instanceof GenerationError)) throw error;
       usage = addUsage(usage, error.usage);
       lastError = error;
-      console.warn(`OpenRouter model ${model} failed after ${elapsedSeconds(startedAt)}s: ${error.message}`);
+      logger.warn(`OpenRouter model ${model} failed after ${elapsedSeconds(startedAt)}s: ${error.message}`);
     }
   }
 

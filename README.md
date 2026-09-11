@@ -47,8 +47,8 @@ generating a new non-curated game with AI enabled. This requires an account with
 Each model can run for up to 60 seconds, and all retries share a 120-second request budget. The timeout includes the
 response body. To keep responses quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the
 local grid solver selects from them.
-The server logs each model attempt to its console: the model about to be tried, then how many seconds the request took to
-answer or fail.
+The server logs each model attempt with an ISO timestamp and log level: the model about to be tried, then how many seconds
+the request took to answer or fail.
 
 A puzzle whose words came from the AI is labelled under its title with the model that answered and the tokens the call
 used, for example `AI-generated theme words · deepseek/deepseek-v4-flash · 1,234 tokens in / 567 out`. The counts include

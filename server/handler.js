@@ -1,6 +1,7 @@
 // The Web-standard handler every deployment target mounts. `env` is passed in by the
 // adapter; `rateLimit` is an optional `(request) => Promise<boolean>` "allowed" check.
 import {generateWords} from './words.js';
+import {logger as defaultLogger} from './logger.js';
 
 export const MAX_BODY = 32_000;
 
@@ -36,7 +37,7 @@ async function readCappedBody(request) {
   return new TextDecoder().decode(bytes);
 }
 
-export async function handleWords(request, {env = {}, rateLimit, fetchImpl} = {}) {
+export async function handleWords(request, {env = {}, rateLimit, fetchImpl, logger = defaultLogger} = {}) {
   if (request.method !== 'POST') return json(405, {error: 'Method not allowed.'});
   if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY) return json(413, {error: 'Request body is too large.'});
 
@@ -53,10 +54,10 @@ export async function handleWords(request, {env = {}, rateLimit, fetchImpl} = {}
   }
 
   try {
-    const {status, body} = await generateWords(input, env, {fetchImpl, signal: request.signal});
+    const {status, body} = await generateWords(input, env, {fetchImpl, signal: request.signal, logger});
     return json(status, body);
   } catch (error) {
-    console.error('Unexpected error generating words:', error);
+    logger.error('Unexpected error generating words:', error);
     return json(500, {error: 'Something went wrong generating words.'});
   }
 }

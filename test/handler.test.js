@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {generateWords, MAX_GENERATION_TIMEOUT_MS, MAX_MODEL_TIMEOUT_MS, validateOptions} from '../server/words.js';
 import {handleWords} from '../server/handler.js';
 import server, {PUBLIC_FILES} from '../server/index.js';
+import {createLogger} from '../server/logger.js';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const WORDS_URL = 'http://localhost/api/words';
@@ -29,6 +30,21 @@ function aiResponse(words, usage) {
 const neverFetch = async () => {
   throw new Error('the AI should not have been called');
 };
+
+test('logger includes an ISO timestamp and level', () => {
+  const messages = [];
+  const logger = createLogger({log: (...args) => messages.push(args)}, () => new Date('2026-09-10T12:34:56.789Z'));
+
+  logger.info('Theme generation started');
+  logger.warn('Model response was slow');
+  logger.error('Theme generation failed');
+
+  assert.deepEqual(messages, [
+    ['2026-09-10T12:34:56.789Z [INFO]', 'Theme generation started'],
+    ['2026-09-10T12:34:56.789Z [WARN]', 'Model response was slow'],
+    ['2026-09-10T12:34:56.789Z [ERROR]', 'Theme generation failed']
+  ]);
+});
 
 test('rejects non-POST requests', async () => {
   const response = await handleWords(new Request(WORDS_URL), {env: {OPENROUTER_API_KEY: 'test'}});
