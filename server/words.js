@@ -1,6 +1,8 @@
 // Platform-neutral OpenRouter logic. No `process`, no platform imports, no `node:` imports:
 // callers pass an `env` object and (optionally) a `fetch` implementation.
 export const DEFAULT_MODELS = ['deepseek/deepseek-v4-flash', 'openai/gpt-5.6-luna', 'openai/gpt-4.1-mini'];
+export const MAX_GENERATION_TIMEOUT_MS = 25_000;
+export const MAX_MODEL_TIMEOUT_MS = 20_000;
 const SIZES = {small: 5, medium: 9, large: 13};
 
 export class GenerationError extends Error {
@@ -36,10 +38,11 @@ export function parseModels(env) {
   return models.length ? models : [...DEFAULT_MODELS];
 }
 
-async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl) {
+async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20_000);
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   let apiResponse;
+  let payload;
   try {
     apiResponse = await fetchImpl('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -90,13 +93,18 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
         provider: {require_parameters: true},
       }),
     });
+    // Read the body within the timeout: clearing the timer after the headers alone would
+    // let a slow model stream for minutes past the abort deadline.
+    payload = await apiResponse.json().catch((error) => {
+      if (error.name === 'AbortError') throw error;
+      return null;
+    });
   } catch (error) {
     if (error.name === 'AbortError') throw new GenerationError(504, 'Theme generation timed out.');
     throw new GenerationError(502, 'Could not reach theme generation.');
   } finally {
     clearTimeout(timeout);
   }
-  const payload = await apiResponse.json().catch(() => null);
   if (!apiResponse.ok) throw new GenerationError(502, payload?.error?.message || 'Theme generation failed.');
   const content = payload?.choices?.[0]?.message?.content;
   const output = Array.isArray(content) ? content.filter((part) => part.type === 'text').map((part) => part.text).join('') : content;
@@ -117,18 +125,29 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
 
 // Returns plain `{status, body}` data rather than a `Response`, so this layer stays
 // testable and reusable off any HTTP runtime.
-export async function generateWords(input, env, {fetchImpl = fetch} = {}) {
+export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS} = {}) {
   if (!env.OPENROUTER_API_KEY) return {status: 503, body: {error: 'AI theme generation is not configured.'}};
 
   const options = validateOptions(input);
   if (options.error) return options.error;
 
   const models = parseModels(env);
+  const budgetMs = Math.max(10, Math.min(Number(timeoutMs) || MAX_GENERATION_TIMEOUT_MS, MAX_GENERATION_TIMEOUT_MS));
+  const deadline = Date.now() + budgetMs;
   let lastError;
 
-  for (const model of models) {
+  for (let index = 0; index < models.length; index += 1) {
+    const remainingMs = deadline - Date.now();
+    if (remainingMs <= 0) {
+      lastError = new GenerationError(504, 'Theme generation timed out.');
+      break;
+    }
+
+    const modelsRemaining = models.length - index;
+    const modelTimeoutMs = Math.min(MAX_MODEL_TIMEOUT_MS, Math.max(1, Math.floor(remainingMs / modelsRemaining)));
+    const model = models[index];
     try {
-      const words = await requestThemeWords(model, options, env, fetchImpl);
+      const words = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs);
       return {status: 200, body: {words}};
     } catch (error) {
       if (!(error instanceof GenerationError)) throw error;

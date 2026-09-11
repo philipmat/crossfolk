@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node --env-file-if-exists=.env server/index.js",
     "test": "node --test test/engine.test.js test/handler.test.js"
   },
   "engines": {
-    "node": "22.x"
+    "node": ">=22.9.0"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

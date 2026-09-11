@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generatePuzzle, supportedThemes} from '../public/engine.js';
+import {resolveCuratedTheme} from '../public/themes.js';
 
 function assertValidPuzzle(puzzle) {
   assert.equal(puzzle.grid.length, puzzle.size);
@@ -54,6 +55,11 @@ test('exposes broad built-in themes', () => {
   }
 });
 
+test('uses the same curated-theme resolution in the app and generator', () => {
+  assert.equal(resolveCuratedTheme('ocean reef'), 'ocean');
+  assert.equal(resolveCuratedTheme('Martini the blind dog'), null);
+});
+
 test('generates valid connected puzzles at every size', () => {
   for (const size of ['small', 'medium', 'large']) assertValidPuzzle(generatePuzzle({
     theme: 'ocean reef',
@@ -92,11 +98,50 @@ test('accepts arbitrary themes when custom words are supplied', () => {
     {answer: 'MOTOR', clue: 'It makes machinery move'},
     {answer: 'RELAY', clue: 'An electrical switch'},
   ];
-  assertValidPuzzle(generatePuzzle({theme: 'friendly robots', size: 9, words}));
+  const puzzle = generatePuzzle({theme: 'friendly robots', size: 9, words});
+  assertValidPuzzle(puzzle);
+
+  const themed = puzzle.entries.filter((entry) => entry.isTheme).length;
+  assert.ok(themed > puzzle.entries.length / 2, `expected a themed majority, got ${themed} of ${puzzle.entries.length}`);
 });
 
-test('rejects unsupported themes and invalid options clearly', () => {
-  assert.throws(() => generatePuzzle({theme: 'medieval poetry'}), /Unsupported theme/);
+test('asks for AI words when a theme has no built-in vocabulary', () => {
+  assert.throws(
+    () => generatePuzzle({theme: 'medieval poetry'}),
+    (error) => error.code === 'theme-words-unavailable' && /need AI-generated words/.test(error.message)
+  );
+});
+
+// Themed pools from the AI endpoint hold a few dozen short words, far fewer than the
+// curated banks. A mini still has to reach the themed majority with a fully crossed grid.
+// Generation is stochastic and a player can regenerate, so a pool gets a few attempts.
+test('builds a crossed mini from an AI-sized themed pool', () => {
+  const words = 'BARK,TAIL,PAW,NOSE,EAR,EYE,BLIND,SIGHT,SMELL,SOUND,TOUCH,TASTE,WALK,LEAD,LEASH,FETCH,BALL,BONE,TREAT,SIT,STAY,DOWN,COME,HEEL,ROLL,PLAY,SWIM,DIG,CHEW,LICK,SNIFF,GROWL,WHINE,HOWL,YELP,PANT,SHED,GROOM,BATHE,CRATE,BED,BOWL,FOOD,WATER,SNACK,CHOW,MEAL,BRUSH,COMB,NAIL,VET,SHOT,CHIP,TAG,VEST,GUIDE,PUP,POOCH,HOUND'
+    .split(',')
+    .map((answer) => ({answer, clue: `Clue for ${answer}`}));
+
+  let playable = 0;
+  let crossed = 0;
+  for (let attempt = 0; attempt < 3 && playable < 19; attempt += 1) {
+    const puzzle = generatePuzzle({theme: 'martini the blind dog', size: 5, difficulty: 'easy', words});
+    assertValidPuzzle(puzzle);
+
+    const entryCells = new Map();
+    for (const entry of puzzle.entries) {
+      for (const offset of [...entry.answer].keys()) {
+        const key = `${entry.row + (entry.direction === 'down' ? offset : 0)},${entry.col + (entry.direction === 'across' ? offset : 0)}`;
+        entryCells.set(key, (entryCells.get(key) ?? 0) + 1);
+      }
+    }
+    playable = entryCells.size;
+    crossed = [...entryCells.values()].filter((count) => count === 2).length;
+  }
+
+  assert.ok(playable >= 19, `expected at least 19 playable squares, got ${playable}`);
+  assert.ok(crossed / playable >= 0.9, `expected at least 90% crossed letters, got ${Math.round(crossed / playable * 100)}%`);
+});
+
+test('rejects invalid options clearly', () => {
   assert.throws(() => generatePuzzle({theme: 'ocean', size: 7}), /Size must/);
   assert.throws(() => generatePuzzle({theme: 'ocean', difficulty: 'expert'}), /Difficulty must/);
 });

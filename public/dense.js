@@ -256,25 +256,46 @@ function solvePattern(pattern, words, themeWords, history, deadline) {
   anchors.sort((a, b) => (history.uses.get(a.word.answer) ?? 0) - (history.uses.get(b.word.answer) ?? 0)
     || Number(b.word.common)-Number(a.word.common) || a.word.random - b.word.random);
 
+  // The slots that still have the fewest themed candidates, which must hold a themed word
+  // for the quota to be reachable. Committing them up front keeps a small themed pool from
+  // being pruned away by crossing letters before the quota is met.
+  const quotaSlots = (domains, occupied) => domains
+    .map((domain, slotIndex) => ({
+      slotIndex,
+      themed: slotIndex === occupied || !domain ? 0 : domain.filter((candidate) => candidate.isTheme).length,
+    }))
+    .filter(({ themed }) => themed > 0)
+    .sort((a, b) => a.themed - b.themed)
+    .slice(0, requiredThemed - 1)
+    .map(({ slotIndex }) => slotIndex);
+
   for (let anchorIndex = 0; anchorIndex < anchors.length; anchorIndex += 1) {
     if (Date.now() >= deadline) break;
     const { index, word } = anchors[anchorIndex];
     put(index, word);
     const domains = slots.map((slot, slotIndex) => slotIndex === index ? null : candidatesFor(slot));
-    const remainingTime = deadline - Date.now();
-    const remainingAnchors = anchors.length - anchorIndex;
-    const slice = Math.max(40, Math.min(500, remainingTime / Math.min(remainingAnchors, 5)));
-    if (search(slots.length - 1, domains, Date.now() + slice)) {
-      const entries = slots.map((slot, slotIndex) => ({
-        answer: assigned[slotIndex].answer,
-        clue: assigned[slotIndex].clue,
-        isTheme: assigned[slotIndex].isTheme,
-        row: slot.row,
-        col: slot.col,
-        direction: slot.direction,
-      }));
-      return { grid: grid.map((row) => row.map((cell) => cell || null)), entries: numberEntries(entries) };
+    const committed = quotaSlots(domains, index);
+    // Commit those slots to themed words, then search. Without the commitment a small
+    // themed pool loses its candidates to crossing letters before the quota is reachable;
+    // a pattern that cannot host the quota at all is skipped rather than searched.
+    if (!committed.length || committed.length === requiredThemed - 1) {
+      for (const slotIndex of committed) domains[slotIndex] = domains[slotIndex].filter((candidate) => candidate.isTheme);
+      const remainingTime = deadline - Date.now();
+      const remainingAnchors = anchors.length - anchorIndex;
+      const slice = Math.max(40, Math.min(500, remainingTime / Math.min(remainingAnchors, 5)));
+      if (search(slots.length - 1, domains, Date.now() + slice)) {
+        const entries = slots.map((slot, slotIndex) => ({
+          answer: assigned[slotIndex].answer,
+          clue: assigned[slotIndex].clue,
+          isTheme: assigned[slotIndex].isTheme,
+          row: slot.row,
+          col: slot.col,
+          direction: slot.direction,
+        }));
+        return { grid: grid.map((row) => row.map((cell) => cell || null)), entries: numberEntries(entries) };
+      }
     }
+
     remove(index, word);
   }
   return null;

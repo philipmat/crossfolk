@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {generateWords, validateOptions} from '../server/words.js';
+import {generateWords, MAX_GENERATION_TIMEOUT_MS, validateOptions} from '../server/words.js';
 import {handleWords} from '../server/handler.js';
 import server, {PUBLIC_FILES} from '../server/index.js';
 
@@ -120,6 +120,34 @@ test('falls back to the next model when one fails', async () => {
   assert.equal(status, 200);
   assert.deepEqual(body.words, [{answer: 'REEF', clue: 'Coral ridge'}, {answer: 'TIDE', clue: 'Ocean rise'}, {answer: 'WAVE', clue: 'Ocean motion'}]);
   assert.deepEqual(called, ['first/model', 'second/model']);
+});
+
+test('falls back after a model timeout within the total Vercel-safe budget', async () => {
+  const called = [];
+  let firstSignal;
+  const fetchImpl = async (url, {body, signal}) => {
+    const {model} = JSON.parse(body);
+    called.push(model);
+    if (model === 'first/model') {
+      firstSignal = signal;
+      return new Promise((resolve, reject) => signal.addEventListener('abort', () => {
+        reject(new DOMException('Aborted', 'AbortError'));
+      }, {once: true}));
+    }
+    return aiResponse([{answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}]);
+  };
+
+  const {status, body} = await generateWords(
+    {theme: 'ocean'},
+    {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model'},
+    {fetchImpl, timeoutMs: 30}
+  );
+
+  assert.equal(status, 200);
+  assert.equal(firstSignal.aborted, true);
+  assert.deepEqual(called, ['first/model', 'second/model']);
+  assert.ok(MAX_GENERATION_TIMEOUT_MS < 30_000);
+  assert.equal(body.words.length, 3);
 });
 
 test('reports the failure when every model fails', async () => {

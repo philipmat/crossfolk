@@ -5,6 +5,9 @@ import { themedPlurals } from './theme-plurals.js';
 import { themeClues } from './theme-clues.js';
 import { dictionaryWords, dictionaryThemes } from './wordnet-words.js';
 import { denseFallbacks } from './dense-fallbacks.js';
+import { resolveCuratedTheme, supportedThemes } from './themes.js';
+
+export { supportedThemes } from './themes.js';
 
 const BANKS = {
   nature: [
@@ -178,21 +181,6 @@ const BANKS = {
   ],
 };
 
-export const supportedThemes = Object.freeze(Object.keys(BANKS));
-
-const THEME_ALIASES = {
-  nature: ['nature', 'forest', 'woods', 'outdoors', 'mountain', 'river', 'tree'],
-  ocean: ['ocean', 'sea', 'beach', 'marine', 'underwater', 'coast', 'reef'],
-  space: ['space', 'planet', 'stars', 'astronomy', 'cosmos', 'solar', 'galaxy'],
-  food: ['food', 'cooking', 'kitchen', 'meal', 'fruit', 'restaurant', 'snack'],
-  music: ['music', 'song', 'band', 'instrument', 'concert', 'jazz', 'orchestra'],
-  travel: ['travel', 'trip', 'vacation', 'journey', 'tourism', 'roadtrip', 'flight'],
-  sports: ['sports', 'sport', 'game', 'athletics', 'football', 'baseball', 'soccer'],
-  animals: ['animals', 'animal', 'wildlife', 'zoo', 'pets', 'creatures', 'mammals'],
-  weather: ['weather', 'climate', 'rain', 'storm', 'snow', 'forecast', 'wind'],
-  garden: ['garden', 'gardening', 'flowers', 'plants', 'yard', 'botany', 'vegetables'],
-};
-
 const SIZE_MAP = { small: 5, medium: 9, large: 13 };
 const DIRECTIONS = ['across', 'down'];
 
@@ -211,14 +199,17 @@ function resolveDifficulty(value) {
 function resolveTheme(theme) {
   const normalized = String(theme ?? '').trim().toLowerCase();
   if (!normalized) throw new Error(`Enter a theme. Supported themes: ${supportedThemes.join(', ')}.`);
-  const tokens = new Set(normalized.split(/[^a-z0-9]+/).filter(Boolean));
-  let best = null;
-  let score = 0;
-  for (const [category, aliases] of Object.entries(THEME_ALIASES)) {
-    const matches = aliases.reduce((sum, alias) => sum + (tokens.has(alias) ? 1 : 0), 0);
-    if (matches > score) { best = category; score = matches; }
-  }
-  return best;
+
+  return resolveCuratedTheme(normalized);
+}
+
+// A theme outside the curated families has no local vocabulary, so generation can only
+// proceed with caller-supplied (AI) words. The `code` lets the client explain that the AI
+// endpoint is unconfigured instead of repeating this message to the player.
+function themeWordsError(theme) {
+  const error = new Error(`No built-in words for "${String(theme ?? '').trim()}". Built-in themes: ${supportedThemes.join(', ')}. Other themes need AI-generated words.`);
+  error.code = 'theme-words-unavailable';
+  return error;
 }
 
 function normalizeCustomWords(words, difficulty) {
@@ -333,20 +324,29 @@ function buildCandidate(words, size, target) {
   const directions = Array.from({ length: size }, () => Array.from({ length: size }, () => new Set()));
   const entries = [];
   let remaining = [...words];
-  while (remaining.length && entries.length < target) {
-    let best = null;
-    for (const word of remaining) {
-      const options = placementOptions(board, directions, word.answer, entries);
-      for (const option of options) {
-        const centrality = -Math.abs(option.row - size / 2) - Math.abs(option.col - size / 2);
-        const score = option.crossings * 24 - word.answer.length * 4 + centrality + Math.random() * 5;
-        if (!best || score > best.score) best = { word, option, score };
+  let themed = 0;
+  // Themed answers are placed first so general crossings cannot crowd them out, then
+  // fill answers join only while the themed answers stay a strict majority.
+  for (let themedPass = 1; themedPass >= 0; themedPass -= 1) {
+    while (remaining.length && entries.length < target) {
+      let best = null;
+      for (const word of remaining) {
+        const isTheme = word.isTheme === true;
+        if (isTheme !== (themedPass === 1)) continue;
+        if (!isTheme && themed * 2 <= entries.length + 1) continue;
+        const options = placementOptions(board, directions, word.answer, entries);
+        for (const option of options) {
+          const centrality = -Math.abs(option.row - size / 2) - Math.abs(option.col - size / 2);
+          const score = option.crossings * 24 - word.answer.length * 4 + centrality + Math.random() * 5;
+          if (!best || score > best.score) best = { word, option, score };
+        }
       }
+      if (!best) break;
+      place(board, directions, best.word.answer, best.option);
+      entries.push({ ...best.word, ...best.option });
+      if (best.word.isTheme) themed += 1;
+      remaining = remaining.filter((word) => word.answer !== best.word.answer);
     }
-    if (!best) break;
-    place(board, directions, best.word.answer, best.option);
-    entries.push({ ...best.word, ...best.option });
-    remaining = remaining.filter((word) => word.answer !== best.word.answer);
   }
   return { board, entries };
 }
@@ -366,9 +366,7 @@ export function generatePuzzle(options = {}) {
   const difficulty = resolveDifficulty(options.difficulty);
   const customWords = normalizeCustomWords(options.words, difficulty).filter(({ answer }) => answer.length <= size);
   const category = resolveTheme(options.theme);
-  if (!category && !customWords.length) {
-    throw new Error(`Unsupported theme "${String(options.theme ?? '').trim()}". Try: ${supportedThemes.join(', ')}, or supply themed words.`);
-  }
+  if (!category && !customWords.length) throw themeWordsError(options.theme);
   const themedWords = category
     ? BANKS[category].map(([answer, easy, medium, hard]) => ({ answer, clue: { easy, medium, hard }[difficulty] }))
     : [];
@@ -394,19 +392,26 @@ export function generatePuzzle(options = {}) {
       chosen.entries=chosen.entries.map(entry=>({...entry,clue:byAnswer.get(entry.answer)?.clue || entry.clue,isTheme:byAnswer.has(entry.answer)}));
       if(chosen.entries.filter(e=>e.isTheme).length>chosen.entries.length/2)return{...chosen,theme:String(options.theme).trim(),layoutVersion:3};
     }
-    if(difficulty==='hard') {
-      dense=generateDense({...denseOptions,timeLimitMs:6500});
-      if(dense)return{...dense,layoutVersion:3};
-      throw new Error('Could not fit a new mostly themed mini with at least 90% crossed letters. Try another theme or generate again.');
-    }
+    // A slower retry fits the quota where the first pass ran out of budget, which matters
+    // most for AI-supplied word sets, whose themed pools are smaller than curated ones.
+    dense=generateDense({...denseOptions,timeLimitMs:6500});
+    if(dense)return{...dense,layoutVersion:3};
+    if(difficulty==='hard') throw new Error('Could not fit a new mostly themed mini with at least 90% crossed letters. Try another theme or generate again.');
   }
   const target = size === 5 ? 7 : size === 9 ? 22 : 38;
+  // General crossings keep a themed grid buildable when the themed pool alone is too
+  // small to interlock; `buildCandidate` stops adding them short of a themed majority.
+  const generalSample = shuffle(denseOptions.fillWords.filter((word) => word.answer.length <= size)).slice(0, 180);
   let best = null;
   let bestFresh = null;
   const placementDeadline=Date.now()+1500;
   for (let attempt = 0; attempt < 60; attempt += 1) {
     if(bestFresh && Date.now()>=placementDeadline)break;
-    const pool = [...shuffle(words.filter(word=>word.answer.length<=4)).slice(0, Math.max(24,target*2)), ...shuffle(words.filter(word=>word.answer.length>4)).slice(0,6)];
+    const pool = [
+      ...shuffle(words.filter(word=>word.answer.length<=4)).slice(0, Math.max(24,target*2)),
+      ...shuffle(words.filter(word=>word.answer.length>4)).slice(0,6),
+      ...shuffle(generalSample).slice(0, 45).map(word=>({...word,isTheme:false})),
+    ].map(word=>({...word,isTheme:word.isTheme!==false}));
     const candidate = buildCandidate(pool, size, target);
     const signature = candidate.entries.map(({ answer }) => answer).sort().join('|');
     const repeatPenalty = sets.has(signature) ? 100 : 0;
@@ -426,7 +431,7 @@ export function generatePuzzle(options = {}) {
   return {
     size,
     theme: String(options.theme).trim(),
-    entries: numberEntries(best.entries).map(entry=>({...entry,isTheme:true})),
+    entries: numberEntries(best.entries),
     grid: best.board,
   };
 }
