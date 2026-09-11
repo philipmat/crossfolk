@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {generateWords, MAX_GENERATION_TIMEOUT_MS, validateOptions} from '../server/words.js';
+import {generateWords, MAX_GENERATION_TIMEOUT_MS, MAX_MODEL_TIMEOUT_MS, validateOptions} from '../server/words.js';
 import {handleWords} from '../server/handler.js';
 import server, {PUBLIC_FILES} from '../server/index.js';
 
@@ -19,8 +19,8 @@ function post(body, {headers = {}, ...init} = {}) {
   });
 }
 
-function aiResponse(words) {
-  return new Response(JSON.stringify({choices: [{message: {content: JSON.stringify({words})}}]}), {
+function aiResponse(words, usage) {
+  return new Response(JSON.stringify({choices: [{message: {content: JSON.stringify({words})}}], ...(usage ? {usage} : {})}), {
     status: 200,
     headers: {'content-type': 'application/json'}
   });
@@ -90,8 +90,8 @@ test('rejects each invalid option before calling the AI', async () => {
     assert.equal(status, 400, JSON.stringify(input));
     assert.equal(body.error, message);
   }
-  assert.equal(validateOptions({theme: 'ocean', size: 'medium'}).count, 90);
-  assert.equal(validateOptions({theme: 'ocean', size: 5}).count, 60);
+  assert.equal(validateOptions({theme: 'ocean', size: 'medium'}).count, 60);
+  assert.equal(validateOptions({theme: 'ocean', size: 5}).count, 40);
 });
 
 test('sends the HTTP-Referer header only when OPENROUTER_SITE_URL is configured', async () => {
@@ -106,6 +106,32 @@ test('sends the HTTP-Referer header only when OPENROUTER_SITE_URL is configured'
 
   await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test', OPENROUTER_SITE_URL: 'https://crossfolk.example'}, {fetchImpl});
   assert.equal(seenHeaders['http-referer'], 'https://crossfolk.example');
+  assert.equal(new Headers(seenHeaders).get('http-referer'), 'https://crossfolk.example');
+});
+
+test('gives the preferred model a full attempt instead of splitting the budget across fallbacks', async () => {
+  const called = [];
+  const fetchImpl = async (url, {body, signal}) => {
+    called.push(JSON.parse(body).model);
+    return new Promise((resolve, reject) => {
+      const response = setTimeout(() => resolve(aiResponse([
+        {answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}
+      ])), 12);
+      signal.addEventListener('abort', () => {
+        clearTimeout(response);
+        reject(new DOMException('Aborted', 'AbortError'));
+      }, {once: true});
+    });
+  };
+
+  const {status} = await generateWords(
+    {theme: 'ocean'},
+    {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model,third/model'},
+    {fetchImpl, timeoutMs: 50}
+  );
+
+  assert.equal(status, 200);
+  assert.deepEqual(called, ['first/model']);
 });
 
 test('falls back to the next model when one fails', async () => {
@@ -140,14 +166,40 @@ test('falls back after a model timeout within the total Vercel-safe budget', asy
   const {status, body} = await generateWords(
     {theme: 'ocean'},
     {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model'},
-    {fetchImpl, timeoutMs: 30}
+    {fetchImpl, timeoutMs: MAX_GENERATION_TIMEOUT_MS}
   );
 
   assert.equal(status, 200);
   assert.equal(firstSignal.aborted, true);
   assert.deepEqual(called, ['first/model', 'second/model']);
-  assert.ok(MAX_GENERATION_TIMEOUT_MS < 30_000);
+  assert.equal(MAX_GENERATION_TIMEOUT_MS, 25_000);
+  assert.equal(MAX_MODEL_TIMEOUT_MS, 24_000);
   assert.equal(body.words.length, 3);
+});
+
+test('stops provider retries when the caller disconnects', async () => {
+  const caller = new AbortController();
+  const called = [];
+  let providerSignal;
+  const fetchImpl = async (url, {body, signal}) => {
+    called.push(JSON.parse(body).model);
+    providerSignal = signal;
+    return new Promise((resolve, reject) => {
+      signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')), {once: true});
+      caller.abort();
+    });
+  };
+
+  const {status, body} = await generateWords(
+    {theme: 'ocean'},
+    {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model'},
+    {fetchImpl, signal: caller.signal}
+  );
+
+  assert.equal(status, 504);
+  assert.equal(body.error, 'Theme generation timed out.');
+  assert.equal(providerSignal.aborted, true);
+  assert.deepEqual(called, ['first/model']);
 });
 
 test('reports the failure when every model fails', async () => {
@@ -177,6 +229,32 @@ test('normalises answers and drops unusable ones', async () => {
   const {status, body} = await generateWords({theme: 'ocean', size: 5}, {OPENROUTER_API_KEY: 'test'}, {fetchImpl});
   assert.equal(status, 200);
   assert.deepEqual(body.words, [{answer: 'REEF', clue: 'Coral ridge'}, {answer: 'TIDE', clue: 'Ocean rise'}, {answer: 'WAV', clue: 'Ocean motion'}]);
+});
+
+test('reports which model answered and the tokens the call used', async () => {
+  const fetchImpl = async () => aiResponse(
+    [{answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}],
+    {prompt_tokens: 412, completion_tokens: 128, total_tokens: 540}
+  );
+  const {status, body} = await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'only/model'}, {fetchImpl});
+  assert.equal(status, 200);
+  assert.deepEqual(body.source, {model: 'only/model', usage: {input: 412, output: 128, total: 540}});
+});
+
+test('counts the tokens burned by an attempt it had to discard', async () => {
+  const fetchImpl = async (url, {body}) => {
+    const {model} = JSON.parse(body);
+    if (model === 'first/model') {
+      return aiResponse([{answer: 'one', clue: 'Too few entries to use'}], {prompt_tokens: 300, completion_tokens: 40, total_tokens: 340});
+    }
+    return aiResponse(
+      [{answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}],
+      {prompt_tokens: 100, completion_tokens: 60, total_tokens: 160}
+    );
+  };
+  const {status, body} = await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model'}, {fetchImpl});
+  assert.equal(status, 200);
+  assert.deepEqual(body.source, {model: 'second/model', usage: {input: 400, output: 100, total: 500}});
 });
 
 test('public/ holds exactly the allowlisted files', async () => {

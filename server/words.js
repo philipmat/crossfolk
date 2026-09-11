@@ -1,15 +1,34 @@
 // Platform-neutral OpenRouter logic. No `process`, no platform imports, no `node:` imports:
 // callers pass an `env` object and (optionally) a `fetch` implementation.
 export const DEFAULT_MODELS = ['deepseek/deepseek-v4-flash', 'openai/gpt-5.6-luna', 'openai/gpt-4.1-mini'];
+// Stay below Vercel's 30-second function limit, while leaving time to send the
+// response back to the browser.
 export const MAX_GENERATION_TIMEOUT_MS = 25_000;
-export const MAX_MODEL_TIMEOUT_MS = 20_000;
+export const MAX_MODEL_TIMEOUT_MS = 24_000;
 const SIZES = {small: 5, medium: 9, large: 13};
 
 export class GenerationError extends Error {
-  constructor(status, message) {
+  constructor(status, message, usage = null) {
     super(message);
     this.status = status;
+    this.usage = usage;
   }
+}
+
+// OpenRouter reports token counts alongside the completion. Surfacing them shows the player
+// what the AI call cost, including tokens burned by an attempt that then failed.
+function readUsage(payload) {
+  const usage = payload?.usage;
+  if (!usage) return null;
+  const input = Number(usage.prompt_tokens) || 0;
+  const output = Number(usage.completion_tokens) || 0;
+  return {input, output, total: Number(usage.total_tokens) || input + output};
+}
+
+function addUsage(first, second) {
+  if (!first) return second ?? null;
+  if (!second) return first;
+  return {input: first.input + second.input, output: first.output + second.output, total: first.total + second.total};
 }
 
 // Returns either `{error: {status, body}}` or the normalised options for `requestThemeWords`.
@@ -26,7 +45,9 @@ export function validateOptions(input) {
   const numericSize = SIZES[String(size).toLowerCase()] ?? Number(size);
   if (![5, 9, 13].includes(numericSize)) return {error: {status: 400, body: {error: 'Size must be small (5), medium (9), or large (13).'}}};
 
-  return {theme: cleanTheme, size: numericSize, difficulty: cleanDifficulty, exclude, count: numericSize <= 5 ? 60 : 90};
+  // A few dozen clean candidates are enough for the local solver. Asking for a much
+  // larger schema-constrained response makes slower providers miss the request window.
+  return {theme: cleanTheme, size: numericSize, difficulty: cleanDifficulty, exclude, count: numericSize <= 5 ? 40 : 60};
 }
 
 export function parseModels(env) {
@@ -38,9 +59,12 @@ export function parseModels(env) {
   return models.length ? models : [...DEFAULT_MODELS];
 }
 
-async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs) {
+async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs, parentSignal) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const abortFromParent = () => controller.abort();
+  if (parentSignal?.aborted) abortFromParent();
+  else parentSignal?.addEventListener('abort', abortFromParent, {once: true});
   let apiResponse;
   let payload;
   try {
@@ -51,7 +75,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
         authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
         'content-type': 'application/json',
         ...(env.OPENROUTER_SITE_URL ? {'http-referer': env.OPENROUTER_SITE_URL} : {}),
-        'x-title': 'Crossfolk',
+        'x-title': 'Crossfolk'
       },
       body: JSON.stringify({
         model,
@@ -104,28 +128,30 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
     throw new GenerationError(502, 'Could not reach theme generation.');
   } finally {
     clearTimeout(timeout);
+    parentSignal?.removeEventListener('abort', abortFromParent);
   }
-  if (!apiResponse.ok) throw new GenerationError(502, payload?.error?.message || 'Theme generation failed.');
+  const usage = readUsage(payload);
+  if (!apiResponse.ok) throw new GenerationError(502, payload?.error?.message || 'Theme generation failed.', usage);
   const content = payload?.choices?.[0]?.message?.content;
   const output = Array.isArray(content) ? content.filter((part) => part.type === 'text').map((part) => part.text).join('') : content;
-  if (typeof output !== 'string' || !output.trim()) throw new GenerationError(502, 'The AI returned an empty response.');
+  if (typeof output !== 'string' || !output.trim()) throw new GenerationError(502, 'The AI returned an empty response.', usage);
   let parsed;
   try {
     parsed = JSON.parse(output.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ''));
   } catch {
-    throw new GenerationError(502, 'The AI returned malformed JSON.');
+    throw new GenerationError(502, 'The AI returned malformed JSON.', usage);
   }
   const words = (Array.isArray(parsed?.words) ? parsed.words : [])
     .map(({answer, clue}) => ({answer: String(answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: String(clue)}))
     .filter(({answer, clue}) => answer.length >= 2 && answer.length <= size && clue);
-  if (words.length < 3) throw new GenerationError(502, 'The AI did not return enough usable words.');
+  if (words.length < 3) throw new GenerationError(502, 'The AI did not return enough usable words.', usage);
 
-  return words;
+  return {words, usage};
 }
 
 // Returns plain `{status, body}` data rather than a `Response`, so this layer stays
 // testable and reusable off any HTTP runtime.
-export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS} = {}) {
+export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, signal} = {}) {
   if (!env.OPENROUTER_API_KEY) return {status: 503, body: {error: 'AI theme generation is not configured.'}};
 
   const options = validateOptions(input);
@@ -135,22 +161,30 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
   const budgetMs = Math.max(10, Math.min(Number(timeoutMs) || MAX_GENERATION_TIMEOUT_MS, MAX_GENERATION_TIMEOUT_MS));
   const deadline = Date.now() + budgetMs;
   let lastError;
+  let usage = null;
 
   for (let index = 0; index < models.length; index += 1) {
+    if (signal?.aborted) {
+      lastError = new GenerationError(504, 'Theme generation timed out.');
+      break;
+    }
+
     const remainingMs = deadline - Date.now();
     if (remainingMs <= 0) {
       lastError = new GenerationError(504, 'Theme generation timed out.');
       break;
     }
 
-    const modelsRemaining = models.length - index;
-    const modelTimeoutMs = Math.min(MAX_MODEL_TIMEOUT_MS, Math.max(1, Math.floor(remainingMs / modelsRemaining)));
+    // Give the preferred model a useful window. Equal-splitting a short total budget
+    // across a long fallback list aborts every otherwise-successful completion.
+    const modelTimeoutMs = Math.min(MAX_MODEL_TIMEOUT_MS, remainingMs);
     const model = models[index];
     try {
-      const words = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs);
-      return {status: 200, body: {words}};
+      const attempt = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs, signal);
+      return {status: 200, body: {words: attempt.words, source: {model, usage: addUsage(usage, attempt.usage)}}};
     } catch (error) {
       if (!(error instanceof GenerationError)) throw error;
+      usage = addUsage(usage, error.usage);
       lastError = error;
       console.warn(`Theme generation with ${model} failed: ${error.message}`);
     }

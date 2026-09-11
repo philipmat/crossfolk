@@ -11,6 +11,9 @@ function generatePuzzle(options) {
  });
 }
 const $ = s => document.querySelector(s);
+// Attribution for AI-supplied themes: which model answered and what the call cost in tokens.
+function sourceLine(source) {const usage=source.usage;const tokens=usage?` · ${usage.input.toLocaleString()} tokens in / ${usage.output.toLocaleString()} out`:'';return `AI-generated theme words · ${source.model}${tokens}`;}
+function showSource(source) {const note=$('#ai-note');note.hidden=!source;if(source)$('#ai-note-text').textContent=sourceLine(source);}
 $('.board-actions').after($('#keyboard'));
 let size = 5, difficulty = 'easy', puzzle, letters = {}, selected = null, active = 0, elapsed = 0, solved = false, wrong = new Set(), history = [];
 try { history = JSON.parse(localStorage.getItem('crossfolk-history') || '[]'); if (!Array.isArray(history)) history=[]; } catch {}
@@ -29,6 +32,7 @@ function render() {
  $('#word-count').textContent=`${puzzle.entries.length} words${puzzle.entries.some(e=>e.isTheme!==undefined)?' · '+puzzle.entries.filter(e=>e.isTheme).length+' themed':''}`;
  const coverage=new Map();puzzle.entries.forEach(e=>cellsFor(e).forEach(k=>coverage.set(k,(coverage.get(k)||0)+1)));
  $('#crossing-count').textContent=`${Math.round([...coverage.values()].filter(n=>n===2).length/coverage.size*100)}% crossed`;
+ showSource(puzzle.source);
  $('#active-clue').replaceChildren(); const b=document.createElement('b'); b.textContent=`${entry.number} ${entry.direction==='across'?'→':'↓'}`; const t=document.createElement('span');t.textContent=entry.clue;$('#active-clue').append(b,t);
  const board=$('#board');board.style.setProperty('--size',puzzle.size);board.replaceChildren();$('.board-scroll').className=`board-scroll ${puzzle.size===13?'large':puzzle.size===9?'medium':''}`;
  let filled=0,total=0,correct=0;
@@ -64,11 +68,17 @@ function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.len
  $('#difficulties').onclick=e=>{const b=e.target.closest('[data-difficulty]');if(!b)return;difficulty=b.dataset.difficulty;for(const x of $('#difficulties').children){x.classList.toggle('chosen',x===b);x.setAttribute('aria-pressed',String(x===b));}};
  document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{$('#theme').value=b.dataset.theme;$('#theme').focus();});
  async function create(initial=false){const theme=$('#theme').value.trim();if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
- let words,aiUnavailable=false;
+ let words,aiUnavailable=false,source=null;
  try {
- if(!initial&&!resolveCuratedTheme(theme)){const response=await fetch('/api/words',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)}),signal:AbortSignal.timeout(35000)});if(response.ok){words=(await response.json()).words;}else if(response.status===503){aiUnavailable=true;}else{const data=await response.json().catch(()=>({}));throw new Error(data.error||'Could not generate this theme. Please try again.');}}
- const next=await generatePuzzle({theme,size,difficulty,history,words});puzzle={...next,difficulty};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';render();updateTimer();
- }catch(error){const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const message=error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.';$('#error').textContent=needsAi?`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`:message;}finally{$('#generate').disabled=false;$('#generate').innerHTML='Create my crossword <span>→</span>';}}
+ if(!initial&&!resolveCuratedTheme(theme)){
+  $('#ai-note').hidden=false;$('#ai-note-text').textContent='Asking the AI for theme words…';
+  const response=await fetch('/api/words',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)}),signal:AbortSignal.timeout(28000)});
+  if(response.ok){const data=await response.json();words=data.words;source=data.source||null;}
+  else if(response.status===503){aiUnavailable=true;}
+  else{const data=await response.json().catch(()=>({}));throw new Error(data.error||'Could not generate this theme. Please try again.');}
+ }
+ const next=await generatePuzzle({theme,size,difficulty,history,words});puzzle={...next,difficulty,source};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';render();updateTimer();
+ }catch(error){showSource(puzzle?.source);const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const message=error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.';$('#error').textContent=needsAi?`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`:message;}finally{$('#generate').disabled=false;$('#generate').innerHTML='Create my crossword <span>→</span>';}}
  $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme').oninput=()=>$('#theme').setCustomValidity('');
  $('#check').onclick=()=>{wrong.clear();for(const [k,v]of Object.entries(letters)){const[r,c]=k.split(',').map(Number);if(v!==puzzle.grid[r][c])wrong.add(k);}$('#game-message').textContent=wrong.size?`${wrong.size} ${wrong.size===1?'letter needs':'letters need'} another look. Marked in red.`:Object.keys(letters).length?'Looking good. Your filled letters are correct!':'Add a few letters, then check your work.';render();};
  $('#reveal').onclick=()=>{const[r,c]=selected.split(',').map(Number);letters[selected]=puzzle.grid[r][c];wrong.delete(selected);$('#game-message').textContent='A little nudge. One letter revealed.';render();};

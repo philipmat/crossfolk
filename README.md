@@ -44,8 +44,13 @@ The server tries each model in turn and falls back to the next when a request fa
 output. `OPENROUTER_MODEL` is still accepted as a single-model alias, and `OPENROUTER_SITE_URL` sets the `HTTP-Referer`
 attribution header. The key remains on the server. Theme text and recently used answers are sent to OpenRouter when
 generating a new non-curated game with AI enabled. This requires an account with API access and incurs API usage charges.
-Each model can run for up to 20 seconds, but all retries share a 25-second request budget so the Vercel deployment can
-return a fallback result within its 30-second function limit. The timeout includes the response body.
+Each model can run for up to 24 seconds, but all retries share a 25-second request budget so the Vercel deployment can
+return a fallback result within its 30-second function limit. The timeout includes the response body. To keep responses
+quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the local grid solver selects from them.
+
+A puzzle whose words came from the AI is labelled under its title with the model that answered and the tokens the call
+used, for example `AI-generated theme words · deepseek/deepseek-v4-flash · 1,234 tokens in / 567 out`. The counts include
+tokens burned by attempts that were discarded in favour of a later model. Curated themes carry no such label.
 
 A few dozen generated words are enough for a Small grid when the model returns clean, varied answers, and the result is a
 fully crossed mini. Repetitive pools — plurals, verb endings, coined words — still build a themed-majority grid, but a

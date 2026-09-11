@@ -53,7 +53,7 @@ export async function handleWords(request, {env = {}, rateLimit, fetchImpl} = {}
   }
 
   try {
-    const {status, body} = await generateWords(input, env, {fetchImpl});
+    const {status, body} = await generateWords(input, env, {fetchImpl, signal: request.signal});
     return json(status, body);
   } catch (error) {
     console.error('Unexpected error generating words:', error);
