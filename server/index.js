@@ -3,6 +3,7 @@ import {readFile, stat} from 'node:fs/promises';
 import {extname, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {handleWords, MAX_BODY} from './handler.js';
+import {parseModels} from './words.js';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', 'public');
 const PORT = Number(process.env.PORT || 3000);
@@ -87,5 +88,9 @@ const server = createServer(async (request, response) => {
 export default server;
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  server.listen(PORT, () => console.log(`Crosswords is running at http://localhost:${PORT}`));
+  server.listen(PORT, () => {
+    const configured = process.env.OPENROUTER_MODELS || process.env.OPENROUTER_MODEL;
+    console.log(`Crosswords is running at http://localhost:${PORT}`);
+    console.log(`OpenRouter models (${configured ? 'OPENROUTER_MODELS' : 'built-in defaults'}): ${parseModels(process.env).join(', ')}`);
+  });
 }
