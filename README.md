@@ -115,6 +115,23 @@ npx wrangler secret put OPENROUTER_API_KEY
 npx wrangler deploy
 ```
 
+### Docker
+
+The container image runs the local Node server and contains only the browser assets, server code, and package manifest.
+It does not copy `.env` or any API credential. Pass `OPENROUTER_API_KEY` when the container starts:
+
+```sh
+docker build -t crossfolk .
+docker run --rm -p 3000:3000 \\
+  -e OPENROUTER_API_KEY \\
+  crossfolk
+```
+
+The command above forwards an already-exported local `OPENROUTER_API_KEY`; use
+`-e OPENROUTER_API_KEY='your-key'` when needed. Optional configuration, such as `OPENROUTER_MODELS`,
+`OPENROUTER_SITE_URL`, and `PORT`, can be passed with additional `-e` flags. Do not bake credentials into the image
+or pass `.env` through the build context.
+
 ### Vercel
 
 `public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`. It takes no runtime
