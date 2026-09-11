@@ -1,6 +1,8 @@
 // Platform-neutral OpenRouter logic. No `process`, no platform imports, no `node:` imports:
 // callers pass an `env` object and (optionally) a `fetch` implementation.
-export const DEFAULT_MODELS = ['deepseek/deepseek-v4-flash', 'openai/gpt-5.6-luna', 'openai/gpt-4.1-mini'];
+export const DEFAULT_MODELS = [
+  'nvidia/nemotron-3-nano-30b-a3b:nitro', 'openai/gpt-oss-20b', 'google/gemini-2.5-flash-lite:nitro',
+  'deepseek/deepseek-v4-flash', 'openai/gpt-4.1-mini', 'openai/gpt-5.6-luna'];
 // Some providers begin streaming immediately but take longer than a minute to finish
 // schema-constrained reasoning. Keep a bounded shared budget without prematurely
 // cancelling a completion that has already started.
