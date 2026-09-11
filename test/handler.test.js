@@ -116,7 +116,7 @@ test('gives the preferred model a full attempt instead of splitting the budget a
     return new Promise((resolve, reject) => {
       const response = setTimeout(() => resolve(aiResponse([
         {answer: 'reef', clue: 'Coral ridge'}, {answer: 'tide', clue: 'Ocean rise'}, {answer: 'wave', clue: 'Ocean motion'}
-      ])), 12);
+      ])), 24);
       signal.addEventListener('abort', () => {
         clearTimeout(response);
         reject(new DOMException('Aborted', 'AbortError'));
@@ -148,7 +148,7 @@ test('falls back to the next model when one fails', async () => {
   assert.deepEqual(called, ['first/model', 'second/model']);
 });
 
-test('falls back after a model timeout within the total Vercel-safe budget', async () => {
+test('falls back after a model timeout within the shared generation budget', async () => {
   const called = [];
   let firstSignal;
   const fetchImpl = async (url, {body, signal}) => {
@@ -166,14 +166,14 @@ test('falls back after a model timeout within the total Vercel-safe budget', asy
   const {status, body} = await generateWords(
     {theme: 'ocean'},
     {OPENROUTER_API_KEY: 'test', OPENROUTER_MODELS: 'first/model,second/model'},
-    {fetchImpl, timeoutMs: MAX_GENERATION_TIMEOUT_MS}
+    {fetchImpl, timeoutMs: 50, maxModelTimeoutMs: 20}
   );
 
   assert.equal(status, 200);
   assert.equal(firstSignal.aborted, true);
   assert.deepEqual(called, ['first/model', 'second/model']);
-  assert.equal(MAX_GENERATION_TIMEOUT_MS, 25_000);
-  assert.equal(MAX_MODEL_TIMEOUT_MS, 24_000);
+  assert.equal(MAX_GENERATION_TIMEOUT_MS, 120_000);
+  assert.equal(MAX_MODEL_TIMEOUT_MS, 60_000);
   assert.equal(body.words.length, 3);
 });
 

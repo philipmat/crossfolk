@@ -72,7 +72,7 @@ function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.len
  try {
  if(!initial&&!resolveCuratedTheme(theme)){
   $('#ai-note').hidden=false;$('#ai-note-text').textContent='Asking the AI for theme words…';
-  const response=await fetch('/api/words',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)}),signal:AbortSignal.timeout(28000)});
+  const response=await fetch('/api/words',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)}),signal:AbortSignal.timeout(130000)});
   if(response.ok){const data=await response.json();words=data.words;source=data.source||null;}
   else if(response.status===503){aiUnavailable=true;}
   else{const data=await response.json().catch(()=>({}));throw new Error(data.error||'Could not generate this theme. Please try again.');}

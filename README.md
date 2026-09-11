@@ -45,8 +45,8 @@ output. `OPENROUTER_MODEL` is still accepted as a single-model alias, and `OPENR
 attribution header. The key remains on the server. Theme text and recently used answers are sent to OpenRouter when
 generating a new non-curated game with AI enabled. This requires an account with API access and incurs API usage charges.
 Each model can run for up to 60 seconds, and all retries share a 120-second request budget. The timeout includes the
-response body. To keep responses
-quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the local grid solver selects from them.
+response body. To keep responses quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the
+local grid solver selects from them.
 The server logs each model attempt to its console: the model about to be tried, then how many seconds the request took to
 answer or fail.
 
