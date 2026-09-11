@@ -41,8 +41,10 @@ families report that AI generation is not configured instead of falling back to 
 Optionally set `OPENROUTER_MODELS` to a comma-separated, preference-ordered list of models (default
 `deepseek/deepseek-v4-flash,openai/gpt-5.6-luna,openai/gpt-4.1-mini`; each must support structured JSON schema output).
 The server tries each model in turn and falls back to the next when a request fails, times out, or returns unusable
-output. `OPENROUTER_MODEL` is still accepted as a single-model alias, and `OPENROUTER_SITE_URL` sets the `HTTP-Referer`
-attribution header. The key remains on the server. Theme text and recently used answers are sent to OpenRouter when
+output. `OPENROUTER_MODEL` is still accepted as a single-model alias, and `OPENROUTER_SITE_URL` sets the required
+`HTTP-Referer` app-attribution header. Each request also identifies the app as `Crossfolk` with
+`X-OpenRouter-Title`. Set `OPENROUTER_SITE_URL` to the app's primary public URL in every deployment; without it,
+OpenRouter cannot create or track the app entry. The key remains on the server. Theme text and recently used answers are sent to OpenRouter when
 generating a new non-curated game with AI enabled. This requires an account with API access and incurs API usage charges.
 Each model can run for up to 60 seconds, and all retries share a 120-second request budget. The timeout includes the
 response body. To keep responses quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the
@@ -152,8 +154,8 @@ Before sending real traffic, add a rate-limit rule against `/api/words` under Pr
 dashboard.
 
 `OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each platform's environment. `OPENROUTER_MODELS` falls back
-to the defaults above when unset; `OPENROUTER_SITE_URL` is optional attribution and is simply omitted from the
-OpenRouter request when unset. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and
+to the defaults above when unset; set `OPENROUTER_SITE_URL` to the primary public URL to enable required OpenRouter app
+attribution. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and
 `node:` imports — see `AGENTS.md`.
 
 ## How the app works

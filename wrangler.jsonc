@@ -4,7 +4,7 @@
   "compatibility_date": "2026-09-07",
   "assets": { "directory": "./public" },
   "observability": { "enabled": true },
-  // OPENROUTER_SITE_URL is optional attribution; set it here or in the dashboard if wanted.
+  // Set OPENROUTER_SITE_URL in the dashboard to the app's primary public URL for OpenRouter attribution.
   "vars": { "OPENROUTER_MODELS": "" },
   "ratelimits": [
     { "name": "WORDS_LIMIT", "namespace_id": "1001", "simple": { "limit": 20, "period": 60 } }

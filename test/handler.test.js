@@ -110,7 +110,7 @@ test('rejects each invalid option before calling the AI', async () => {
   assert.equal(validateOptions({theme: 'ocean', size: 5}).count, 40);
 });
 
-test('sends the HTTP-Referer header only when OPENROUTER_SITE_URL is configured', async () => {
+test('identifies Crossfolk to OpenRouter and sends its configured URL', async () => {
   let seenHeaders;
   const fetchImpl = async (url, init) => {
     seenHeaders = init.headers;
@@ -119,10 +119,13 @@ test('sends the HTTP-Referer header only when OPENROUTER_SITE_URL is configured'
 
   await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test'}, {fetchImpl});
   assert.equal('http-referer' in seenHeaders, false);
+  assert.equal(seenHeaders['x-openrouter-title'], 'Crossfolk');
+  assert.equal(new Headers(seenHeaders).get('x-openrouter-title'), 'Crossfolk');
 
   await generateWords({theme: 'ocean'}, {OPENROUTER_API_KEY: 'test', OPENROUTER_SITE_URL: 'https://crossfolk.example'}, {fetchImpl});
   assert.equal(seenHeaders['http-referer'], 'https://crossfolk.example');
   assert.equal(new Headers(seenHeaders).get('http-referer'), 'https://crossfolk.example');
+  assert.equal(seenHeaders['x-openrouter-title'], 'Crossfolk');
 });
 
 test('gives the preferred model a full attempt instead of splitting the budget across fallbacks', async () => {
