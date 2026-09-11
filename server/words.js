@@ -1,10 +1,11 @@
 // Platform-neutral OpenRouter logic. No `process`, no platform imports, no `node:` imports:
 // callers pass an `env` object and (optionally) a `fetch` implementation.
 export const DEFAULT_MODELS = ['deepseek/deepseek-v4-flash', 'openai/gpt-5.6-luna', 'openai/gpt-4.1-mini'];
-// Stay below Vercel's 30-second function limit, while leaving time to send the
-// response back to the browser.
-export const MAX_GENERATION_TIMEOUT_MS = 25_000;
-export const MAX_MODEL_TIMEOUT_MS = 24_000;
+// Some providers begin streaming immediately but take longer than a minute to finish
+// schema-constrained reasoning. Keep a bounded shared budget without prematurely
+// cancelling a completion that has already started.
+export const MAX_GENERATION_TIMEOUT_MS = 120_000;
+export const MAX_MODEL_TIMEOUT_MS = 60_000;
 const SIZES = {small: 5, medium: 9, large: 13};
 
 export class GenerationError extends Error {
@@ -23,6 +24,12 @@ function readUsage(payload) {
   const input = Number(usage.prompt_tokens) || 0;
   const output = Number(usage.completion_tokens) || 0;
   return {input, output, total: Number(usage.total_tokens) || input + output};
+}
+
+// Wall-clock cost of one OpenRouter attempt, reported on the server console so operators can see
+// which model was tried and how long it held the shared request budget.
+function elapsedSeconds(startedAt) {
+  return ((Date.now() - startedAt) / 1000).toFixed(1);
 }
 
 function addUsage(first, second) {
@@ -151,7 +158,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
 
 // Returns plain `{status, body}` data rather than a `Response`, so this layer stays
 // testable and reusable off any HTTP runtime.
-export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, signal} = {}) {
+export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, maxModelTimeoutMs = MAX_MODEL_TIMEOUT_MS, signal} = {}) {
   if (!env.OPENROUTER_API_KEY) return {status: 503, body: {error: 'AI theme generation is not configured.'}};
 
   const options = validateOptions(input);
@@ -159,6 +166,7 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
 
   const models = parseModels(env);
   const budgetMs = Math.max(10, Math.min(Number(timeoutMs) || MAX_GENERATION_TIMEOUT_MS, MAX_GENERATION_TIMEOUT_MS));
+  const modelBudgetMs = Math.max(1, Math.min(Number(maxModelTimeoutMs) || MAX_MODEL_TIMEOUT_MS, MAX_MODEL_TIMEOUT_MS));
   const deadline = Date.now() + budgetMs;
   let lastError;
   let usage = null;
@@ -177,16 +185,19 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
 
     // Give the preferred model a useful window. Equal-splitting a short total budget
     // across a long fallback list aborts every otherwise-successful completion.
-    const modelTimeoutMs = Math.min(MAX_MODEL_TIMEOUT_MS, remainingMs);
+    const modelTimeoutMs = Math.min(modelBudgetMs, remainingMs);
     const model = models[index];
+    console.log(`Requesting theme words from OpenRouter model ${model}`);
+    const startedAt = Date.now();
     try {
       const attempt = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs, signal);
+      console.log(`OpenRouter model ${model} answered in ${elapsedSeconds(startedAt)}s`);
       return {status: 200, body: {words: attempt.words, source: {model, usage: addUsage(usage, attempt.usage)}}};
     } catch (error) {
       if (!(error instanceof GenerationError)) throw error;
       usage = addUsage(usage, error.usage);
       lastError = error;
-      console.warn(`Theme generation with ${model} failed: ${error.message}`);
+      console.warn(`OpenRouter model ${model} failed after ${elapsedSeconds(startedAt)}s: ${error.message}`);
     }
   }
 

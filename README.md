@@ -44,9 +44,11 @@ The server tries each model in turn and falls back to the next when a request fa
 output. `OPENROUTER_MODEL` is still accepted as a single-model alias, and `OPENROUTER_SITE_URL` sets the `HTTP-Referer`
 attribution header. The key remains on the server. Theme text and recently used answers are sent to OpenRouter when
 generating a new non-curated game with AI enabled. This requires an account with API access and incurs API usage charges.
-Each model can run for up to 24 seconds, but all retries share a 25-second request budget so the Vercel deployment can
-return a fallback result within its 30-second function limit. The timeout includes the response body. To keep responses
+Each model can run for up to 60 seconds, and all retries share a 120-second request budget. The timeout includes the
+response body. To keep responses
 quick, the server asks for 40 candidates for Small and 60 for Medium or Large; the local grid solver selects from them.
+The server logs each model attempt to its console: the model about to be tried, then how many seconds the request took to
+answer or fail.
 
 A puzzle whose words came from the AI is labelled under its title with the model that answered and the tokens the call
 used, for example `AI-generated theme words · deepseek/deepseek-v4-flash · 1,234 tokens in / 567 out`. The counts include
@@ -115,10 +117,14 @@ npx wrangler deploy
 
 ### Vercel
 
-`public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`. AI retries share a
-25-second request budget, leaving room for the function to return its response. It takes no runtime dependency, so the
-generation endpoint is unprotected until a rate limit is provisioned as a WAF rule — this is a required deploy step,
-not optional hardening.
+`public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`. It takes no runtime
+dependency, so the generation endpoint is unprotected until a rate limit is provisioned as a WAF rule — this is a
+required deploy step, not optional hardening.
+
+**TODO: Revisit Vercel support for AI themes.** Theme generation now has a 120-second shared request budget because
+providers can stream promptly yet take longer than 30 seconds to complete. That exceeds this deployment's configured
+function duration, so local and Worker use are supported but Vercel AI generation is not currently reliable. Validate a
+longer Vercel function duration or move this work to an asynchronous architecture before relying on it in production.
 
 ```sh
 npx vercel env add OPENROUTER_API_KEY production
