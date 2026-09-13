@@ -1,6 +1,6 @@
 # Crossfolk
 
-A responsive theme-based crossword game, built with native JavaScript and a dependency-free Node server.
+A responsive theme-based crossword game, built with native JavaScript and a lightweight Node server.
 
 ## Run
 
@@ -140,9 +140,11 @@ attribution. Keep `server/words.js` and `server/handler.js` free of `process`, p
 
 ## How the app works
 
-There is no framework, build step, database, or runtime package dependency. The browser loads native ES modules from the
-Node server during development; in production Cloudflare serves the same `public/` directory as Workers Static Assets,
-and only `/api/words` reaches server code.
+There is currently no framework, build step, database, or runtime package dependency. For a small amount of
+functionality, favor implementing it directly; for complex functionality, a lightweight, focused library is acceptable
+when it clearly reduces implementation or maintenance complexity. The browser loads native ES modules from the Node
+server during development; in production Cloudflare serves the same `public/` directory as Workers Static Assets, and
+only `/api/words` reaches server code.
 
 1. **Choose a puzzle.** `public/app.js` manages the controls, selected cell/clue, letter entry, checking, reveals,
    timer, and rendering. A non-curated theme requests candidate words from `POST /api/words`, which

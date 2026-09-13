@@ -4,7 +4,7 @@ Read the developer overview and run instructions in `README.md` before changing 
 
 ## Project conventions
 
-- This is a native JavaScript ES-module app with a dependency-free Node server. Keep changes consistent with that structure; avoid introducing a framework or build system for routine changes.
+- This is a native JavaScript ES-module app with a lightweight Node server. Keep changes consistent with that structure; for a small amount of functionality, favor implementing it directly. When functionality is complex enough to justify it, a lightweight, focused library is acceptable. Avoid introducing a framework or build system for routine changes.
 - Layout: `public/` holds every browser-loaded file (HTML, CSS, client JS), `server/` holds all server-side code, `scripts/` holds data-generation utilities, and `test/` holds automated tests. `worker/` holds the Cloudflare deployment adapter.
 - `server/handler.js` and `server/words.js` are the portable core: `server/index.js` bridges local HTTP requests to them, and `worker/index.js` adapts them for Cloudflare.
 - For coding tasks, use judgment to select an appropriate lower-power model for a concrete subagent task. Delegate only work that can run independently of useful local work.
@@ -21,7 +21,7 @@ The core must run unmodified on Node 22 and `workerd`. Check these on every revi
 2. Never import a platform package or a `node:` builtin. Cloudflare bindings and `node:fs` are reached only through injected functions or the adapter layer; an import inside the core would be bundled into the other platform's build.
 3. Use only APIs common to both runtimes: `fetch`, `Request`, `Response`, `Headers`, `URL`, `AbortController`, `setTimeout`, and `JSON`. `fetch` is an injectable parameter defaulting to the global so tests can stub OpenRouter without credentials.
 
-Adapters stay thin: they supply environment access, rate limiting, and static file serving, and nothing else. The repo stays dependency-free.
+Adapters stay thin: they supply environment access, rate limiting, and static file serving, and nothing else. Favor implementing small utilities directly, but allow a lightweight, focused library for complex functionality when it preserves the portable core and clearly reduces implementation or maintenance complexity.
 
 ## Product requirements to preserve
 
