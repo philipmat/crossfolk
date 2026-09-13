@@ -8,12 +8,10 @@ node_modules/
 .idea/
 .claude/
 .wrangler/
-.vercel/
 .local/
 coverage/
 test/
 scripts/
 worker/
-api/
 npm-debug.log*
 .DS_Store

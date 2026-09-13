@@ -23,8 +23,8 @@ function json(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
-// Local-only bridge: build a Web `Request` so the same `handleWords` runs here, in a
-// Worker, and in a Vercel Function. The body is buffered while capped, because a Node
+// Local-only bridge: build a Web `Request` so the same `handleWords` runs here and in a
+// Worker. The body is buffered while capped, because a Node
 // stream body would require `duplex: 'half'` and buys nothing at 32 KB.
 async function toWebRequest(request) {
   const chunks = [];

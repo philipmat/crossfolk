@@ -88,23 +88,22 @@ reviewed in the browser. Keyboard entry, touch keyboard, answer checking, letter
 size, and hard clues were exercised; HTTP smoke checks cover public assets and blocked private paths.
 
 The generation endpoint is unlimited on the local server. Cloudflare enforces the `WORDS_LIMIT` binding automatically on
-deploy; Vercel has no built-in limiter, so its rate limit is not in effect until a WAF rule is provisioned — see Deploy.
+deploy.
 Live AI generation was exercised against OpenRouter with a configured key: an arbitrary theme returned words after the
 first model in the list produced unusable output and the next model answered.
 
 ## Deploy
 
-All three targets run the same `server/handler.js`; only environment access, rate limiting, and static file serving
+Local and Cloudflare run the same `server/handler.js`; only environment access, rate limiting, and static file serving
 differ.
 
 |                   | Command            | Static files                                  | API key                  | Rate limit        |
 |-------------------|--------------------|-----------------------------------------------|--------------------------|-------------------|
 | Local (canonical) | `npm start`        | `PUBLIC_FILES` allowlist in `server/index.js` | shell environment        | none              |
 | Cloudflare check  | `npx wrangler dev` | `assets` directory                            | `.dev.vars` (gitignored) | simulated binding |
-| Vercel check      | `npx vercel dev`   | `outputDirectory`                             | `vercel env pull`        | none locally      |
 
-`npm start` stays the fastest loop and exercises the same handler both platforms run; the platform CLIs are pre-deploy
-smoke checks.
+`npm start` stays the fastest loop and exercises the same handler used by the Cloudflare Worker; the Worker CLI is a
+pre-deploy smoke check.
 
 ### Cloudflare Workers
 
@@ -134,26 +133,7 @@ The command above forwards an already-exported local `OPENROUTER_API_KEY`; use
 `OPENROUTER_SITE_URL`, and `PORT`, can be passed with additional `-e` flags. Do not bake credentials into the image
 or pass `.env` through the build context.
 
-### Vercel
-
-`public/` is served from the CDN and `api/words.js` runs as a Node function with `maxDuration: 30`. It takes no runtime
-dependency, so the generation endpoint is unprotected until a rate limit is provisioned as a WAF rule — this is a
-required deploy step, not optional hardening.
-
-**TODO: Revisit Vercel support for AI themes.** Theme generation now has a 120-second shared request budget because
-providers can stream promptly yet take longer than 30 seconds to complete. That exceeds this deployment's configured
-function duration, so local and Worker use are supported but Vercel AI generation is not currently reliable. Validate a
-longer Vercel function duration or move this work to an asynchronous architecture before relying on it in production.
-
-```sh
-npx vercel env add OPENROUTER_API_KEY production
-npx vercel deploy --prod
-```
-
-Before sending real traffic, add a rate-limit rule against `/api/words` under Project Settings → Firewall in the Vercel
-dashboard.
-
-`OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each platform's environment. `OPENROUTER_MODELS` falls back
+`OPENROUTER_MODELS` and `OPENROUTER_SITE_URL` are read from each runtime's environment. `OPENROUTER_MODELS` falls back
 to the defaults above when unset; set `OPENROUTER_SITE_URL` to the primary public URL to enable required OpenRouter app
 attribution. Keep `server/words.js` and `server/handler.js` free of `process`, platform imports, and
 `node:` imports — see `AGENTS.md`.
@@ -161,12 +141,12 @@ attribution. Keep `server/words.js` and `server/handler.js` free of `process`, p
 ## How the app works
 
 There is no framework, build step, database, or runtime package dependency. The browser loads native ES modules from the
-Node server during development; in production the same `public/` directory is served by the platform's CDN (`assets` on
-Cloudflare, `outputDirectory` on Vercel), and only `/api/words` reaches server code.
+Node server during development; in production Cloudflare serves the same `public/` directory as Workers Static Assets,
+and only `/api/words` reaches server code.
 
 1. **Choose a puzzle.** `public/app.js` manages the controls, selected cell/clue, letter entry, checking, reveals,
    timer, and rendering. A non-curated theme requests candidate words from `POST /api/words`, which
-   `server/handler.js` implements on every target. Curated themes use local vocabulary. A `503` for a non-curated theme
+   `server/handler.js` implements locally and on Cloudflare. Curated themes use local vocabulary. A `503` for a non-curated theme
    explains that AI needs configuration. The initial demo skips that request.
 2. **Generate off the main thread.** `public/puzzle-worker.js` calls `public/engine.js` and returns either a puzzle or
    an error. The engine combines the theme vocabulary, optional AI candidates, and general crossing words. The AI
@@ -185,7 +165,6 @@ Cloudflare, `outputDirectory` on Vercel), and only `/api/words` reaches server c
 public/    Static assets served to the browser (HTML, CSS, and all client-side JS)
 server/    Portable request core plus the local development server
 worker/    Cloudflare Worker adapter (platform-mandated directory name)
-api/       Vercel Function adapter (platform-mandated directory name)
 scripts/   Dictionary and fallback-data generation utilities
 test/      Automated tests
 ```
@@ -198,7 +177,7 @@ test/      Automated tests
 | `server/handler.js`                                                                                | Platform-neutral Web handler for `POST /api/words`                                   |
 | `server/words.js`                                                                                  | Platform-neutral OpenRouter request, validation, and model fallback                  |
 | `server/index.js`                                                                                  | Local development server: static-file allowlist plus a bridge to `server/handler.js` |
-| `worker/index.js`, `api/words.js`                                                                  | Cloudflare and Vercel adapters around `server/handler.js`                            |
+| `worker/index.js`                                                                                  | Cloudflare adapter around `server/handler.js`                                         |
 | `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js`                                   | Worker boundary, generation policy, and constraint solver                            |
 | `public/fill-words.js`, `public/theme-fill.js`, `public/theme-plurals.js`, `public/theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues         |
 | `public/mini-patterns.js`, `public/dense-fallbacks.js`                                             | Mini grid shapes and pre-generated fallback puzzles                                  |
