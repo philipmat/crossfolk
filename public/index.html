@@ -33,16 +33,19 @@
         <aside class="settings">
             <div class="section-heading"><span class="small-icon">✳</span>
                 <h2>Make it yours</h2></div>
-            <form id="settings-form"><label for="theme">What’s your theme?</label>
-                <div class="theme-wrap"><input id="theme" value="Ocean life"
-                                               placeholder="e.g. space, coffee, wild animals" maxlength="100"
-                                               required><span>✎</span></div>
-                <p class="field-hint">A few words. A whole world to explore.</p>
-                <div class="suggestions">
-                    <button type="button" data-theme="Space">Space ↗</button>
-                    <button type="button" data-theme="Food">Food ↗</button>
-                    <button type="button" data-theme="Nature">Nature ↗</button>
+            <form id="settings-form"><label for="theme-preset">Choose a theme or create your own</label>
+                <div class="theme-wrap">
+                    <select id="theme-preset" aria-label="Built-in theme">
+                        <option value="">Custom theme…</option>
+                        <option value="nature">Nature</option><option value="ocean" selected>Ocean</option>
+                        <option value="space">Space</option><option value="food">Food</option>
+                        <option value="music">Music</option><option value="travel">Travel</option>
+                        <option value="sports">Sports</option><option value="animals">Animals</option>
+                        <option value="weather">Weather</option><option value="garden">Garden</option>
+                    </select>
+                    <input id="theme" placeholder="Choose a theme or create your own" maxlength="100" aria-label="Custom theme">
                 </div>
+                <p class="field-hint">A few words. A whole world to explore.</p>
                 <fieldset>
                     <legend>Puzzle size</legend>
                     <div class="segments" id="sizes">

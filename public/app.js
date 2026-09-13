@@ -1,4 +1,4 @@
-import { resolveCuratedTheme } from './themes.js';
+import { resolveCuratedTheme, restoredThemeSelection, selectedTheme } from './themes.js';
 
 function generatePuzzle(options) {
  return new Promise((resolve,reject)=>{
@@ -82,8 +82,7 @@ function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.len
  });
  $('#sizes').onclick=e=>{const b=e.target.closest('[data-size]');if(!b)return;size=Number(b.dataset.size);for(const x of $('#sizes').children){x.classList.toggle('chosen',x===b);x.setAttribute('aria-pressed',String(x===b));}};
  $('#difficulties').onclick=e=>{const b=e.target.closest('[data-difficulty]');if(!b)return;difficulty=b.dataset.difficulty;for(const x of $('#difficulties').children){x.classList.toggle('chosen',x===b);x.setAttribute('aria-pressed',String(x===b));}};
- document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{$('#theme').value=b.dataset.theme;$('#theme').focus();});
-async function create(initial=false){const theme=$('#theme').value.trim();if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
+async function create(initial=false){const theme=selectedTheme($('#theme').value,$('#theme-preset').value);if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
  const requestId=newRequestId();const requestPayload=Object.freeze({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100)});
  let words,aiUnavailable=false,source=null;
  try {
@@ -94,7 +93,7 @@ async function create(initial=false){const theme=$('#theme').value.trim();if(!th
  }
  const next=await generatePuzzle({theme,size,difficulty,history,words});puzzle={...next,difficulty,source};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';render();updateTimer();
  }catch(error){showSource(puzzle?.source);const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const message=error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.';$('#error').textContent=needsAi?`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`:message;}finally{$('#generate').disabled=false;$('#generate').innerHTML='Create my crossword <span>→</span>';}}
- $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme').oninput=()=>$('#theme').setCustomValidity('');
+ $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme-preset').onchange=()=>{$('#theme').value='';$('#theme').setCustomValidity('');};$('#theme').oninput=()=>{$('#theme-preset').value='';$('#theme').setCustomValidity('');};
  $('#check').onclick=()=>{wrong.clear();for(const [k,v]of Object.entries(letters)){const[r,c]=k.split(',').map(Number);if(v!==puzzle.grid[r][c])wrong.add(k);}$('#game-message').textContent=wrong.size?`${wrong.size} ${wrong.size===1?'letter needs':'letters need'} another look. Marked in red.`:Object.keys(letters).length?'Looking good. Your filled letters are correct!':'Add a few letters, then check your work.';render();};
  $('#reveal').onclick=()=>{const[r,c]=selected.split(',').map(Number);letters[selected]=puzzle.grid[r][c];wrong.delete(selected);$('#game-message').textContent='A little nudge. One letter revealed.';render();};
  $('#clear').onclick=()=>{if(!Object.keys(letters).length)return;if(confirm('Clear all your letters in this puzzle?')){letters={};wrong.clear();solved=false;$('#game-message').textContent='A fresh start. You’ve got this.';render();}};
@@ -102,5 +101,5 @@ async function create(initial=false){const theme=$('#theme').value.trim();if(!th
  for(const row of ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM']){const div=document.createElement('div');div.className='key-row';for(const letter of row){const b=document.createElement('button');b.textContent=letter;b.setAttribute('aria-label',`Enter ${letter}`);b.onclick=()=>enter(letter);div.append(b);}if(row==='ZXCVBNM'){const next=document.createElement('button');next.textContent='Next';next.className='wide';next.onclick=()=>nextClue();div.prepend(next);const back=document.createElement('button');back.textContent='⌫';back.className='wide';back.setAttribute('aria-label','Backspace');back.onclick=()=>enter('Backspace');div.append(back);}$('#keyboard').append(div);}
  function updateTimer(){$('#timer').textContent=`${String(Math.floor(elapsed/60)).padStart(2,'0')}:${String(elapsed%60).padStart(2,'0')}`;}
  setInterval(()=>{if(puzzle&&!solved&&!document.hidden&&!dialog.open){elapsed++;updateTimer();if(elapsed%5===0)save();}},1000);
- try{const saved=JSON.parse(localStorage.getItem('crossfolk-game'));if(saved?.puzzle?.entries?.length&&saved.puzzle.grid){({puzzle,letters,elapsed,active,selected,solved}=saved);size=puzzle.size;difficulty=puzzle.difficulty||'easy';$('#theme').value=puzzle.theme;document.querySelector(`[data-size="${size}"]`).click();document.querySelector(`[data-difficulty="${difficulty}"]`).click();render();updateTimer();}}catch{puzzle=null;}
+ try{const saved=JSON.parse(localStorage.getItem('crossfolk-game'));if(saved?.puzzle?.entries?.length&&saved.puzzle.grid){({puzzle,letters,elapsed,active,selected,solved}=saved);size=puzzle.size;difficulty=puzzle.difficulty||'easy';const themeSelection=restoredThemeSelection(puzzle.theme);$('#theme-preset').value=themeSelection.preset;$('#theme').value=themeSelection.custom;document.querySelector(`[data-size="${size}"]`).click();document.querySelector(`[data-difficulty="${difficulty}"]`).click();render();updateTimer();}}catch{puzzle=null;}
  if(!puzzle)create(true);

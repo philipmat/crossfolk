@@ -2,6 +2,17 @@ export const supportedThemes = Object.freeze([
   'nature', 'ocean', 'space', 'food', 'music', 'travel', 'sports', 'animals', 'weather', 'garden',
 ]);
 
+export function selectedTheme(customTheme, presetTheme) {
+  return String(customTheme ?? '').trim() || String(presetTheme ?? '').trim();
+}
+
+export function restoredThemeSelection(theme) {
+  const savedTheme = String(theme ?? '').trim();
+  const preset = supportedThemes.find(item => item.toLowerCase() === savedTheme.toLowerCase());
+
+  return preset ? { preset, custom: '' } : { preset: '', custom: savedTheme };
+}
+
 const THEME_ALIASES = {
   nature: ['nature', 'forest', 'woods', 'outdoors', 'mountain', 'river', 'tree'],
   ocean: ['ocean', 'sea', 'beach', 'marine', 'underwater', 'coast', 'reef'],
