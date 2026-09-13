@@ -73,6 +73,13 @@ grids can scroll horizontally on narrow screens. Check marks wrong letters, Reve
 resets letters after confirmation. The timer pauses when the page is hidden; game progress and history are saved in
 local storage.
 
+### Browser storage
+
+The browser stores the full current puzzle and its progress in `localStorage` under `crossfolk-game`. It also stores the
+answer sets from the last 100 generated puzzles under `crossfolk-history`, so new puzzles can avoid repeating a complete
+answer set. Older puzzles are not retained with their full grids or clues; creating a new puzzle replaces the previous
+full puzzle record.
+
 ## Verify
 
 ```sh
