@@ -4,11 +4,16 @@ A responsive theme-based crossword game, built with native JavaScript and a ligh
 
 ## Run
 
-Requires Node.js 22.9 or newer.
+Requires Node.js 22.13 or newer (the built-in `node:sqlite` API is used for local persistence).
 
 ```sh
 npm start
 ```
+
+The local server opens the shared application database at `.local/crossfolk.sqlite` and applies pending files in
+`migrations/` before accepting requests. Set `APP_DB_PATH` to use another SQLite file, such as
+`APP_DB_PATH=/data/crossfolk.sqlite`. The database is application-wide infrastructure: AI request/attempt logging is
+its first feature and future persisted features reuse the same connection and migration history.
 
 Open http://localhost:3000. Set `PORT` to choose another port. `npm start` loads a gitignored `.env` file from the
 project root when one exists, so `OPENROUTER_API_KEY` can live there instead of in your shell profile.
@@ -80,6 +85,21 @@ answer sets from the last 100 generated puzzles under `crossfolk-history`, so ne
 answer set. Older puzzles are not retained with their full grids or clues; creating a new puzzle replaces the previous
 full puzzle record.
 
+### AI request persistence and privacy
+
+Curated themes never call the generation endpoint and create no database record. An AI-backed generation has one
+browser-generated canonical UUID (`requestId`). Bounded retries resend the exact payload and UUID; an explicit new
+puzzle action creates a new UUID. Completed UUIDs replay their stored response without another provider call. Active
+requests return `202` with `Retry-After`, and an abandoned request can be reclaimed after its lease expires. OpenRouter's
+complete response (up to 256 KiB) is durably checkpointed before parsing so a retry can recover after an interrupted
+execution. A narrow at-least-once window remains between provider completion and that checkpoint.
+
+Stored diagnostics contain normalized inputs, model metadata, safe error categories, and bounded response text. They
+never contain API keys, authorization headers, cookies, arbitrary headers, or raw IP addresses. Cloudflare hashes the
+connecting IP with `REQUESTER_HASH_SECRET`; local runs use the constant requester key `local`. Records are retained
+until manually pruned in this initial release. See [.local/cloudflare-manual-setup.md](.local/cloudflare-manual-setup.md)
+for account-specific D1 provisioning and migration steps.
+
 ## Verify
 
 ```sh
@@ -101,8 +121,8 @@ first model in the list produced unusable output and the next model answered.
 
 ## Deploy
 
-Local and Cloudflare run the same `server/handler.js`; only environment access, rate limiting, and static file serving
-differ.
+Local and Cloudflare run the same `server/handler.js`; only environment access, rate limiting, static file serving, and
+the database adapter differ. Cloudflare uses the shared `APP_DB` D1 binding.
 
 |                   | Command            | Static files                                  | API key                  | Rate limit        |
 |-------------------|--------------------|-----------------------------------------------|--------------------------|-------------------|
@@ -120,8 +140,20 @@ per minute per IP.
 
 ```sh
 npx wrangler secret put OPENROUTER_API_KEY
+npx wrangler secret put REQUESTER_HASH_SECRET
 npx wrangler deploy
 ```
+
+Create the shared D1 database and apply committed migrations before the first deployment that writes logs:
+
+```sh
+npx wrangler d1 create crossfolk-db
+npx wrangler d1 migrations apply crossfolk-db --local
+npx wrangler d1 migrations apply crossfolk-db --remote
+```
+
+Do not invent a `database_id`; put the ID returned by Wrangler into `wrangler.jsonc` under `APP_DB`. The full
+operator-owned runbook is [.local/cloudflare-manual-setup.md](.local/cloudflare-manual-setup.md).
 
 ### Docker
 
@@ -130,10 +162,13 @@ It does not copy `.env` or any API credential. Pass `OPENROUTER_API_KEY` when th
 
 ```sh
 docker build -t crossfolk .
-docker run --rm -p 3000:3000 \\
+docker run --rm -p 3000:3000 -v crossfolk-data:/data \\
   -e OPENROUTER_API_KEY \\
-  crossfolk
+crossfolk
 ```
+
+The image sets `APP_DB_PATH=/data/crossfolk.sqlite`, creates `/data` for the unprivileged `node` user, and declares it
+as a volume; `/app` is not a writable database location.
 
 The command above forwards an already-exported local `OPENROUTER_API_KEY`; use
 `-e OPENROUTER_API_KEY='your-key'` when needed. Optional configuration, such as `OPENROUTER_MODELS`,
@@ -147,7 +182,7 @@ attribution. Keep `server/words.js` and `server/handler.js` free of `process`, p
 
 ## How the app works
 
-There is currently no framework, build step, database, or runtime package dependency. For a small amount of
+There is currently no framework or build step, and no runtime package dependency beyond Node's built-in SQLite API. For a small amount of
 functionality, favor implementing it directly; for complex functionality, a lightweight, focused library is acceptable
 when it clearly reduces implementation or maintenance complexity. The browser loads native ES modules from the Node
 server during development; in production Cloudflare serves the same `public/` directory as Workers Static Assets, and
@@ -167,6 +202,35 @@ only `/api/words` reaches server code.
 4. **Play and save locally.** A puzzle contains a two-dimensional `grid` of letters or `null` blocks, plus `entries`
    with answers, clues, zero-based row/column positions, directions, clue numbers, and theme flags. Progress and recent
    answer sets live in browser `localStorage`; there are no accounts or server-side saves.
+
+### Investigation queries
+
+The same SQL works with the local file and D1 (use `npx wrangler d1 execute crossfolk-db --remote --command "..."` for
+the latter):
+
+```sql
+-- Recent failures
+SELECT id, started_at_ms, http_status, error_category, error_message
+FROM ai_generation_requests WHERE outcome NOT IN ('succeeded')
+ORDER BY started_at_ms DESC LIMIT 25;
+
+-- Attempts for one request
+SELECT attempt_number, model, outcome, total_tokens, duration_ms, provider_request_id
+FROM ai_generation_attempts WHERE request_id = '<request-id>' ORDER BY attempt_number;
+
+-- Daily known token usage
+SELECT date(started_at_ms / 1000, 'unixepoch') AS day, SUM(known_total_tokens) AS tokens
+FROM ai_generation_requests GROUP BY day ORDER BY day DESC;
+
+-- Usage by model
+SELECT model, SUM(total_tokens) AS tokens, COUNT(*) AS attempts
+FROM ai_generation_attempts GROUP BY model ORDER BY tokens DESC;
+
+-- Rolling requester window (timestamps are epoch milliseconds)
+SELECT requester_key, COUNT(*) AS requests, SUM(known_total_tokens) AS tokens
+FROM ai_generation_requests WHERE started_at_ms >= (strftime('%s','now') * 1000 - 3600000)
+GROUP BY requester_key;
+```
 
 ### Layout
 

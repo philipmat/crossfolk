@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file-if-exists=.env server/index.js",
-    "test": "node --test test/engine.test.js test/handler.test.js"
+    "test": "node --test test/engine.test.js test/handler.test.js test/database.test.js test/d1-store.test.js test/browser-retry.test.js test/regressions.test.js"
   },
   "engines": {
-    "node": ">=22.9.0"
+    "node": ">=22.13.0"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

@@ -5,6 +5,8 @@ import {fileURLToPath} from 'node:url';
 import {handleWords, MAX_BODY} from './handler.js';
 import {logger} from './logger.js';
 import {parseModels} from './words.js';
+import {openApplicationDatabase} from './sqlite-database.js';
+import {SqliteGenerationStore} from './sqlite-generation-store.js';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', 'public');
 const PORT = Number(process.env.PORT || 3000);
@@ -17,6 +19,10 @@ const TYPES = {
   '.png': 'image/png'
 };
 export const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style.css', 'dense.js', 'fill-words.js', 'puzzle-worker.js', 'theme-fill.js', 'themes.js', 'wordnet-words.js', 'WORDNET-LICENSE.txt', 'mini-patterns.js', 'theme-plurals.js', 'theme-clues.js', 'dense-fallbacks.js']);
+
+export function isWordsPath(url) {
+  return new URL(url, 'http://localhost').pathname === '/api/words';
+}
 
 function json(response, status, body) {
   response.writeHead(status, {'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store'});
@@ -50,7 +56,8 @@ async function toWebRequest(request) {
   });
 }
 
-async function apiWords(request, response) {
+function createLocalRequestHandler({env = process.env, generationStore} = {}) {
+  return async function apiWords(request, response) {
   let webRequest;
   try {
     webRequest = await toWebRequest(request);
@@ -59,9 +66,10 @@ async function apiWords(request, response) {
     if (error.tooLarge) return json(response, 413, {error: 'Request body is too large.'});
     return json(response, 400, {error: 'Invalid request.'});
   }
-  const webResponse = await handleWords(webRequest, {env: process.env});
+  const webResponse = await handleWords(webRequest, {env: {...env, RUNTIME: 'local', REQUESTER_KEY: 'local', REQUESTER_KEY_VERSION: 'v1'}, generationStore});
   response.writeHead(webResponse.status, Object.fromEntries(webResponse.headers));
   response.end(Buffer.from(await webResponse.arrayBuffer()));
+  };
 }
 
 async function staticFile(request, response) {
@@ -80,16 +88,29 @@ async function staticFile(request, response) {
   }
 }
 
-const server = createServer(async (request, response) => {
-  if (request.url === '/api/words') return apiWords(request, response);
-  if (request.method !== 'GET' && request.method !== 'HEAD') return json(response, 405, {error: 'Method not allowed.'});
-  return staticFile(request, response);
-});
+export function createLocalServer({env = process.env, database, generationStore} = {}) {
+  const store = generationStore || (database ? new SqliteGenerationStore(database.connection, {runtime: 'local'}) : undefined);
+  const apiWords = createLocalRequestHandler({env, generationStore: store});
+  return createServer(async (request, response) => {
+    if (isWordsPath(request.url)) return apiWords(request, response);
+    if (request.method !== 'GET' && request.method !== 'HEAD') return json(response, 405, {error: 'Method not allowed.'});
+    return staticFile(request, response);
+  });
+}
+
+// Kept as a no-database instance for importers and tests. Production startup below
+// explicitly owns both the database and this server's lifecycle.
+const server = createLocalServer();
 
 export default server;
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  server.listen(PORT, () => {
+  const database = openApplicationDatabase(process.env.APP_DB_PATH);
+  const runnable = createLocalServer({database});
+  const shutdown = () => { runnable.close(() => database.close()); };
+  process.once('SIGINT', shutdown);
+  process.once('SIGTERM', shutdown);
+  runnable.listen(PORT, () => {
     const configured = process.env.OPENROUTER_MODELS || process.env.OPENROUTER_MODEL;
     logger.info(`Crosswords is running at http://localhost:${PORT}`);
     logger.info(`OpenRouter models (${configured ? 'OPENROUTER_MODELS' : 'built-in defaults'}): ${parseModels(process.env).join(', ')}`);

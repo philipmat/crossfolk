@@ -10,24 +10,30 @@ export const DEFAULT_MODELS = [
 // cancelling a completion that has already started.
 export const MAX_GENERATION_TIMEOUT_MS = 120_000;
 export const MAX_MODEL_TIMEOUT_MS = 60_000;
+export const MAX_PROVIDER_RESPONSE_BODY = 256 * 1024;
+export const PROMPT_VERSION = 'crossfolk-words-v2';
 const SIZES = {small: 5, medium: 9, large: 13};
+const MAX_DIAGNOSTIC_TEXT = 4096;
 
 export class GenerationError extends Error {
-  constructor(status, message, usage = null) {
+  constructor(status, message, usage = null, metadata = {}) {
     super(message);
     this.status = status;
     this.usage = usage;
+    Object.assign(this, metadata);
   }
 }
 
 // OpenRouter reports token counts alongside the completion. Surfacing them shows the player
 // what the AI call cost, including tokens burned by an attempt that then failed.
-function readUsage(payload) {
+export function readUsage(payload) {
   const usage = payload?.usage;
   if (!usage) return null;
-  const input = Number(usage.prompt_tokens) || 0;
-  const output = Number(usage.completion_tokens) || 0;
-  return {input, output, total: Number(usage.total_tokens) || input + output};
+  const number = (value) => value == null || value === '' ? null : (Number.isFinite(Number(value)) ? Number(value) : null);
+  const input = number(usage.prompt_tokens);
+  const output = number(usage.completion_tokens);
+  const reportedTotal = number(usage.total_tokens);
+  return {input, output, total: reportedTotal};
 }
 
 // Wall-clock cost of one OpenRouter attempt, reported on the server console so operators can see
@@ -39,7 +45,76 @@ function elapsedSeconds(startedAt) {
 function addUsage(first, second) {
   if (!first) return second ?? null;
   if (!second) return first;
-  return {input: first.input + second.input, output: first.output + second.output, total: first.total + second.total};
+  const add = (a, b) => a == null || b == null ? null : a + b;
+  return {input: add(first.input, second.input), output: add(first.output, second.output), total: add(first.total, second.total)};
+}
+
+function safeDiagnostic(value) {
+  if (value == null) return null;
+  return String(value).slice(0, MAX_DIAGNOSTIC_TEXT);
+}
+
+function safeProviderRequestId(response) {
+  return safeDiagnostic(response.headers.get('x-request-id') || response.headers.get('x-openrouter-request-id'));
+}
+
+export async function readCappedProviderBody(response) {
+  if (!response.body) {
+    const text = await response.text();
+    if (new TextEncoder().encode(text).byteLength > MAX_PROVIDER_RESPONSE_BODY) throw new GenerationError(502, 'Theme generation response was too large.', null, {category: 'oversized_response'});
+    return text;
+  }
+
+  const reader = response.body.getReader();
+  const chunks = [];
+  let length = 0;
+  while (true) {
+    const {done, value} = await reader.read();
+    if (done) break;
+    length += value.byteLength;
+    if (length > MAX_PROVIDER_RESPONSE_BODY) {
+      await reader.cancel();
+      throw new GenerationError(502, 'Theme generation response was too large.', null, {category: 'oversized_response'});
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+function parseProviderResponse(responseText, {size, providerHttpStatus = 200}) {
+  let payload;
+  try {
+    payload = JSON.parse(responseText);
+  } catch {
+    throw new GenerationError(502, 'The AI returned malformed JSON.', null, {category: 'malformed_json'});
+  }
+  const usage = readUsage(payload);
+  if (providerHttpStatus < 200 || providerHttpStatus >= 300) {
+    throw new GenerationError(502, safeDiagnostic(payload?.error?.message) || 'Theme generation failed.', usage, {category: 'upstream_error', providerHttpStatus});
+  }
+  const content = payload?.choices?.[0]?.message?.content;
+  if (typeof content !== 'string' && !Array.isArray(content)) {
+    if (!payload?.choices?.length) throw new GenerationError(502, safeDiagnostic(payload?.error?.message) || 'Theme generation failed.', usage, {category: 'empty_response'});
+  }
+  const output = Array.isArray(content) ? content.filter((part) => part.type === 'text').map((part) => part.text).join('') : content;
+  if (typeof output !== 'string' || !output.trim()) throw new GenerationError(502, 'The AI returned an empty response.', usage, {category: 'empty_response'});
+  let parsed;
+  try {
+    parsed = JSON.parse(output.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ''));
+  } catch {
+    throw new GenerationError(502, 'The AI returned malformed JSON.', usage, {category: 'malformed_json'});
+  }
+  const words = (Array.isArray(parsed?.words) ? parsed.words : [])
+    .map(({answer, clue}) => ({answer: String(answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: String(clue)}))
+    .filter(({answer, clue}) => answer.length >= 2 && answer.length <= size && clue);
+  if (words.length < 3) throw new GenerationError(502, 'The AI did not return enough usable words.', usage, {category: 'insufficient_words', usableWordCount: words.length});
+  return {words, usage};
 }
 
 // Returns either `{error: {status, body}}` or the normalised options for `requestThemeWords`.
@@ -70,14 +145,66 @@ export function parseModels(env) {
   return models.length ? models : [...DEFAULT_MODELS];
 }
 
-async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs, parentSignal) {
+async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs, parentSignal, lifecycle = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   const abortFromParent = () => controller.abort();
   if (parentSignal?.aborted) abortFromParent();
   else parentSignal?.addEventListener('abort', abortFromParent, {once: true});
   let apiResponse;
-  let payload;
+  let responseText;
+  const {generationStore, requestId, leaseToken, attemptNumber, logger = defaultLogger} = lifecycle;
+  const startedAtMs = Date.now();
+  const requestBody = JSON.stringify({
+    model,
+    messages: [
+      {
+        role: 'system',
+        content: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.'
+      },
+      {
+        role: 'user',
+        content: `Theme: ${theme}\nMaximum answer length: ${size}\nDifficulty: ${difficulty}\nAvoid these answers: ${exclude.join(', ')}\nGenerate ${count} varied, strongly theme-related entries with intersecting letter patterns.`
+      },
+    ],
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
+        name: 'crossword_words',
+        strict: true,
+        schema: {
+          type: 'object',
+          properties: {
+            words: {
+              type: 'array',
+              minItems: 8,
+              maxItems: count,
+              items: {
+                type: 'object',
+                properties: {answer: {type: 'string'}, clue: {type: 'string'}},
+                required: ['answer', 'clue'],
+                additionalProperties: false
+              }
+            },
+          },
+          required: ['words'],
+          additionalProperties: false,
+        },
+      },
+    },
+    provider: {require_parameters: true},
+  });
+
+  if (generationStore) {
+    try {
+      const begun = await generationStore.beginAttempt({requestId, attemptNumber, model, startedAtMs, requestJson: requestBody, leaseToken});
+      if (!begun?.acquired) throw new GenerationError(202, 'Theme generation is still in progress.', null, {category: 'pending', retryable: true});
+    } catch (error) {
+      clearTimeout(timeout);
+      if (error instanceof GenerationError) throw error;
+      throw new GenerationError(503, 'Theme generation storage is temporarily unavailable.', null, {category: 'storage_unavailable', retryable: true, cause: error});
+    }
+  }
   try {
     apiResponse = await fetchImpl('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -88,81 +215,52 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
         ...(env.OPENROUTER_SITE_URL ? {'http-referer': env.OPENROUTER_SITE_URL} : {}),
         'x-openrouter-title': 'Crossfolk'
       },
-      body: JSON.stringify({
-        model,
-        messages: [
-          {
-            role: 'system',
-            content: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.'
-          },
-          {
-            role: 'user',
-            content: `Theme: ${theme}\nMaximum answer length: ${size}\nDifficulty: ${difficulty}\nAvoid these answers: ${exclude.join(', ')}\nGenerate ${count} varied, strongly theme-related entries with intersecting letter patterns.`
-          },
-        ],
-        response_format: {
-          type: 'json_schema',
-          json_schema: {
-            name: 'crossword_words',
-            strict: true,
-            schema: {
-              type: 'object',
-              properties: {
-                words: {
-                  type: 'array',
-                  minItems: 8,
-                  maxItems: count,
-                  items: {
-                    type: 'object',
-                    properties: {answer: {type: 'string'}, clue: {type: 'string'}},
-                    required: ['answer', 'clue'],
-                    additionalProperties: false
-                  }
-                },
-              },
-              required: ['words'],
-              additionalProperties: false,
-            },
-          },
-        },
-        provider: {require_parameters: true},
-      }),
+      body: requestBody,
     });
     // Read the body within the timeout: clearing the timer after the headers alone would
     // let a slow model stream for minutes past the abort deadline.
-    payload = await apiResponse.json().catch((error) => {
-      if (error.name === 'AbortError') throw error;
-      return null;
-    });
+    responseText = await readCappedProviderBody(apiResponse);
   } catch (error) {
-    if (error.name === 'AbortError') throw new GenerationError(504, 'Theme generation timed out.');
-    throw new GenerationError(502, 'Could not reach theme generation.');
+    const classified = error instanceof GenerationError ? error : error.name === 'AbortError'
+      ? new GenerationError(504, 'Theme generation timed out.', null, {category: 'timeout'})
+      : new GenerationError(502, 'Could not reach theme generation.', null, {category: 'network_error'});
+    if (generationStore) {
+      try { await generationStore.finishAttempt({requestId, leaseToken, attemptNumber, completedAtMs: Date.now(), durationMs: Date.now() - startedAtMs, outcome: classified.category || 'internal_error', errorCategory: classified.category, errorMessage: classified.message}); } catch (finalizationError) { logger.error(`Request ${requestId} attempt ${attemptNumber}: failed to finalize attempt:`, finalizationError); }
+    }
+    throw classified;
   } finally {
     clearTimeout(timeout);
     parentSignal?.removeEventListener('abort', abortFromParent);
   }
-  const usage = readUsage(payload);
-  if (!apiResponse.ok) throw new GenerationError(502, payload?.error?.message || 'Theme generation failed.', usage);
-  const content = payload?.choices?.[0]?.message?.content;
-  const output = Array.isArray(content) ? content.filter((part) => part.type === 'text').map((part) => part.text).join('') : content;
-  if (typeof output !== 'string' || !output.trim()) throw new GenerationError(502, 'The AI returned an empty response.', usage);
-  let parsed;
   try {
-    parsed = JSON.parse(output.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ''));
-  } catch {
-    throw new GenerationError(502, 'The AI returned malformed JSON.', usage);
+    if (generationStore) {
+      try {
+        await generationStore.checkpointAttemptResponse({requestId, leaseToken, attemptNumber, providerResponseBody: responseText, providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse), responseReceivedAtMs: Date.now()});
+      } catch (error) {
+        throw new GenerationError(503, 'Theme generation storage is temporarily unavailable.', null, {category: 'storage_unavailable', retryable: true, cause: error});
+      }
+    }
+    let payload;
+    try { payload = JSON.parse(responseText); } catch { payload = null; }
+    if (!apiResponse.ok) throw new GenerationError(502, safeDiagnostic(payload?.error?.message) || 'Theme generation failed.', readUsage(payload), {category: 'upstream_error', providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse)});
+    const parsed = parseProviderResponse(responseText, {size});
+    if (generationStore) {
+      try { await generationStore.finishAttempt({requestId, leaseToken, attemptNumber, completedAtMs: Date.now(), durationMs: Date.now() - startedAtMs, outcome: 'success', providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse), inputTokens: parsed.usage?.input, outputTokens: parsed.usage?.output, totalTokens: parsed.usage?.total, usableWordCount: parsed.words.length}); } catch (finalizationError) { logger.error(`Request ${requestId} attempt ${attemptNumber}: failed to finalize attempt:`, finalizationError); }
+    }
+    return parsed;
+  } catch (error) {
+    if (generationStore && !(error instanceof GenerationError && error.category === 'storage_unavailable')) {
+      try {
+        await generationStore.finishAttempt({requestId, leaseToken, attemptNumber, completedAtMs: Date.now(), durationMs: Date.now() - startedAtMs, outcome: error.category || 'internal_error', providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse), inputTokens: error.usage?.input, outputTokens: error.usage?.output, totalTokens: error.usage?.total, usableWordCount: error.usableWordCount, errorCategory: error.category, errorMessage: error.message});
+      } catch (finalizationError) { logger.error(`Request ${requestId} attempt ${attemptNumber}: failed to finalize attempt:`, finalizationError); }
+    }
+    throw error;
   }
-  const words = (Array.isArray(parsed?.words) ? parsed.words : [])
-    .map(({answer, clue}) => ({answer: String(answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: String(clue)}))
-    .filter(({answer, clue}) => answer.length >= 2 && answer.length <= size && clue);
-  if (words.length < 3) throw new GenerationError(502, 'The AI did not return enough usable words.', usage);
-
-  return {words, usage};
 }
 
 // Returns plain `{status, body}` data rather than a `Response`, so this layer stays
 // testable and reusable off any HTTP runtime.
-export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, maxModelTimeoutMs = MAX_MODEL_TIMEOUT_MS, signal, logger = defaultLogger} = {}) {
+export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = MAX_GENERATION_TIMEOUT_MS, maxModelTimeoutMs = MAX_MODEL_TIMEOUT_MS, signal, logger = defaultLogger, generationStore, requestId, leaseToken, startAttemptIndex = 0} = {}) {
   if (!env.OPENROUTER_API_KEY) return {status: 503, body: {error: 'AI theme generation is not configured.'}};
 
   const options = validateOptions(input);
@@ -175,15 +273,19 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
   let lastError;
   let usage = null;
 
-  for (let index = 0; index < models.length; index += 1) {
+  if (startAttemptIndex >= models.length) {
+    lastError = new GenerationError(502, 'All configured models have already failed.', null, {category: 'all_models_failed'});
+  }
+
+  for (let index = startAttemptIndex; index < models.length; index += 1) {
     if (signal?.aborted) {
-      lastError = new GenerationError(504, 'Theme generation timed out.');
+      lastError = new GenerationError(504, 'Theme generation timed out.', null, {category: 'abort'});
       break;
     }
 
     const remainingMs = deadline - Date.now();
     if (remainingMs <= 0) {
-      lastError = new GenerationError(504, 'Theme generation timed out.');
+      lastError = new GenerationError(504, 'Theme generation timed out.', null, {category: 'timeout'});
       break;
     }
 
@@ -194,16 +296,27 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
     logger.info(`Requesting theme words from OpenRouter model ${model}`);
     const startedAt = Date.now();
     try {
-      const attempt = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs, signal);
+      const attempt = await requestThemeWords(model, options, env, fetchImpl, modelTimeoutMs, signal, {
+        generationStore,
+        requestId,
+        leaseToken,
+        logger,
+        attemptNumber: index + 1
+      });
       logger.info(`OpenRouter model ${model} answered in ${elapsedSeconds(startedAt)}s`);
       return {status: 200, body: {words: attempt.words, source: {model, usage: addUsage(usage, attempt.usage)}}};
     } catch (error) {
       if (!(error instanceof GenerationError)) throw error;
       usage = addUsage(usage, error.usage);
       lastError = error;
-      logger.warn(`OpenRouter model ${model} failed after ${elapsedSeconds(startedAt)}s: ${error.message}`);
+      logger.warn(`Request ${requestId || 'untracked'}: OpenRouter model ${model} failed after ${elapsedSeconds(startedAt)}s: ${error.message}`);
+      if (error.retryable) break;
     }
   }
 
-  return {status: lastError.status, body: {error: lastError.message}};
+  return {status: lastError.status, body: {error: lastError.message, ...(requestId ? {requestId} : {}), ...(lastError.retryable ? {retryable: true} : {})}};
+}
+
+export function parseStoredProviderResponse(responseText, size, providerHttpStatus = 200) {
+  return parseProviderResponse(responseText, {size, providerHttpStatus});
 }

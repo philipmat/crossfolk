@@ -21,6 +21,13 @@
   "vars": {
     "OPENROUTER_MODELS": ""
   },
+  "d1_databases": [
+    {
+      "binding": "APP_DB",
+      "database_name": "crossfolk-db",
+      "migrations_dir": "migrations"
+    }
+  ],
   "ratelimits": [
     {
       "name": "WORDS_LIMIT",
