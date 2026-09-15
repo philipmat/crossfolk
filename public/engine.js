@@ -238,10 +238,10 @@ function historyData(history) {
   return { sets: new Set(sets), wordUses };
 }
 
-function shuffle(values) {
+function shuffle(values, random = Math.random) {
   const result = [...values];
   for (let i = result.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [result[i], result[j]] = [result[j], result[i]];
   }
   return result;
@@ -319,7 +319,7 @@ function place(board, directions, answer, option) {
   }
 }
 
-function buildCandidate(words, size, target) {
+function buildCandidate(words, size, target, random = Math.random) {
   const board = emptyBoard(size);
   const directions = Array.from({ length: size }, () => Array.from({ length: size }, () => new Set()));
   const entries = [];
@@ -337,7 +337,7 @@ function buildCandidate(words, size, target) {
         const options = placementOptions(board, directions, word.answer, entries);
         for (const option of options) {
           const centrality = -Math.abs(option.row - size / 2) - Math.abs(option.col - size / 2);
-          const score = option.crossings * 24 - word.answer.length * 4 + centrality + Math.random() * 5;
+          const score = option.crossings * 24 - word.answer.length * 4 + centrality + random() * 5;
           if (!best || score > best.score) best = { word, option, score };
         }
       }
@@ -364,6 +364,7 @@ function numberEntries(entries) {
 export function generatePuzzle(options = {}) {
   const size = resolveSize(options.size);
   const difficulty = resolveDifficulty(options.difficulty);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
   const customWords = normalizeCustomWords(options.words, difficulty).filter(({ answer }) => answer.length <= size);
   const category = resolveTheme(options.theme);
   if (!category && !customWords.length) throw themeWordsError(options.theme);
@@ -377,12 +378,12 @@ export function generatePuzzle(options = {}) {
   const { sets, wordUses } = historyData(options.history);
   const words = [...byAnswer.values()]
     .filter(({ answer }) => answer.length <= size)
-    .sort((a, b) => (wordUses.get(a.answer) ?? 0) - (wordUses.get(b.answer) ?? 0) || Math.random() - 0.5);
+    .sort((a, b) => (wordUses.get(a.answer) ?? 0) - (wordUses.get(b.answer) ?? 0) || random() - 0.5);
   if (words.length < 3) throw new Error(`Not enough usable themed words to build a ${size}x${size} crossword.`);
 
   const commonAnswers = new Set(fillWords.map(word=>word.answer));
-  const denseOptions = { size, difficulty, theme: String(options.theme).trim(), themeWords: words.map(word=>({...word,common:commonAnswers.has(word.answer)})), fillWords: [...dictionaryWords, ...fillWords.map(word=>({...word,common:true})), ...themedPlurals.map(word=>({...word,common:true}))], history: options.history };
-  let dense = generateDense({...denseOptions,timeLimitMs:2500});
+  const denseOptions = { size, difficulty, theme: String(options.theme).trim(), themeWords: words.map(word=>({...word,common:commonAnswers.has(word.answer)})), fillWords: [...dictionaryWords, ...fillWords.map(word=>({...word,common:true})), ...themedPlurals.map(word=>({...word,common:true}))], history: options.history, random };
+  let dense = generateDense({...denseOptions,timeLimitMs:size === 5 ? 2500 : 5000});
   if (dense) return { ...dense, layoutVersion: 3 };
   if(size===5) {
     const available=(denseFallbacks[category] || []).filter(p=>!sets.has(p.entries.map(e=>e.answer).sort().join('|')));
@@ -401,24 +402,24 @@ export function generatePuzzle(options = {}) {
   const target = size === 5 ? 7 : size === 9 ? 22 : 38;
   // General crossings keep a themed grid buildable when the themed pool alone is too
   // small to interlock; `buildCandidate` stops adding them short of a themed majority.
-  const generalSample = shuffle(denseOptions.fillWords.filter((word) => word.answer.length <= size)).slice(0, 180);
+  const generalSample = shuffle(denseOptions.fillWords.filter((word) => word.answer.length <= size), random).slice(0, 180);
   let best = null;
   let bestFresh = null;
   const placementDeadline=Date.now()+1500;
   for (let attempt = 0; attempt < 60; attempt += 1) {
     if(bestFresh && Date.now()>=placementDeadline)break;
     const pool = [
-      ...shuffle(words.filter(word=>word.answer.length<=4)).slice(0, Math.max(24,target*2)),
-      ...shuffle(words.filter(word=>word.answer.length>4)).slice(0,6),
-      ...shuffle(generalSample).slice(0, 45).map(word=>({...word,isTheme:false})),
+      ...shuffle(words.filter(word=>word.answer.length<=4), random).slice(0, Math.max(24,target*2)),
+      ...shuffle(words.filter(word=>word.answer.length>4), random).slice(0,6),
+      ...shuffle(generalSample, random).slice(0, 45).map(word=>({...word,isTheme:false})),
     ].map(word=>({...word,isTheme:word.isTheme!==false}));
-    const candidate = buildCandidate(pool, size, target);
+    const candidate = buildCandidate(pool, size, target, random);
     const signature = candidate.entries.map(({ answer }) => answer).sort().join('|');
     const repeatPenalty = sets.has(signature) ? 100 : 0;
     const reusePenalty = candidate.entries.reduce((sum, entry) => sum + (wordUses.get(entry.answer) ?? 0), 0) * 1.5;
     const crossings = candidate.entries.reduce((sum, entry) => sum + entry.crossings, 0);
     const occupied = candidate.board.flat().filter(Boolean).length;
-    const score = (crossings / occupied) * 200 + crossings * 15 + candidate.entries.length * 10 - repeatPenalty - reusePenalty + Math.random();
+    const score = (crossings / occupied) * 200 + crossings * 15 + candidate.entries.length * 10 - repeatPenalty - reusePenalty + random();
     if (!best || score > best.score) best = { ...candidate, score, signature };
     if (!sets.has(signature) && (!bestFresh || score > bestFresh.score)) bestFresh = { ...candidate, score, signature };
     if (candidate.entries.length >= target && !sets.has(signature) && reusePenalty === 0 && crossings / occupied >= 0.65) break;

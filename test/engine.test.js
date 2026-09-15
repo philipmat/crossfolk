@@ -1,7 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generatePuzzle, supportedThemes} from '../public/engine.js';
+import {generateDense} from '../public/dense.js';
 import {resolveCuratedTheme} from '../public/themes.js';
+import {dictionaryThemes, dictionaryWords} from '../public/wordnet-words.js';
+
+function seededRandom(label) {
+  let state = 2166136261;
+  for (const character of label) {
+    state ^= character.charCodeAt(0);
+    state = Math.imul(state, 16777619);
+  }
+
+  return () => {
+    state = Math.imul(state, 1664525) + 1013904223 >>> 0;
+    return state / 0x100000000;
+  };
+}
 
 function assertValidPuzzle(puzzle) {
   assert.equal(puzzle.grid.length, puzzle.size);
@@ -52,6 +67,24 @@ function assertValidPuzzle(puzzle) {
 test('exposes broad built-in themes', () => {
   for (const theme of ['nature', 'ocean', 'space', 'food', 'music', 'travel', 'sports', 'animals']) {
     assert.ok(supportedThemes.includes(theme));
+  }
+});
+
+test('every built-in theme has longer vocabulary for medium and large grids', () => {
+  for (const theme of supportedThemes) {
+    const longer = dictionaryThemes[theme]?.filter(({answer}) => answer.length >= 6) ?? [];
+    const large = longer.filter(({answer}) => answer.length >= 8);
+
+    assert.ok(longer.length >= 20, `${theme}: expected at least 20 answers of six or more letters`);
+    assert.ok(large.length >= 10, `${theme}: expected at least 10 answers of eight or more letters`);
+  }
+});
+
+test('travel vocabulary includes named places and geographic features', () => {
+  const travelAnswers = new Set(dictionaryThemes.travel.map(({answer}) => answer));
+
+  for (const answer of ['LONDON', 'PARIS', 'TOKYO', 'MEXICO', 'FRANCE', 'ALPS', 'ANDES', 'AMAZON', 'SAHARA', 'EVEREST']) {
+    assert.ok(travelAnswers.has(answer), `travel vocabulary should include ${answer}`);
   }
 });
 
@@ -181,12 +214,50 @@ test('repeated hard minis keep full interlocking and distinct answer sets', () =
   }
 });
 
-test('larger grids improve crossing density and preserve a thematic majority', () => {
-  for (const size of [9, 13]) {
-    const puzzle = generatePuzzle({theme: 'nature', size, difficulty: 'hard'});
+test('every built-in theme meets the large-grid crossing target at each difficulty', () => {
+  const targets = {easy: 0.9, medium: 0.8, hard: 0.6};
+  for (const theme of supportedThemes) {
+    for (const [difficulty, target] of Object.entries(targets)) {
+      const puzzle = generatePuzzle({theme, size: 13, difficulty, random: seededRandom(`${theme}/13/${difficulty}`)});
+      assertValidPuzzle(puzzle);
+      assert.ok(checkedRatio(puzzle) >= target, `${theme}/${difficulty}: expected at least ${target * 100}% crossed letters`);
+      assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2, `${theme}/${difficulty}: a strict majority must be themed`);
+      assert.ok(Math.max(...puzzle.entries.map(e => e.answer.length)) >= (difficulty === 'easy' ? 6 : 9), `${theme}/${difficulty}: expected longer large-grid answers`);
+      assert.ok(puzzle.grid.flat().filter(Boolean).length >= 13 * 13 * 0.35, `${theme}/${difficulty}: the grid should use at least 35% of the board`);
+    }
+  }
+});
+
+test('medium grids use longer answers and meet the crossing targets for every built-in theme', () => {
+  for (const theme of supportedThemes) {
+    const puzzle = generatePuzzle({theme, size: 9, difficulty: 'medium', random: seededRandom(`${theme}/9/medium`)});
     assertValidPuzzle(puzzle);
-    assert.ok(checkedRatio(puzzle) >= 0.35, `${size}: crossing density must improve on the old sparse grids`);
-    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2);
-    assert.ok(puzzle.grid.flat().filter(Boolean).length >= size * size * 0.35);
+    assert.ok(checkedRatio(puzzle) >= 0.8, `${theme}: expected at least 80% crossed letters`);
+    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2, `${theme}: a strict majority must be themed`);
+    assert.ok(Math.max(...puzzle.entries.map(e => e.answer.length)) >= 6, `${theme}: expected a six-letter answer`);
+    assert.ok(puzzle.grid.flat().filter(Boolean).length >= 9 * 9 * 0.35, `${theme}: the grid should use at least 35% of the board`);
+  }
+});
+
+test('a future theme with a sufficiently rich vocabulary uses the same density contract', () => {
+  const futureThemeWords = dictionaryWords.filter(({clue}) =>
+    /\b(building|architecture|architectural|house|roof|wall|tower|bridge|temple|church|palace|castle|skyscraper|construction|structure|room|door|window|floor|ceiling|column|arch|stone|brick|concrete|monument|dwelling|apartment|hall|gate|stair|foundation|home|shelter|city|road|street|garden|park|school|office|factory|store|shop|farm|barn|hotel|station)\b/i.test(clue));
+  assert.ok(futureThemeWords.length >= 2000, 'the representative future theme needs a substantial candidate bank');
+
+  for (const [difficulty, target] of Object.entries({easy: 0.9, medium: 0.8, hard: 0.6})) {
+    const puzzle = generateDense({
+      theme: 'architecture',
+      size: 13,
+      difficulty,
+      themeWords: futureThemeWords,
+      fillWords: dictionaryWords,
+      timeLimitMs: 5000,
+      random: seededRandom(`architecture/13/${difficulty}`),
+    });
+
+    assert.ok(puzzle, `architecture/${difficulty}: expected a fill within five seconds`);
+    assertValidPuzzle(puzzle);
+    assert.ok(checkedRatio(puzzle) >= target, `architecture/${difficulty}: expected at least ${target * 100}% crossed letters`);
+    assert.ok(puzzle.entries.filter(e => e.isTheme).length > puzzle.entries.length / 2, `architecture/${difficulty}: a strict majority must be themed`);
   }
 });

@@ -64,7 +64,13 @@ tokens burned by attempts that were discarded in favour of a later model. Curate
 A few dozen generated words are enough for a Small grid when the model returns clean, varied answers, and the result is a
 fully crossed mini. Repetitive pools — plurals, verb endings, coined words — still build a themed-majority grid, but a
 thinner one. Medium and large grids add general crossings to reach their themed majority and stay sparser than the
-curated banks, which carry a few hundred related words each.
+built-in banks, which carry hundreds or thousands of related words across lengths up to 13 letters. Travel also includes
+named places and geographic features such as cities, countries, mountain ranges, rivers, and deserts.
+
+Medium and Large built-in puzzles use linked dense modules so the solver can fill each region independently and then join
+them with validated crossing answers. The five-second dense-search budget targets at least 90% checked letters on Easy,
+80% on Medium, and 60% on Hard; current Medium grids are fully checked, while Large grids exceed their targets and include
+six-letter answers on Easy and nine-letter answers on Medium and Hard.
 
 Each generated puzzle uses a different answer set from the last 100 locally saved games. Individual words can recur,
 especially with finite curated banks; less-used words are favored. If the generator cannot find a fresh valid set, it
@@ -254,7 +260,7 @@ test/      Automated tests
 | `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js`                                   | Worker boundary, generation policy, and constraint solver                            |
 | `public/fill-words.js`, `public/theme-fill.js`, `public/theme-plurals.js`, `public/theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues         |
 | `public/mini-patterns.js`, `public/dense-fallbacks.js`                                             | Mini grid shapes and pre-generated fallback puzzles                                  |
-| `public/wordnet-words.js`, `public/WORDNET-LICENSE.txt`                                            | Generated dictionary supplement and its license                                      |
+| `public/wordnet-words.js`, `public/WORDNET-LICENSE.txt`                                            | Generated 3–13-letter dictionary supplement and its license                          |
 | `scripts/`                                                                                         | Dictionary and fallback-data generation utilities                                    |
 | `test/engine.test.js`                                                                              | Grid validity, theme majority, crossing coverage, and variety tests                  |
 | `test/handler.test.js`                                                                             | API validation, model fallback, `public/` allowlist, and the local HTTP bridge       |

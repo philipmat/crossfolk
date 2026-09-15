@@ -5,17 +5,19 @@ import path from 'node:path';
 
 const directory = process.argv[2];
 if (!directory) throw new Error('Pass the WordNet 3.0 dict directory');
+const MAX_ANSWER_LENGTH = 13;
+const MAX_GENERAL_LENGTH = 9;
 const data = fs.readFileSync(path.join(directory, 'data.noun'), 'utf8');
 const license = data.split('\n').filter(l => /^\s/.test(l)).map(l => l.replace(/^\s*\d+\s?/, '')).join('\n');
 fs.writeFileSync('public/WORDNET-LICENSE.txt', license + '\n');
 const matchers = {
-  ocean: /\b(marine|ocean|sea|seas|saltwater|tidal|coastal|coral|reef|ship|sail|nautical|seawater)\b/i,
-  space: /\b(celestial|astronomical|astronomy|planet|solar|lunar|cosmic|orbit|galaxy|spacecraft|astronaut|sun|moon)\b/i,
-  music: /\b(music|musical|melody|musician|singing|song|rhythmic|jazz|orchestra|singer|saxophone|guitar|piano)\b/i,
-  sports: /\b(sport|sports|athlete|athletic|baseball|tennis|soccer|football|golf|hockey|rugby|basketball|cricket|skating|skiing|boxing|wrestling)\b/i,
-  travel: /\b(travel|journey|tourist|vehicle|aircraft|railway|railroad|transportation|lodging|hotel|roadway|passport|sightseeing)\b/i,
-  weather: /\b(weather|cloud|rain|snow|wind|frost|storm|humidity|meteorological|precipitation)\b/i,
-  garden: /\b(garden|gardening|horticulture|cultivated|flower|shrub|seedling|weeding|fertilizer)\b/i,
+  ocean: /\b(marine|ocean|sea|seas|saltwater|tidal|coastal|coral|reef|ship|sail|nautical|seawater|aquatic|underwater|shore|beach|harbor|whale|dolphin|shark|fish|seabird|shellfish|wave|current)\b/i,
+  space: /\b(celestial|astronomical|astronomy|planet|planetary|solar|lunar|cosmic|orbit|galaxy|spacecraft|astronaut|sun|moon|star|stellar|constellation|nebula|comet|asteroid|meteor|universe|rocket|satellite|telescope|extraterrestrial|interstellar|zodiac|eclipse|gravity|earth|mars|venus|mercury|jupiter|saturn|uranus|neptune|pluto|supernova|quasar|observatory)\b/i,
+  music: /\b(music|musical|melody|musician|singing|song|rhythmic|rhythm|harmony|orchestra|singer|concert|opera|jazz|blues|folk|rock|choir|instrument|saxophone|guitar|piano|violin|cello|flute|drum|trumpet|sound|tone|pitch|note|chord|voice|vocal|recording|band|dance|composition)\b/i,
+  sports: /\b(sport|sports|athlete|athletic|baseball|tennis|soccer|football|golf|hockey|rugby|basketball|cricket|skating|skiing|boxing|wrestling|racing|runner|coach|stadium|tournament|league|match|score|goal|ball|bat|racket|game|player|team|competition|contest|race|championship|referee|umpire|field|court|track|training|exercise)\b/i,
+  travel: /\b(travel|journey|tourist|vehicle|aircraft|railway|railroad|transportation|lodging|hotel|roadway|passport|sightseeing|city|capital|country|nation|continent|island|archipelago|mountain|valley|river|lake|waterfall|desert|canyon|coast|landmark|monument|border|airport)\b/i,
+  weather: /\b(weather|cloud|rain|snow|wind|frost|storm|humidity|meteorological|precipitation|atmosphere|atmospheric|climate|temperature|thunder|lightning|cyclone|hurricane|tornado|breeze|gale|hail|sleet|fog|mist|dew|monsoon|barometer|air|sky|forecast|seasonal|freeze|freezing|heat|sunshine|rainbow|drought|flood|vapor|moisture|drizzle|shower|downpour|blizzard)\b/i,
+  garden: /\b(garden|gardening|horticulture|cultivated|flower|shrub|seedling|weeding|fertilizer|botanical|botany|plant|soil|lawn|vegetable|herb|bulb|blossom|bloom|nursery|orchard|pruning|compost)\b/i,
 };
 const forbidden = /\b(heroin|cocaine|narcotic|offensive|vulgar|sexual|slur|derogatory|obscene|genital|penis|vagina|anus|semen|intercourse|copulat|excrement|defecat)\w*/i;
 const blocked = new Set(['ASS', 'FAG', 'FAGS', 'COON', 'CUNT', 'DICK', 'DYKE', 'FUCK', 'SHIT', 'TITS', 'TURD', 'SLUT', 'WHORE', 'SPIC', 'KIKE', 'WOP', 'CHINK']);
@@ -31,13 +33,14 @@ for (const kind of ['noun', 'verb', 'adj', 'adv']) for (const line of fs.readFil
   clue = clue[0].toUpperCase() + clue.slice(1);
   for (let i = 0; i < count; i++) {
     const raw = tokens[4 + i * 2].replace(/\([aps]\)$/, '');
-    if (!/^[a-z]{3,5}$/.test(raw)) continue;
+    if (!new RegExp(`^[a-z]{3,${MAX_ANSWER_LENGTH}}$`, 'i').test(raw)) continue;
     const answer = raw.toUpperCase();
     if (blocked.has(answer) || new RegExp('\\b' + raw + '\\b', 'i').test(clue)) continue;
     const entry = {answer, clue};
-    if (!general.has(answer)) general.set(answer, entry);
+    if (answer.length <= MAX_GENERAL_LENGTH && !general.has(answer)) general.set(answer, entry);
     const memberships = [];
     if (lex === 5) memberships.push('animals', 'nature');
+    if (lex === 15) memberships.push('travel');
     if (lex === 20) memberships.push('nature', 'garden');
     if (lex === 13) memberships.push('food');
     for (const [theme, pattern] of Object.entries(matchers)) if (pattern.test(clue) && !(/\b(actor|actress|film|movie|television)\b/i.test(clue) && theme === 'space')) memberships.push(theme);
