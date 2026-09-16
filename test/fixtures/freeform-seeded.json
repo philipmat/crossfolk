@@ -1,0 +1,4030 @@
+[
+  {
+    "theme": "nature",
+    "size": 5,
+    "difficulty": "easy",
+    "seed": "nature/5/easy",
+    "puzzle": {
+      "size": 5,
+      "theme": "nature",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "A",
+          "L",
+          "A"
+        ],
+        [
+          null,
+          "S",
+          "C",
+          "U",
+          "T"
+        ],
+        [
+          "S",
+          "T",
+          "O",
+          "N",
+          "E"
+        ],
+        [
+          "E",
+          "I",
+          "R",
+          "A",
+          null
+        ],
+        [
+          "E",
+          "R",
+          "N",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "ALA",
+          "clue": "A wing of an insect",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "ACORN",
+          "clue": "Fruit of the oak tree: a smooth thin-walled nut in a woody cup-shaped base",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "LUNA",
+          "clue": "(Roman mythology) the goddess of the Moon; counterpart of Greek Selene",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "ATE",
+          "clue": "Had a meal",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "SCUT",
+          "clue": "A short erect tail",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "STIR",
+          "clue": "Mix with a spoon",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "STONE",
+          "clue": "A small rock",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "SEE",
+          "clue": "Use one's eyes",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "EIRA",
+          "clue": "A genus of Mustelidae",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "ERN",
+          "clue": "Bulky greyish-brown eagle with a short wedge-shaped white tail; of Europe and Greenland",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "nature",
+    "size": 9,
+    "difficulty": "medium",
+    "seed": "nature/9/medium",
+    "puzzle": {
+      "size": 9,
+      "theme": "nature",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "C",
+          "O",
+          "W",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "H",
+          "O",
+          "S",
+          "T",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "D",
+          "U",
+          "R",
+          "I",
+          "O",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "A",
+          "P",
+          "A",
+          "R",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "K",
+          "A",
+          "L",
+          "I",
+          null,
+          null,
+          "P",
+          "A",
+          "D"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "C",
+          "R",
+          "A",
+          "P",
+          "E"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "L",
+          "A",
+          "P",
+          "I",
+          "N"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "A",
+          "N",
+          "A",
+          "S",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "M",
+          "A",
+          "W",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "COW",
+          "clue": "Mature female of mammals of which the male is called `bull'",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "CORAL",
+          "clue": "Marine colonial polyp characterized by a calcareous skeleton; masses in a variety of shapes often forming reefs",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "OSIRIS",
+          "clue": "Egyptian god of the underworld and judge of the dead; husband and brother of Isis; father of Horus",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "WTO",
+          "clue": "An international organization based in Geneva that monitors and enforces rules governing global trade",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "HOST",
+          "clue": "An animal or plant that nourishes and supports a parasite; it does not benefit and is often harmed by the association",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "HUPA",
+          "clue": "A member of the Athapaskan people of the Trinity River valley in California",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "DURIO",
+          "clue": "A genus of tall Asian trees of the family Bombacaceae",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "DAK",
+          "clue": "East Indian tree bearing a profusion of intense vermilion velvet-textured blooms and yielding a yellow dye",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "APAR",
+          "clue": "South American armadillo with three bands of bony plates",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "KALI",
+          "clue": "Bushy plant of Old World salt marshes and sea beaches having prickly leaves; burned to produce a crude soda ash",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "PAD",
+          "clue": "The fleshy cushion-like underside of an animal's foot or of a human's finger",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "PAPAW",
+          "clue": "Small tree native to the eastern United States having oblong leaves and fleshy fruit",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "APIS",
+          "clue": "Type genus of the Apidae: honeybees",
+          "isTheme": true,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "DEN",
+          "clue": "Animal's lair",
+          "isTheme": true,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SCRAPE",
+          "clue": "An indication of damage",
+          "isTheme": false,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "CLAM",
+          "clue": "Burrowing marine mollusk living on sand or mud; the shell closes with viselike firmness",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "RANA",
+          "clue": "Type genus of the Ranidae",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "LAPIN",
+          "clue": "Castrated male rabbit",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "ANAS",
+          "clue": "Type genus of the Anatidae: freshwater ducks",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "MAW",
+          "clue": "Informal terms for the mouth",
+          "isTheme": false,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "ocean",
+    "size": 5,
+    "difficulty": "medium",
+    "seed": "ocean/5/medium",
+    "puzzle": {
+      "size": 5,
+      "theme": "ocean",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "S",
+          "E",
+          "A"
+        ],
+        [
+          null,
+          "C",
+          "H",
+          "E",
+          "F"
+        ],
+        [
+          "F",
+          "A",
+          "U",
+          "L",
+          "T"
+        ],
+        [
+          "I",
+          "N",
+          "N",
+          "S",
+          null
+        ],
+        [
+          "N",
+          "E",
+          "T",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "SEA",
+          "clue": "An expanse of ocean",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "SHUNT",
+          "clue": "A conductor having low resistance in parallel with another device to divert a fraction of the current",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "EELS",
+          "clue": "Snakelike fish",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "AFT",
+          "clue": "(nautical, aeronautical) situated at or toward the stern or tail",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "CHEF",
+          "clue": "Professional cook",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "CANE",
+          "clue": "Walking stick",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "FAULT",
+          "clue": "Defect or responsibility",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "FIN",
+          "clue": "A fish’s swimming appendage",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "INNS",
+          "clue": "Travelers' lodgings",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "NET",
+          "clue": "Fishing mesh",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "space",
+    "size": 5,
+    "difficulty": "hard",
+    "seed": "space/5/hard",
+    "puzzle": {
+      "size": 5,
+      "theme": "space",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "R",
+          "A",
+          "M"
+        ],
+        [
+          null,
+          "N",
+          "O",
+          "V",
+          "A"
+        ],
+        [
+          "C",
+          "A",
+          "B",
+          "I",
+          "N"
+        ],
+        [
+          "A",
+          "R",
+          "I",
+          "D",
+          null
+        ],
+        [
+          "T",
+          "A",
+          "N",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "RAM",
+          "clue": "The first sign of the zodiac which the sun enters at the vernal equinox; the sun is in this sign from about March 21 to April 19",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "ROBIN",
+          "clue": "Red-breasted garden bird",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "AVID",
+          "clue": "Marked by active interest and enthusiasm",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "MAN",
+          "clue": "All of the living human inhabitants of the earth",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "NOVA",
+          "clue": "A thermonuclear white-dwarf event",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "NARA",
+          "clue": "The independent agency that oversees management of federal government records including presidential libraries and historic collections",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "CABIN",
+          "clue": "The enclosed compartment of an aircraft or spacecraft where passengers are carried",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "CAT",
+          "clue": "A large tracked vehicle that is propelled by two endless metal belts; frequently used for moving earth in construction and farm work",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ARID",
+          "clue": "Lacking vitality or spirit; lifeless",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "TAN",
+          "clue": "A browning of the skin resulting from exposure to the rays of the sun",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "space",
+    "size": 9,
+    "difficulty": "easy",
+    "seed": "space/9/easy",
+    "puzzle": {
+      "size": 9,
+      "theme": "space",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          "M",
+          "A",
+          "P",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "B",
+          "A",
+          "R",
+          "S",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "U",
+          "R",
+          "G",
+          "E",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "L",
+          "I",
+          "O",
+          "N",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "L",
+          "A",
+          "N",
+          "E",
+          null,
+          null,
+          "D",
+          "I",
+          "S"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "A",
+          "F",
+          "A",
+          "R",
+          "I"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "T",
+          "I",
+          "G",
+          "O",
+          "N"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "O",
+          "R",
+          "A",
+          "N",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "M",
+          "E",
+          "N",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "MAP",
+          "clue": "A diagrammatic representation of the earth's surface (or part of it)",
+          "isTheme": true,
+          "row": 0,
+          "col": 1,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "MARIA",
+          "clue": "A dark region of considerable extent on the surface of the moon",
+          "isTheme": true,
+          "row": 0,
+          "col": 1,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ARGON",
+          "clue": "A colorless and odorless inert gas; one of the six inert gases; comprises approximately 1% of the earth's atmosphere",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "PSENES",
+          "clue": "A genus of Stromateidae",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "BARS",
+          "clue": "Gymnastic apparatus consisting of two parallel wooden rods supported on uprights",
+          "isTheme": false,
+          "row": 1,
+          "col": 0,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "BULL",
+          "clue": "The second sign of the zodiac; the sun is in this sign from about April 20 to May 20",
+          "isTheme": true,
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "URGE",
+          "clue": "Strong impulse",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "LION",
+          "clue": "The fifth sign of the zodiac; the sun is in this sign from about July 23 to August 22",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "LANE",
+          "clue": "Narrow road",
+          "isTheme": false,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "DIS",
+          "clue": "God of the underworld; counterpart of Greek Pluto",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "DAGAN",
+          "clue": "God of agriculture and earth; counterpart of Phoenician Dagon",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "IRON",
+          "clue": "Metal abundant in Earth’s core",
+          "isTheme": true,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "SIN",
+          "clue": "(Akkadian) god of the Moon; counterpart of Sumerian Nanna",
+          "isTheme": true,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SAFARI",
+          "clue": "An overland journey by hunters (especially in Africa)",
+          "isTheme": false,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "ATOM",
+          "clue": "Basic unit of an element",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "FIRE",
+          "clue": "Once thought to be one of four elements composing the universe (Empedocles)",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "TIGON",
+          "clue": "Offspring of a male tiger and a female lion",
+          "isTheme": false,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "ORAN",
+          "clue": "A port city in northwestern Algeria and the country's 2nd largest city",
+          "isTheme": false,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "MEN",
+          "clue": "Adult males",
+          "isTheme": false,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "food",
+    "size": 5,
+    "difficulty": "easy",
+    "seed": "food/5/easy",
+    "puzzle": {
+      "size": 5,
+      "theme": "food",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "T",
+          "E",
+          "A"
+        ],
+        [
+          null,
+          "M",
+          "E",
+          "A",
+          "L"
+        ],
+        [
+          "F",
+          "A",
+          "R",
+          "C",
+          "E"
+        ],
+        [
+          "A",
+          "S",
+          "C",
+          "H",
+          null
+        ],
+        [
+          "A",
+          "T",
+          "E",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "TEA",
+          "clue": "A drink made by steeping leaves",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "TERCE",
+          "clue": "The third canonical hour; about 9 a.m.",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "EACH",
+          "clue": "Every one separately",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "ALE",
+          "clue": "Pub brew",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "MEAL",
+          "clue": "Coarsely ground foodstuff; especially seeds of various cereal grasses or pulse",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "MAST",
+          "clue": "Nuts of forest trees used as feed for swine",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "FARCE",
+          "clue": "Mixture of ground raw chicken and mushrooms with pistachios and truffles and onions and parsley and lots of butter and bound with eggs",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "FAA",
+          "clue": "An agency in the Department of Transportation that is responsible for the safety of civilian aviation",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ASCH",
+          "clue": "United States writer (born in Poland) who wrote in Yiddish (1880-1957)",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "ATE",
+          "clue": "Had a meal",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "food",
+    "size": 9,
+    "difficulty": "medium",
+    "seed": "food/9/medium",
+    "puzzle": {
+      "size": 9,
+      "theme": "food",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "C",
+          "A",
+          "N",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "M",
+          "A",
+          "S",
+          "T",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "B",
+          "O",
+          "R",
+          "S",
+          "H",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "S",
+          "L",
+          "O",
+          "E",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "E",
+          "E",
+          "L",
+          "S",
+          null,
+          null,
+          "T",
+          "A",
+          "B"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "O",
+          "M",
+          "A",
+          "L",
+          "I"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "R",
+          "E",
+          "S",
+          "E",
+          "T"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "E",
+          "A",
+          "T",
+          "S",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "O",
+          "D",
+          "E",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "CAN",
+          "clue": "Be able to",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "CAROL",
+          "clue": "A joyful song (usually celebrating the birth of Christ)",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ASSESS",
+          "clue": "Evaluate or estimate the nature, quality, ability, extent, or significance of",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "NTH",
+          "clue": "Last or greatest in an indefinitely large series",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "MAST",
+          "clue": "Nuts of forest trees used as feed for swine",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "MOLE",
+          "clue": "Spicy sauce often containing chocolate",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "BORSH",
+          "clue": "A Russian or Polish soup usually containing beet juice as a foundation",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "BSE",
+          "clue": "A fatal disease of cattle that affects the central nervous system; causes staggering and agitation",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "SLOE",
+          "clue": "Small sour dark purple fruit of especially the Allegheny plum bush",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "EELS",
+          "clue": "Snakelike fish",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "TAB",
+          "clue": "Browser page label",
+          "isTheme": false,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "TASTE",
+          "clue": "A small amount eaten or drunk",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "ALES",
+          "clue": "Top-fermented beers",
+          "isTheme": true,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "BIT",
+          "clue": "A small amount of solid food; a mouthful",
+          "isTheme": true,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SOMALI",
+          "clue": "A member of a tall dark (mostly Muslim) people inhabiting Somalia",
+          "isTheme": false,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "OREO",
+          "clue": "Chocolate cookie with white cream filling",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "MEAD",
+          "clue": "Made of fermented honey and water",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "RESET",
+          "clue": "Device for resetting instruments or controls",
+          "isTheme": false,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "EATS",
+          "clue": "Informal terms for a meal",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "ODE",
+          "clue": "Poem of praise",
+          "isTheme": false,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "music",
+    "size": 5,
+    "difficulty": "medium",
+    "seed": "music/5/medium",
+    "puzzle": {
+      "size": 5,
+      "theme": "music",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "A",
+          "L",
+          "A"
+        ],
+        [
+          null,
+          "S",
+          "P",
+          "A",
+          "T"
+        ],
+        [
+          "A",
+          "L",
+          "A",
+          "R",
+          "M"
+        ],
+        [
+          "R",
+          "O",
+          "C",
+          "K",
+          null
+        ],
+        [
+          "T",
+          "E",
+          "E",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "ALA",
+          "clue": "A wing of an insect",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "APACE",
+          "clue": "With rapid movements",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "LARK",
+          "clue": "Any of numerous predominantly Old World birds noted for their singing",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "ATM",
+          "clue": "A means of digital communications that is capable of very high speeds; suitable for transmission of images or voice or video as well as data",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "SPAT",
+          "clue": "Strike with a sound like that of falling rain",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "SLOE",
+          "clue": "Small sour dark purple fruit of especially the Allegheny plum bush",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "ALARM",
+          "clue": "An automatic signal (usually a sound) warning of danger",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "ART",
+          "clue": "Creative expression",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ROCK",
+          "clue": "Music genre built around electric guitars",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "TEE",
+          "clue": "Golf ball support",
+          "isTheme": false,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "music",
+    "size": 9,
+    "difficulty": "hard",
+    "seed": "music/9/hard",
+    "puzzle": {
+      "size": 9,
+      "theme": "music",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "T",
+          "A",
+          "P",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "L",
+          "I",
+          "N",
+          "E",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "S",
+          "I",
+          "T",
+          "A",
+          "R",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "K",
+          "E",
+          "R",
+          "N",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "I",
+          "D",
+          "E",
+          "A",
+          null,
+          null,
+          "B",
+          "P",
+          "M"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "I",
+          "A",
+          "L",
+          "I",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "G",
+          "R",
+          "A",
+          "N",
+          "D"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "L",
+          "A",
+          "R",
+          "K",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "U",
+          "K",
+          "E",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "TAP",
+          "clue": "Mark the beat with a foot",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "TITRE",
+          "clue": "The concentration of a solution as determined by titration",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ANANAS",
+          "clue": "Large sweet fleshy tropical fruit with a terminal tuft of stiff leaves; widely cultivated",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "PER",
+          "clue": "For each",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "LINE",
+          "clue": "A single frequency (or very narrow band) of radiation in a spectrum",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "LIED",
+          "clue": "A German art song of the 19th century for voice and piano",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "SITAR",
+          "clue": "A stringed instrument of India; has a long neck and movable frets; has 6 or 7 metal strings for playing and usually 13 resonating strings",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "SKI",
+          "clue": "Glide over snow",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "KERN",
+          "clue": "United States composer of musical comedies (1885-1945)",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "IDEA",
+          "clue": "(music) melodic subject of a musical composition",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "BPM",
+          "clue": "The pace of music measured by the number of beats occurring in 60 seconds",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "BLARE",
+          "clue": "Make a strident sound",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "PINK",
+          "clue": "Sound like a car engine that is firing too early",
+          "isTheme": true,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "MAD",
+          "clue": "Angry",
+          "isTheme": false,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SIALIA",
+          "clue": "North American bluebirds",
+          "isTheme": false,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "IGLU",
+          "clue": "An Eskimo hut; usually built of blocks (of sod or snow) in the shape of a dome",
+          "isTheme": false,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "ARAK",
+          "clue": "Any of various strong liquors distilled from the fermented sap of toddy palms or from fermented molasses",
+          "isTheme": false,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "GRAND",
+          "clue": "A piano with the strings on a horizontal harp-shaped frame; usually supported by three legs",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "LARK",
+          "clue": "Any of numerous predominantly Old World birds noted for their singing",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "UKE",
+          "clue": "A small guitar having four strings",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "travel",
+    "size": 5,
+    "difficulty": "hard",
+    "seed": "travel/5/hard",
+    "puzzle": {
+      "size": 5,
+      "theme": "travel",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "A",
+          "I",
+          "R"
+        ],
+        [
+          null,
+          "A",
+          "R",
+          "S",
+          "E"
+        ],
+        [
+          "F",
+          "I",
+          "E",
+          "L",
+          "D"
+        ],
+        [
+          "E",
+          "R",
+          "N",
+          "E",
+          null
+        ],
+        [
+          "S",
+          "E",
+          "A",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "AIR",
+          "clue": "Medium of travel for an aircraft",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "ARENA",
+          "clue": "The central area of an ancient Roman amphitheater where contests and spectacles were held; especially an area that was strewn with sand",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ISLE",
+          "clue": "A small island",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "RED",
+          "clue": "A tributary of the Mississippi River that flows eastward from Texas along the southern boundary of Oklahoma and through Louisiana",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "ARSE",
+          "clue": "The fleshy part of the human body that you sit on",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "AIRE",
+          "clue": "A river in northern England that flows southeast through West Yorkshire",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "FIELD",
+          "clue": "A region where a battle is being (or has been) fought",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "FES",
+          "clue": "A city in north central Morocco; religious center",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ERNE",
+          "clue": "Bulky greyish-brown eagle with a short wedge-shaped white tail; of Europe and Greenland",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "SEA",
+          "clue": "Ocean expanse",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "travel",
+    "size": 9,
+    "difficulty": "easy",
+    "seed": "travel/9/easy",
+    "puzzle": {
+      "size": 9,
+      "theme": "travel",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "F",
+          "A",
+          "R",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "B",
+          "A",
+          "T",
+          "A",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Y",
+          "A",
+          "C",
+          "H",
+          "T",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "E",
+          "R",
+          "I",
+          "E",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "S",
+          "I",
+          "A",
+          "N",
+          null,
+          null,
+          "G",
+          "S",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "A",
+          "F",
+          "E",
+          "T",
+          "Y"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "L",
+          "O",
+          "N",
+          "E",
+          "R"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "P",
+          "R",
+          "O",
+          "M",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "S",
+          "E",
+          "A",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "FAR",
+          "clue": "Being the animal or vehicle on the right or being on the right side of an animal or vehicle",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "FACIA",
+          "clue": "A sheet or band of fibrous connective tissue separating or binding together muscles and organs etc",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ATHENS",
+          "clue": "The capital and largest city of Greece; named after Athena (its patron goddess)",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "RAT",
+          "clue": "Desert one's party or group of friends, for example, for one's personal advantage",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "BATA",
+          "clue": "A Chadic language spoken south of Lake Chad",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "BARI",
+          "clue": "Capital city of the Apulia region on the Adriatic coast",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "YACHT",
+          "clue": "Recreational sailing vessel",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "YES",
+          "clue": "Affirmative answer",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ERIE",
+          "clue": "The 4th largest of the Great Lakes; it is linked to the Hudson River by the New York State Barge Canal",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "SIAN",
+          "clue": "A city of central China; capital of ancient Chinese empire 221-206 BC",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "GSA",
+          "clue": "A central management agency that sets Federal policy for Federal procurement and real property management and information resources management",
+          "isTheme": false,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "GENOA",
+          "clue": "A seaport in northwestern Italy; provincial capital of Liguria",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "STEM",
+          "clue": "Front part of a vessel or aircraft",
+          "isTheme": true,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "AYR",
+          "clue": "A port in southwestern Scotland",
+          "isTheme": true,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SAFETY",
+          "clue": "A safe place",
+          "isTheme": true,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "ALPS",
+          "clue": "A large mountain system in south-central Europe; scenic beauty and winter sports make them a popular tourist attraction",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "FORE",
+          "clue": "Front part of a vessel or aircraft",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "LONER",
+          "clue": "A person who avoids the company or assistance of others",
+          "isTheme": false,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "PROM",
+          "clue": "A formal ball held for a school class toward the end of the academic year",
+          "isTheme": false,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "SEA",
+          "clue": "Ocean expanse",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "sports",
+    "size": 5,
+    "difficulty": "easy",
+    "seed": "sports/5/easy",
+    "puzzle": {
+      "size": 5,
+      "theme": "sports",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "V",
+          "A",
+          "N"
+        ],
+        [
+          null,
+          "P",
+          "A",
+          "C",
+          "E"
+        ],
+        [
+          "G",
+          "E",
+          "N",
+          "E",
+          "T"
+        ],
+        [
+          "I",
+          "R",
+          "I",
+          "S",
+          null
+        ],
+        [
+          "N",
+          "M",
+          "R",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "VAN",
+          "clue": "Any creative group active in the innovation and application of new concepts and techniques in a given field (especially in the arts)",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "VANIR",
+          "clue": "(Norse mythology) race of ancient gods sometimes in conflict with the Aesir",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ACES",
+          "clue": "Unreturned tennis serves",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "NET",
+          "clue": "A mesh barrier in tennis",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "PACE",
+          "clue": "Walking speed",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "PERM",
+          "clue": "A series of waves in the hair made by applying heat and chemicals",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "GENET",
+          "clue": "Agile Old World viverrine having a spotted coat and long ringed tail",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "GIN",
+          "clue": "A form of rummy in which a player can go out if the cards remaining in their hand total less than 10 points",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "IRIS",
+          "clue": "Showy flower named for the rainbow",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "NMR",
+          "clue": "Resonance of protons to radiation in a magnetic field",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "sports",
+    "size": 9,
+    "difficulty": "medium",
+    "seed": "sports/9/medium",
+    "puzzle": {
+      "size": 9,
+      "theme": "sports",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "L",
+          "A",
+          "P",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "D",
+          "O",
+          "M",
+          "E",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "C",
+          "O",
+          "V",
+          "E",
+          "R",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "O",
+          "P",
+          "E",
+          "N",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "N",
+          "E",
+          "R",
+          "D",
+          null,
+          null,
+          "C",
+          "U",
+          "T"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "A",
+          "M",
+          "A",
+          "R",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "L",
+          "I",
+          "N",
+          "E",
+          "R"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "P",
+          "L",
+          "O",
+          "Y",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "S",
+          "E",
+          "E",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "LAP",
+          "clue": "One circuit of a track",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "LOVER",
+          "clue": "Person who loves",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "AMENDS",
+          "clue": "Something done or paid in expiation of a wrong",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "PER",
+          "clue": "For each",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "DOME",
+          "clue": "A stadium that has a roof",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "DOPE",
+          "clue": "Take drugs to improve one's athletic performance",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "COVER",
+          "clue": "Protect or defend (a position in a game)",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "CON",
+          "clue": "A swindle in which you cheat at gambling or persuade a person to buy worthless property",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "OPEN",
+          "clue": "A tournament in which both professionals and amateurs may play",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "NERD",
+          "clue": "An intelligent but single-minded expert in a particular technical field or profession",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "CUT",
+          "clue": "(sports) a stroke that puts reverse spin on the ball",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "CANOE",
+          "clue": "Small and light boat; pointed at both ends; propelled with a paddle",
+          "isTheme": false,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "UREY",
+          "clue": "United States chemist who discovered deuterium (1893-1981)",
+          "isTheme": false,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "TAR",
+          "clue": "Black road surfacing material",
+          "isTheme": false,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SAMARA",
+          "clue": "A winged often one-seed indehiscent fruit as of the ash or elm or maple",
+          "isTheme": false,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "ALPS",
+          "clue": "A large mountain system in south-central Europe; scenic beauty and winter sports make them a popular tourist attraction",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "MILE",
+          "clue": "Distance of 5280 feet",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "LINER",
+          "clue": "(baseball) a hit that flies straight out from the batter",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "PLOY",
+          "clue": "A maneuver in a game or conversation",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "SEE",
+          "clue": "Match or meet",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "animals",
+    "size": 5,
+    "difficulty": "medium",
+    "seed": "animals/5/medium",
+    "puzzle": {
+      "size": 5,
+      "theme": "animals",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "U",
+          "C",
+          "A"
+        ],
+        [
+          null,
+          "C",
+          "R",
+          "O",
+          "P"
+        ],
+        [
+          "W",
+          "H",
+          "A",
+          "L",
+          "E"
+        ],
+        [
+          "M",
+          "I",
+          "L",
+          "T",
+          null
+        ],
+        [
+          "O",
+          "P",
+          "S",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "UCA",
+          "clue": "Fiddler crabs",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "URALS",
+          "clue": "A mountain range in western Russia extending from the Arctic to the Caspian Sea; forms part of the traditional boundary between Europe and Asia",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "COLT",
+          "clue": "A young male horse under the age of four",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "APE",
+          "clue": "Any of various primates with short tails or no tail at all",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "CROP",
+          "clue": "A pouch in many birds and some lower animals that resembles a stomach for storage and preliminary maceration of food",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "CHIP",
+          "clue": "Small broken piece",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "WHALE",
+          "clue": "Any of the larger cetacean mammals having a streamlined body and breathing through a blowhole on the head",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "WMO",
+          "clue": "The United Nations agency concerned with the international collection of meteorological data",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "MILT",
+          "clue": "Seminal fluid produced by male fish",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "OPS",
+          "clue": "(Roman mythology) goddess of abundance and fertility; wife of Saturn; counterpart of Greek Rhea and Cybele of ancient Asia Minor",
+          "isTheme": false,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "animals",
+    "size": 9,
+    "difficulty": "hard",
+    "seed": "animals/9/hard",
+    "puzzle": {
+      "size": 9,
+      "theme": "animals",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "P",
+          "E",
+          "N",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "W",
+          "I",
+          "N",
+          "G",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "P",
+          "O",
+          "N",
+          "G",
+          "O",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "E",
+          "R",
+          "N",
+          "E",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "T",
+          "E",
+          "A",
+          "L",
+          null,
+          null,
+          "G",
+          "N",
+          "U"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "P",
+          "A",
+          "R",
+          "I",
+          "D"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "U",
+          "P",
+          "U",
+          "P",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "P",
+          "U",
+          "M",
+          "A",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "A",
+          "S",
+          "P",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "PEN",
+          "clue": "Female swan",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "PINNA",
+          "clue": "The externally visible cartilaginous structure of the external ear",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ENGELS",
+          "clue": "Socialist who wrote the Communist Manifesto with Karl Marx in 1848 (1820-1895)",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "NGO",
+          "clue": "An organization that is not part of the local or state or federal government",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "WING",
+          "clue": "A movable organ for flying (one of a pair)",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "WORE",
+          "clue": "Had on",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "PONGO",
+          "clue": "Type genus of the family Pongidae: orangutans",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "PET",
+          "clue": "A domesticated animal kept for companionship or amusement",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "ERNE",
+          "clue": "Bulky greyish-brown eagle with a short wedge-shaped white tail; of Europe and Greenland",
+          "isTheme": true,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "TEAL",
+          "clue": "Any of various small short-necked dabbling river ducks of Europe and America",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "GNU",
+          "clue": "Large African antelope having a head with horns like an ox and a long tufted tail",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "GRUMP",
+          "clue": "A bad-tempered person",
+          "isTheme": false,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "NIPA",
+          "clue": "Monotypic genus of palms of Australasia",
+          "isTheme": false,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "UDA",
+          "clue": "The major Protestant paramilitary group in Northern Ireland; responsible for bombing the homes of Catholics and for criminal racketeering and selling drugs",
+          "isTheme": false,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SPARID",
+          "clue": "Spiny-finned food fishes of warm waters having well-developed teeth",
+          "isTheme": true,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "PUPA",
+          "clue": "An insect in the inactive stage of development (when it is not feeding) intermediate between larva and adult",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "APUS",
+          "clue": "Type genus",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "UPUPA",
+          "clue": "Type genus of the Upupidae",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "PUMA",
+          "clue": "Large American feline resembling a lion",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "ASP",
+          "clue": "Cobra used by the Pharaohs as a symbol of their power over life and death",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  },
+  {
+    "theme": "weather",
+    "size": 5,
+    "difficulty": "hard",
+    "seed": "weather/5/hard",
+    "puzzle": {
+      "size": 5,
+      "theme": "weather",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "S",
+          "E",
+          "T"
+        ],
+        [
+          null,
+          "T",
+          "U",
+          "M",
+          "S"
+        ],
+        [
+          "I",
+          "O",
+          "N",
+          "I",
+          "A"
+        ],
+        [
+          "D",
+          "I",
+          "N",
+          "T",
+          null
+        ],
+        [
+          "F",
+          "L",
+          "Y",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "SET",
+          "clue": "Sink below the horizon, as the Sun does",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "SUNNY",
+          "clue": "Marked by high insolation",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "EMIT",
+          "clue": "Give off, send forth, or discharge; as of light, heat, or radiation, vapor, etc.",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "TSA",
+          "clue": "An agency established in 2001 to safeguard United States transportation systems and insure safe air travel",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "TUMS",
+          "clue": "An antacid",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "TOIL",
+          "clue": "Work hard",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "IONIA",
+          "clue": "Region of western Asia Minor colonized by ancient Greeks",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "IDF",
+          "clue": "The ground and air and naval forces of Israel",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "DINT",
+          "clue": "Interchangeable with `means' in the expression `by means of'",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "FLY",
+          "clue": "(baseball) a hit that flies up in the air",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "weather",
+    "size": 9,
+    "difficulty": "easy",
+    "seed": "weather/9/easy",
+    "puzzle": {
+      "size": 9,
+      "theme": "weather",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          "C",
+          "L",
+          "A",
+          "P",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "R",
+          "I",
+          "M",
+          "E",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "A",
+          "M",
+          "U",
+          "N",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "P",
+          "E",
+          "L",
+          "T",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "E",
+          "Y",
+          "E",
+          null,
+          null,
+          "F",
+          "I",
+          "N"
+        ],
+        [
+          null,
+          null,
+          null,
+          "T",
+          "U",
+          "C",
+          "A",
+          "N",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "S",
+          "U",
+          "N",
+          "N",
+          "Y"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "A",
+          "R",
+          "C",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "F",
+          "L",
+          "Y",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "CLAP",
+          "clue": "Strike the air in flight",
+          "isTheme": true,
+          "row": 0,
+          "col": 1,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "CRAPE",
+          "clue": "A soft thin light fabric with a crinkled surface",
+          "isTheme": false,
+          "row": 0,
+          "col": 1,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "LIMEY",
+          "clue": "A man of English descent",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "AMULET",
+          "clue": "A trinket or piece of jewelry usually hung about the neck and thought to be a magical protection against evil or disease",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "PENT",
+          "clue": "Closely confined",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "RIME",
+          "clue": "Frost deposited on exposed surfaces",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "AMUN",
+          "clue": "A primeval Egyptian personification of air and breath; worshipped especially at Thebes",
+          "isTheme": true,
+          "row": 2,
+          "col": 1,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "PELT",
+          "clue": "Rain heavily",
+          "isTheme": true,
+          "row": 3,
+          "col": 1,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "EYE",
+          "clue": "Calm center of a tropical cyclone",
+          "isTheme": true,
+          "row": 4,
+          "col": 1,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "FIN",
+          "clue": "One of a set of parallel slats in a door or window to admit air and reject rain",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 9
+        },
+        {
+          "answer": "FANCY",
+          "clue": "Elaborate or imagine",
+          "isTheme": false,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "INN",
+          "clue": "Travelers' lodging",
+          "isTheme": false,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "NAY",
+          "clue": "A negative",
+          "isTheme": false,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 11
+        },
+        {
+          "answer": "TUCANA",
+          "clue": "A large faint constellation in the southern hemisphere containing most of the Small Magellanic Cloud",
+          "isTheme": true,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 12
+        },
+        {
+          "answer": "USAF",
+          "clue": "The airforce of the United States of America; the agency that defends the United States through control and exploitation of air and space",
+          "isTheme": true,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "CURL",
+          "clue": "Wind around something in coils or loops",
+          "isTheme": true,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 14
+        },
+        {
+          "answer": "SUNNY",
+          "clue": "Bright with no clouds",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "ARC",
+          "clue": "Shape of a rainbow",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        },
+        {
+          "answer": "FLY",
+          "clue": "(baseball) a hit that flies up in the air",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 17
+        }
+      ]
+    }
+  },
+  {
+    "theme": "garden",
+    "size": 5,
+    "difficulty": "easy",
+    "seed": "garden/5/easy",
+    "puzzle": {
+      "size": 5,
+      "theme": "garden",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "S",
+          "O",
+          "D"
+        ],
+        [
+          null,
+          "S",
+          "O",
+          "A",
+          "P"
+        ],
+        [
+          "B",
+          "E",
+          "R",
+          "T",
+          "H"
+        ],
+        [
+          "O",
+          "T",
+          "U",
+          "S",
+          null
+        ],
+        [
+          "G",
+          "A",
+          "S",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "SOD",
+          "clue": "Grass-covered earth",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "SORUS",
+          "clue": "Cluster of sporangia usually on underside of a fern frond",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "OATS",
+          "clue": "Grains made into porridge",
+          "isTheme": true,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "DPH",
+          "clue": "A doctor's degree in preventive medicine",
+          "isTheme": false,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "SOAP",
+          "clue": "A cleansing agent made from the salts of vegetable or animal fats",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "SETA",
+          "clue": "Stalk of a moss capsule",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "BERTH",
+          "clue": "A job in an organization",
+          "isTheme": false,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "BOG",
+          "clue": "Wet spongy ground of decomposing vegetation; has poorer drainage than a swamp; soil is unfit for cultivation but can be cut and dried and used for fuel",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "OTUS",
+          "clue": "A genus of Strigidae",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "GAS",
+          "clue": "Airlike state of matter",
+          "isTheme": false,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        }
+      ]
+    }
+  },
+  {
+    "theme": "garden",
+    "size": 9,
+    "difficulty": "medium",
+    "seed": "garden/9/medium",
+    "puzzle": {
+      "size": 9,
+      "theme": "garden",
+      "layoutVersion": 3,
+      "grid": [
+        [
+          null,
+          null,
+          "B",
+          "A",
+          "P",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "B",
+          "R",
+          "N",
+          "O",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "L",
+          "I",
+          "A",
+          "N",
+          "A",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "I",
+          "N",
+          "K",
+          "A",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "P",
+          "E",
+          "E",
+          "L",
+          null,
+          null,
+          "H",
+          "O",
+          "P"
+        ],
+        [
+          null,
+          null,
+          null,
+          "S",
+          "A",
+          "P",
+          "O",
+          "T",
+          "E"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "L",
+          "O",
+          "V",
+          "O",
+          "A"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "T",
+          "R",
+          "E",
+          "E",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "O",
+          "K",
+          "A",
+          null,
+          null
+        ]
+      ],
+      "entries": [
+        {
+          "answer": "BAP",
+          "clue": "A small loaf or roll of soft bread",
+          "isTheme": false,
+          "row": 0,
+          "col": 2,
+          "direction": "across",
+          "number": 1
+        },
+        {
+          "answer": "BRAKE",
+          "clue": "An area thickly overgrown usually with one kind of plant",
+          "isTheme": true,
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "number": 1
+        },
+        {
+          "answer": "ANNALS",
+          "clue": "A chronological account of events in successive years",
+          "isTheme": false,
+          "row": 0,
+          "col": 3,
+          "direction": "down",
+          "number": 2
+        },
+        {
+          "answer": "POA",
+          "clue": "Chiefly perennial grasses of cool temperate regions",
+          "isTheme": true,
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "number": 3
+        },
+        {
+          "answer": "BRNO",
+          "clue": "An industrial city in Moravia in Czech Republic to the southeast of Prague",
+          "isTheme": false,
+          "row": 1,
+          "col": 1,
+          "direction": "across",
+          "number": 4
+        },
+        {
+          "answer": "BINE",
+          "clue": "European twining plant whose flowers are used chiefly to flavor malt liquors; cultivated in America",
+          "isTheme": true,
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "number": 4
+        },
+        {
+          "answer": "LIANA",
+          "clue": "A woody climbing usually tropical plant",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "across",
+          "number": 5
+        },
+        {
+          "answer": "LIP",
+          "clue": "(botany) either of the two parts of a bilabiate corolla or calyx",
+          "isTheme": true,
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "number": 5
+        },
+        {
+          "answer": "INKA",
+          "clue": "A member of the Quechuan people living in the Cuzco valley in Peru",
+          "isTheme": false,
+          "row": 3,
+          "col": 0,
+          "direction": "across",
+          "number": 6
+        },
+        {
+          "answer": "PEEL",
+          "clue": "The rind of a fruit or vegetable",
+          "isTheme": true,
+          "row": 4,
+          "col": 0,
+          "direction": "across",
+          "number": 7
+        },
+        {
+          "answer": "HOP",
+          "clue": "Climbing plant used in brewing",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "across",
+          "number": 8
+        },
+        {
+          "answer": "HOVEA",
+          "clue": "Any of several attractive evergreen shrubs of Australia grown for their glossy deep green foliage and flowers in rich blues and intense violets",
+          "isTheme": true,
+          "row": 4,
+          "col": 6,
+          "direction": "down",
+          "number": 8
+        },
+        {
+          "answer": "OTOE",
+          "clue": "A dialect of the Chiwere language spoken by the Oto",
+          "isTheme": false,
+          "row": 4,
+          "col": 7,
+          "direction": "down",
+          "number": 9
+        },
+        {
+          "answer": "PEA",
+          "clue": "A pod-grown vegetable",
+          "isTheme": true,
+          "row": 4,
+          "col": 8,
+          "direction": "down",
+          "number": 10
+        },
+        {
+          "answer": "SAPOTE",
+          "clue": "Tropical American tree having wood like mahogany and sweet edible egg-shaped fruit; in some classifications placed in the genus Calocarpum",
+          "isTheme": true,
+          "row": 5,
+          "col": 3,
+          "direction": "across",
+          "number": 11
+        },
+        {
+          "answer": "ALTO",
+          "clue": "Low female singing voice",
+          "isTheme": false,
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "number": 12
+        },
+        {
+          "answer": "PORK",
+          "clue": "Pig meat",
+          "isTheme": false,
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "number": 13
+        },
+        {
+          "answer": "LOVOA",
+          "clue": "Genus of African timber trees",
+          "isTheme": true,
+          "row": 6,
+          "col": 4,
+          "direction": "across",
+          "number": 14
+        },
+        {
+          "answer": "TREE",
+          "clue": "A tall perennial woody plant having a main trunk and branches forming a distinct elevated crown; includes both gymnosperms and angiosperms",
+          "isTheme": true,
+          "row": 7,
+          "col": 4,
+          "direction": "across",
+          "number": 15
+        },
+        {
+          "answer": "OKA",
+          "clue": "South American wood sorrel cultivated for its edible tubers",
+          "isTheme": true,
+          "row": 8,
+          "col": 4,
+          "direction": "across",
+          "number": 16
+        }
+      ]
+    }
+  }
+]
