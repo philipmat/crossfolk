@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readdir} from 'node:fs/promises';
-import {resolve} from 'node:path';
+import {relative, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {generateWords, MAX_GENERATION_TIMEOUT_MS, MAX_MODEL_TIMEOUT_MS, validateOptions} from '../server/words.js';
 import {handleWords} from '../server/handler.js';
@@ -276,9 +276,17 @@ test('counts the tokens burned by an attempt it had to discard', async () => {
   assert.deepEqual(body.source, {model: 'second/model', usage: {input: 400, output: 100, total: 500}});
 });
 
-test('public/ holds exactly the allowlisted files', async () => {
-  const present = (await readdir(resolve(ROOT, 'public'))).filter((name) => name !== '.DS_Store');
-  assert.deepEqual([...present].sort(), [...PUBLIC_FILES].sort());
+// A flat listing would report `layouts` as a bare directory name while the allowlist
+// carries nested paths, so the comparison has to walk the tree and drop directories.
+test('public/ holds exactly the allowlisted files, including nested ones', async () => {
+  const entries = await readdir(resolve(ROOT, 'public'), {recursive: true, withFileTypes: true});
+  const present = entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => relative(resolve(ROOT, 'public'), resolve(entry.parentPath, entry.name)).split(sep).join('/'))
+    .filter((name) => !name.endsWith('.DS_Store'));
+
+  assert.deepEqual(present.sort(), [...PUBLIC_FILES].sort());
+  assert.ok([...PUBLIC_FILES].some((name) => name.includes('/')), 'expected at least one nested allowlist entry');
 });
 
 test('the local server bridges /api/words through the same handler', async (t) => {
@@ -291,6 +299,13 @@ test('the local server bridges /api/words through the same handler', async (t) =
   await new Promise((done) => server.listen(0, '127.0.0.1', done));
   t.after(() => new Promise((done) => server.close(done)));
   const base = `http://127.0.0.1:${server.address().port}`;
+
+  const nested = await fetch(`${base}/layouts/mask-analysis.js`);
+  assert.equal(nested.status, 200);
+  assert.equal(nested.headers.get('content-type'), 'text/javascript; charset=utf-8');
+
+  const traversal = await fetch(`${base}/layouts/../../server/words.js`);
+  assert.equal(traversal.status, 404);
 
   const unconfigured = await fetch(`${base}/api/words`, {
     method: 'POST',

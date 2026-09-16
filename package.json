@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file-if-exists=.env server/index.js",
-    "test": "node --test test/engine.test.js test/handler.test.js test/database.test.js test/d1-store.test.js test/browser-retry.test.js test/regressions.test.js test/theme-picker.test.js"
+    "test": "node --test test/engine.test.js test/handler.test.js test/database.test.js test/d1-store.test.js test/browser-retry.test.js test/regressions.test.js test/theme-picker.test.js test/mask-analysis.test.js"
   },
   "engines": {
     "node": ">=22.13.0"
