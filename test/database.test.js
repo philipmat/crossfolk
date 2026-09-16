@@ -6,6 +6,7 @@ import {join} from 'node:path';
 import {openApplicationDatabase} from '../server/sqlite-database.js';
 import {SqliteGenerationStore} from '../server/sqlite-generation-store.js';
 import {handleWords, requestFingerprint} from '../server/handler.js';
+import {PROMPT_VERSION, WORD_PROFILE_VERSION} from '../server/words.js';
 
 async function tempDatabase(t) {
   const directory = await mkdtemp(join(tmpdir(), 'crossfolk-db-'));
@@ -113,8 +114,8 @@ test('a stale request resumes from its durable raw response without calling the 
   const input = {requestId, theme: 'ocean', size: 5, difficulty: 'easy', exclude: []};
   const details = {
     id: requestId, startedAtMs: 1, runtime: 'local', requesterKey: 'local', requesterKeyVersion: 'v1', theme: 'ocean', themeKey: 'ocean',
-    size: 5, difficulty: 'easy', excludeCount: 0, requestJson: JSON.stringify(input), requestFingerprint: requestFingerprint({theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['only/model']}),
-    promptVersion: 'crossfolk-words-v2', configuredModelsJson: '["only/model"]', leaseExpiresAtMs: 2
+    size: 5, difficulty: 'easy', excludeCount: 0, requestJson: JSON.stringify(input), requestFingerprint: requestFingerprint({theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['only/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION}),
+    promptVersion: PROMPT_VERSION, configuredModelsJson: '["only/model"]', leaseExpiresAtMs: 2
   };
   const claim = await store.claimRequest(details);
   await store.beginAttempt({requestId, attemptNumber: 1, model: 'only/model', startedAtMs: 2, requestJson: '{}', leaseToken: claim.leaseToken});

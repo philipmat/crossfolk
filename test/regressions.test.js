@@ -8,7 +8,7 @@ import {SqliteGenerationStore, MAX_RESPONSE_BODY} from '../server/sqlite-generat
 import {D1GenerationStore} from '../worker/d1-generation-store.js';
 import {handleWords, requestFingerprint} from '../server/handler.js';
 import {isWordsPath} from '../server/index.js';
-import {MAX_PROVIDER_RESPONSE_BODY, readCappedProviderBody, readUsage} from '../server/words.js';
+import {MAX_PROVIDER_RESPONSE_BODY, PROMPT_VERSION, readCappedProviderBody, readUsage, WORD_PROFILE_VERSION} from '../server/words.js';
 import worker from '../worker/index.js';
 
 async function tempDatabase(t) {
@@ -81,7 +81,7 @@ test('stale recovery advances after a finalized failed attempt and classifies ch
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection, {leaseMs: 100});
   const id = '40404040-4040-4404-8404-404040404040';
-  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['first/model', 'second/model']};
+  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['first/model', 'second/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION};
   const claim = await store.claimRequest({...details(id, requestFingerprint(clean), 0), configuredModelsJson: '["first/model","second/model"]'});
   await store.beginAttempt({requestId: id, attemptNumber: 1, model: 'first/model', requestJson: '{}', leaseToken: claim.leaseToken});
   const failedRaw = JSON.stringify({error: {message: 'first failed'}, usage: {prompt_tokens: 6, completion_tokens: 2, total_tokens: 8}});
@@ -112,7 +112,7 @@ test('stale recovery replays a checkpoint whose attempt finalization succeeded',
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection);
   const id = '41414141-4141-4414-8414-414141414141';
-  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['only/model']};
+  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['only/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION};
   const claim = await store.claimRequest({...details(id, requestFingerprint(clean), 0), configuredModelsJson: '["only/model"]'});
   await store.beginAttempt({requestId: id, attemptNumber: 1, model: 'only/model', requestJson: '{}', leaseToken: claim.leaseToken});
   const raw = JSON.stringify({choices: [{message: {content: JSON.stringify({words: [{answer: 'reef', clue: 'x'}, {answer: 'tide', clue: 'y'}, {answer: 'wave', clue: 'z'}]})}}], usage: {prompt_tokens: 2, completion_tokens: 3, total_tokens: 5}});
@@ -130,7 +130,7 @@ test('stale recovery selects the highest-ordinal checkpoint', async (t) => {
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection);
   const id = '42424242-4242-4424-8424-424242424242';
-  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['first/model', 'second/model']};
+  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['first/model', 'second/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION};
   const claim = await store.claimRequest({...details(id, requestFingerprint(clean), 0), configuredModelsJson: '["first/model","second/model"]'});
   await store.beginAttempt({requestId: id, attemptNumber: 1, model: 'first/model', requestJson: '{}', leaseToken: claim.leaseToken});
   await store.checkpointAttemptResponse({requestId: id, attemptNumber: 1, leaseToken: claim.leaseToken, providerResponseBody: JSON.stringify({error: {message: 'first failed'}}), providerHttpStatus: 500});
@@ -227,7 +227,7 @@ test('recovered success source usage aggregates earlier finalized attempts', asy
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection);
   const id = '70707070-7070-4707-8707-707070707070';
-  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['first/model', 'second/model']};
+  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['first/model', 'second/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION};
   const claim = await store.claimRequest({...details(id, requestFingerprint(clean), 0), configuredModelsJson: '["first/model","second/model"]'});
   await store.beginAttempt({requestId: id, attemptNumber: 1, model: 'first/model', requestJson: '{}', leaseToken: claim.leaseToken});
   await store.finishAttempt({requestId: id, attemptNumber: 1, model: 'first/model', leaseToken: claim.leaseToken, outcome: 'network_error', inputTokens: 5, outputTokens: 6, totalTokens: 11});
@@ -245,7 +245,7 @@ test('exhausted recovery finalizes a terminal failure without dereferencing a mi
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection);
   const id = '80808080-8080-4808-8808-808080808080';
-  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: 'crossfolk-words-v2', models: ['only/model']};
+  const clean = {theme: 'ocean', themeKey: 'ocean', size: 5, difficulty: 'easy', exclude: [], count: 40, promptVersion: PROMPT_VERSION, models: ['only/model'], wordProfile: 'freeform-bank', wordProfileVersion: WORD_PROFILE_VERSION};
   const claim = await store.claimRequest({...details(id, requestFingerprint(clean), 0), configuredModelsJson: '["only/model"]'});
   await store.beginAttempt({requestId: id, attemptNumber: 1, model: 'only/model', requestJson: '{}', leaseToken: claim.leaseToken});
   await store.finishAttempt({requestId: id, attemptNumber: 1, leaseToken: claim.leaseToken, outcome: 'network_error', errorCategory: 'network_error', errorMessage: 'offline', inputTokens: 4, outputTokens: 2, totalTokens: 6});

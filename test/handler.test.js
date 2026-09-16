@@ -106,7 +106,9 @@ test('rejects each invalid option before calling the AI', async () => {
     assert.equal(status, 400, JSON.stringify(input));
     assert.equal(body.error, message);
   }
-  assert.equal(validateOptions({theme: 'ocean', size: 'medium'}).count, 60);
+  // Medium moved from 60 to 72 when the Free-form bank profile took over the requested
+  // count (see server/words.js WORD_PROFILES['freeform-bank'].sizes[9]).
+  assert.equal(validateOptions({theme: 'ocean', size: 'medium'}).count, 72);
   assert.equal(validateOptions({theme: 'ocean', size: 5}).count, 40);
 });
 

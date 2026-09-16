@@ -11,9 +11,62 @@ export const DEFAULT_MODELS = [
 export const MAX_GENERATION_TIMEOUT_MS = 120_000;
 export const MAX_MODEL_TIMEOUT_MS = 60_000;
 export const MAX_PROVIDER_RESPONSE_BODY = 256 * 1024;
-export const PROMPT_VERSION = 'crossfolk-words-v2';
+export const PROMPT_VERSION = 'crossfolk-words-v3-style-profiles';
+// Bumping this (independently of PROMPT_VERSION) forces a fresh generation whenever the
+// server-owned word profiles below change shape, even if the prompt text itself did not.
+export const WORD_PROFILE_VERSION = 'layout-word-profiles-v1';
 const SIZES = {small: 5, medium: 9, large: 13};
 const MAX_DIAGNOSTIC_TEXT = 4096;
+
+// Server-owned candidate-pool policy per layout style. The client asks for a profile id;
+// it never tells the server which UI style is asking, and it cannot influence counts or
+// thresholds. `american-anchors`' `themeSlotSignatures` is a deliberate, hand-copied record
+// of `themeSlotSignatures(9)` from `public/layouts/american-patterns.js` (not an import),
+// so a catalog change forces a conscious update here rather than silently drifting.
+export const WORD_PROFILES = Object.freeze({
+  'freeform-bank': Object.freeze({
+    minAnswerLength: 2,
+    sizes: Object.freeze({
+      5: Object.freeze({requested: 40, minimumUsable: 24, minItems: 8}),
+      9: Object.freeze({requested: 72, minimumUsable: 48, minItems: 8}),
+      13: Object.freeze({requested: 84, minimumUsable: 56, minItems: 8}),
+    }),
+  }),
+  'american-anchors': Object.freeze({
+    minAnswerLength: 3,
+    sizes: Object.freeze({
+      9: Object.freeze({requested: 36, minimumUsable: 24, minItems: 12}),
+    }),
+    themeSlotSignatures: Object.freeze([Object.freeze([5]), Object.freeze([6]), Object.freeze([7])]),
+  }),
+});
+
+const FREEFORM_LENGTH_BAND_TEXT = {
+  5: 'All answers should be 3 to 5 letters long.',
+  9: 'Aim for roughly 60% of answers 3-5 letters, 30% 6-7 letters, and 10% 8-9 letters.',
+  13: 'Aim for roughly 55% of answers 3-5 letters, 30% 6-8 letters, and 15% 9-13 letters.',
+};
+
+const SHARED_SYSTEM_INSTRUCTIONS = 'Create accurate, family-friendly American crossword entries that are strongly related to the '
+  + 'given theme. Difficulty should change how directly the clue points to the answer, not how obscure the answer itself is. Do '
+  + 'not coin new words, pad answers, repeat duplicate answers, or list trivial inflections of the same root (plurals, -ing, -ed) '
+  + 'as separate entries. Do not use proper names unless they are central to the theme. Return only data matching the JSON schema.';
+
+// Per-profile guidance about the shape of the answers themselves: how long they should be,
+// how many are wanted, and whether multiword phrases are acceptable.
+function answerFormGuidance(wordProfile, size) {
+  if (wordProfile === 'american-anchors') {
+    const lengths = [...new Set(WORD_PROFILES['american-anchors'].themeSlotSignatures.flat())].sort((a, b) => a - b);
+    return `Provide a smaller set of strong, distinctive feature entries for the long, symmetric slots of a ${size}x${size} `
+      + `American-style grid. This puzzle's eligible theme-slot lengths are ${lengths.join(', ')} letters. Provide several `
+      + 'candidate answers at each of those exact lengths so rotationally symmetric slot pairs are possible. Familiar multiword '
+      + 'phrases are allowed; encode the answer as letters A-Z only, with spaces and punctuation omitted. Do not design or fill '
+      + 'the grid yourself — only supply candidate answers and clues.';
+  }
+
+  return `Each answer must be a single word containing only letters A-Z. ${FREEFORM_LENGTH_BAND_TEXT[size]} Generate many short, `
+    + 'varied, highly interlockable theme words.';
+}
 
 export class GenerationError extends Error {
   constructor(status, message, usage = null, metadata = {}) {
@@ -87,7 +140,10 @@ export async function readCappedProviderBody(response) {
   return new TextDecoder().decode(bytes);
 }
 
-function parseProviderResponse(responseText, {size, providerHttpStatus = 200}) {
+// `wordProfile` is optional so a checkpoint written before profiles existed can still be
+// replayed under the legacy contract (2-letter minimum, 3 usable words is enough, no
+// per-length histogram check).
+function parseProviderResponse(responseText, {size, providerHttpStatus = 200, wordProfile}) {
   let payload;
   try {
     payload = JSON.parse(responseText);
@@ -110,16 +166,45 @@ function parseProviderResponse(responseText, {size, providerHttpStatus = 200}) {
   } catch {
     throw new GenerationError(502, 'The AI returned malformed JSON.', usage, {category: 'malformed_json'});
   }
-  const words = (Array.isArray(parsed?.words) ? parsed.words : [])
+
+  const profile = wordProfile ? WORD_PROFILES[wordProfile] : null;
+  const minAnswerLength = profile?.minAnswerLength ?? 2;
+
+  // Normalize to A-Z uppercase, then drop anything too short, too long for the grid, or
+  // missing a clue, before any deduplication or count check runs.
+  const usable = (Array.isArray(parsed?.words) ? parsed.words : [])
     .map(({answer, clue}) => ({answer: String(answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: String(clue)}))
-    .filter(({answer, clue}) => answer.length >= 2 && answer.length <= size && clue);
-  if (words.length < 3) throw new GenerationError(502, 'The AI did not return enough usable words.', usage, {category: 'insufficient_words', usableWordCount: words.length});
+    .filter(({answer, clue}) => answer.length >= minAnswerLength && answer.length <= size && clue);
+
+  // Deduplicate by answer, keeping the first occurrence, before any count is evaluated.
+  const seenAnswers = new Set();
+  const words = usable.filter(({answer}) => {
+    if (seenAnswers.has(answer)) return false;
+    seenAnswers.add(answer);
+    return true;
+  });
+
+  if (wordProfile === 'american-anchors') {
+    if (words.length < profile.minimumUsable) throw new GenerationError(502, 'The AI did not return enough usable words.', usage, {category: 'insufficient_words', usableWordCount: words.length});
+
+    // A signature is satisfied only when at least two distinct answers share every length
+    // in it, so a rotationally symmetric pair of slots at each of those lengths is fillable.
+    const countsByLength = new Map();
+    for (const {answer} of words) countsByLength.set(answer.length, (countsByLength.get(answer.length) || 0) + 1);
+    const hasUsableSignature = profile.themeSlotSignatures.some((signature) => signature.every((length) => (countsByLength.get(length) || 0) >= 2));
+    if (!hasUsableSignature) throw new GenerationError(502, 'This theme did not produce enough same-length anchor words to fill the grid. Try a broader theme.', usage, {category: 'insufficient_theme_anchors'});
+  } else if (words.length < 3) {
+    throw new GenerationError(502, 'The AI did not return enough usable words.', usage, {category: 'insufficient_words', usableWordCount: words.length});
+  }
+
   return {words, usage};
 }
 
 // Returns either `{error: {status, body}}` or the normalised options for `requestThemeWords`.
+// `wordProfile` selects the server-owned candidate-pool policy (see `WORD_PROFILES`); the
+// caller never supplies a count directly, so a client cannot inflate or shrink the request.
 export function validateOptions(input) {
-  const {theme, size = 5, difficulty = 'easy', exclude = []} = input ?? {};
+  const {theme, size = 5, difficulty = 'easy', exclude = [], wordProfile} = input ?? {};
   const cleanTheme = String(theme ?? '').trim();
   if (!cleanTheme) return {error: {status: 400, body: {error: 'A theme is required.'}}};
   if (cleanTheme.length > 160) return {error: {status: 400, body: {error: 'Theme must be 160 characters or fewer.'}}};
@@ -131,9 +216,15 @@ export function validateOptions(input) {
   const numericSize = SIZES[String(size).toLowerCase()] ?? Number(size);
   if (![5, 9, 13].includes(numericSize)) return {error: {status: 400, body: {error: 'Size must be small (5), medium (9), or large (13).'}}};
 
-  // A few dozen clean candidates are enough for the local solver. Asking for a much
-  // larger schema-constrained response makes slower providers miss the request window.
-  return {theme: cleanTheme, size: numericSize, difficulty: cleanDifficulty, exclude, count: numericSize <= 5 ? 40 : 60};
+  // An omitted or empty profile is the legacy Free-form bank. An unknown profile, or one
+  // with no entry for this size, is refused here, before any provider call is made.
+  const cleanProfile = String(wordProfile ?? '').trim() || 'freeform-bank';
+  const sizeLimits = WORD_PROFILES[cleanProfile]?.sizes[numericSize];
+  if (!sizeLimits) return {error: {status: 400, body: {error: `Word profile "${cleanProfile}" does not support size ${numericSize}.`}}};
+
+  // The requested count always comes from the server-owned profile; a client-supplied
+  // count is ignored so it cannot inflate the request or under-fill the schema.
+  return {theme: cleanTheme, size: numericSize, difficulty: cleanDifficulty, exclude, count: sizeLimits.requested, wordProfile: cleanProfile};
 }
 
 export function parseModels(env) {
@@ -145,7 +236,7 @@ export function parseModels(env) {
   return models.length ? models : [...DEFAULT_MODELS];
 }
 
-async function requestThemeWords(model, {theme, size, difficulty, exclude, count}, env, fetchImpl, timeoutMs, parentSignal, lifecycle = {}) {
+async function requestThemeWords(model, {theme, size, difficulty, exclude, count, wordProfile}, env, fetchImpl, timeoutMs, parentSignal, lifecycle = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   const abortFromParent = () => controller.abort();
@@ -155,12 +246,13 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
   let responseText;
   const {generationStore, requestId, leaseToken, attemptNumber, logger = defaultLogger} = lifecycle;
   const startedAtMs = Date.now();
+  const minItems = WORD_PROFILES[wordProfile].sizes[size].minItems;
   const requestBody = JSON.stringify({
     model,
     messages: [
       {
         role: 'system',
-        content: 'Create accurate, family-friendly American crossword entries. Return only data matching the JSON schema. Answers must be single words containing A-Z only, with no proper names unless central to the theme. Clues must match the requested difficulty.'
+        content: `${SHARED_SYSTEM_INSTRUCTIONS} ${answerFormGuidance(wordProfile, size)}`
       },
       {
         role: 'user',
@@ -177,7 +269,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
           properties: {
             words: {
               type: 'array',
-              minItems: 8,
+              minItems,
               maxItems: count,
               items: {
                 type: 'object',
@@ -243,7 +335,7 @@ async function requestThemeWords(model, {theme, size, difficulty, exclude, count
     let payload;
     try { payload = JSON.parse(responseText); } catch { payload = null; }
     if (!apiResponse.ok) throw new GenerationError(502, safeDiagnostic(payload?.error?.message) || 'Theme generation failed.', readUsage(payload), {category: 'upstream_error', providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse)});
-    const parsed = parseProviderResponse(responseText, {size});
+    const parsed = parseProviderResponse(responseText, {size, wordProfile});
     if (generationStore) {
       try { await generationStore.finishAttempt({requestId, leaseToken, attemptNumber, completedAtMs: Date.now(), durationMs: Date.now() - startedAtMs, outcome: 'success', providerHttpStatus: apiResponse.status, providerRequestId: safeProviderRequestId(apiResponse), inputTokens: parsed.usage?.input, outputTokens: parsed.usage?.output, totalTokens: parsed.usage?.total, usableWordCount: parsed.words.length}); } catch (finalizationError) { logger.error(`Request ${requestId} attempt ${attemptNumber}: failed to finalize attempt:`, finalizationError); }
     }
@@ -317,6 +409,8 @@ export async function generateWords(input, env, {fetchImpl = fetch, timeoutMs = 
   return {status: lastError.status, body: {error: lastError.message, ...(requestId ? {requestId} : {}), ...(lastError.retryable ? {retryable: true} : {})}};
 }
 
-export function parseStoredProviderResponse(responseText, size, providerHttpStatus = 200) {
-  return parseProviderResponse(responseText, {size, providerHttpStatus});
+// `options.wordProfile` is absent for a row written before profiles existed, so that
+// stored response keeps replaying under the legacy contract instead of the new thresholds.
+export function parseStoredProviderResponse(responseText, size, providerHttpStatus = 200, options = {}) {
+  return parseProviderResponse(responseText, {size, providerHttpStatus, wordProfile: options.wordProfile});
 }
