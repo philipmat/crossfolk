@@ -18,9 +18,9 @@ import {readdir, readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-import {dictionaryThemes, dictionaryWords} from '../public/wordnet-words.js';
 import {fillWords} from '../public/fill-words.js';
 import {supportedThemes} from '../public/themes.js';
+import {isKnownSpelling} from './word-spelling.mjs';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const SOURCE_DIR = resolve(ROOT, process.argv[2] ?? '.local/vocab');
@@ -32,36 +32,6 @@ const FILL_LENGTHS = [3, 4, 5, 6, 7, 8, 9];
 const THEME_LENGTHS = [5, 6, 7, 8, 9];
 const MAX_CLUE = 70;
 
-const known = new Set(dictionaryWords.map(({answer}) => answer));
-for (const entries of Object.values(dictionaryThemes)) for (const {answer} of entries) known.add(answer);
-for (const {answer} of fillWords) known.add(answer);
-
-// The vendored WordNet subset stores lemmas, so a regular inflection of a known lemma is
-// still a confirmed spelling. Anything that matches neither is dropped and reported: the
-// curation pass is model-written, and this is the mechanical check on it.
-function baseForms(answer) {
-  const forms = [answer];
-  if (answer.endsWith('IES')) forms.push(`${answer.slice(0, -3)}Y`);
-  if (answer.endsWith('ES')) forms.push(answer.slice(0, -2));
-  if (answer.endsWith('S')) forms.push(answer.slice(0, -1));
-  if (answer.endsWith('ED')) {
-    forms.push(answer.slice(0, -1), answer.slice(0, -2));
-    if (answer.endsWith('IED')) forms.push(`${answer.slice(0, -3)}Y`);
-    if (answer.length > 4 && answer.at(-3) === answer.at(-4)) forms.push(answer.slice(0, -3));
-  }
-  if (answer.endsWith('ING')) {
-    forms.push(answer.slice(0, -3), `${answer.slice(0, -3)}E`);
-    if (answer.length > 5 && answer.at(-4) === answer.at(-5)) forms.push(answer.slice(0, -4));
-  }
-  if (answer.endsWith('LY')) forms.push(answer.slice(0, -2));
-  if (answer.endsWith('NESS')) forms.push(answer.slice(0, -4));
-
-  return forms;
-}
-
-function isKnownSpelling(answer) {
-  return baseForms(answer).some((form) => known.has(form));
-}
 const curatedShort = new Set(fillWords.map(({answer}) => answer));
 const rejects = [];
 

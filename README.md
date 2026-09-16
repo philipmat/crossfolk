@@ -236,9 +236,17 @@ The settings card offers a **Grid style**:
   and a Down answer. Available at 9x9 only.
 
 American grids are built from an audited catalog of masks in `public/layouts/american-patterns.js`. Every mask is
-re-validated from the raw grid by the tests rather than trusted: 180-degree rotational symmetry, at most 16% black
-squares (13 of 81 at 9x9), no answer shorter than three letters, 100% checked coverage, one connected white region with
-no single-cell neck, and no solid 2x2 block of black squares.
+re-validated from the raw grid by the tests rather than trusted: 180-degree rotational symmetry, a black-square ceiling,
+no answer shorter than three letters, 100% checked coverage, one connected white region with no single-cell neck, and no
+solid 2x2 block of black squares. A mask also has to be *demonstrably fillable* from the curated vocabulary before it is
+committed, not merely legal.
+
+The black-square ceiling is size-specific, and 9x9 deliberately departs from the classic "about 16%" guideline. That
+figure comes from 15x15 grids, where it still leaves plenty of short entries. On a 9x9 it permits at most 13 black
+squares, and of the 3,210 legal masks within that limit, all but two carry a nine-letter answer spanning the whole grid —
+which a curated vocabulary cannot fill without reaching for obscurities. Measured across every legal mask, the boundary
+is a longest entry of six letters: no mask above that fills acceptably, and every mask at or below it does. The 9x9
+ceiling is therefore 19 of 81 cells, which admits twenty such masks; larger sizes keep the 16% rule.
 
 American replaces the thematic-majority rule with **featured theme entries**: a rotationally symmetric pair of theme
 answers in prominent slots, rather than a themed majority. This is a deliberate, approved style-scoped exception —
@@ -254,10 +262,10 @@ Custom themes send the selected style's **word profile** to `/api/words`: Free f
 while American asks for fewer, longer anchors whose per-length counts can actually seed a symmetric pair in an admitted
 catalog mask. The server owns those counts; the browser never supplies them.
 
-**Status.** American is implemented but has not passed its release gate — it currently fills 4 of 10 built-in themes
-within the time budget, because a fully checked 9x9 needs considerably more curated short vocabulary than the original
-bank holds. It is selectable, but Free form remains the default until `npm run verify:american` passes. 13x13 American
-is not registered at all, pending its own separate fill and timing gate.
+**Status.** American style passes its 9x9 release gate: 300 of 300 runs across every built-in theme and difficulty,
+cold and against a rolling history, with a median of 415ms and a slowest run of 12.1s inside the 13.5-second dispatch
+envelope. It is the default preference at 9x9. 13x13 American is not registered, pending its own separate fill and
+timing gate; 5x5 remains Free form.
 
 ### Investigation queries
 

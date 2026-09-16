@@ -40,7 +40,7 @@ export const WORD_PROFILES = Object.freeze({
     sizes: Object.freeze({
       9: Object.freeze({requested: 36, minimumUsable: 24, minItems: 12}),
     }),
-    themeSlotSignatures: Object.freeze([Object.freeze([5]), Object.freeze([6]), Object.freeze([7])]),
+    themeSlotSignatures: Object.freeze([Object.freeze([5]), Object.freeze([6])]),
   }),
 });
 

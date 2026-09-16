@@ -9,12 +9,18 @@ const DIRECTIONS = [
   {direction: 'down', rowStep: 1, colStep: 0},
 ];
 
-// The classic "about 16%" guideline, applied as a hard ceiling: 13 cells at 9x9 and
-// 27 at 13x13.
+// The classic "about 16%" guideline, applied as a hard ceiling.
 export const BLACK_RATIO_CEILING = 0.16;
 
+// The 16% figure is a 15x15 convention, where it still leaves plenty of short entries. On
+// a 9x9 it is punishing: of the 3,210 legal masks within 13 black cells, all but two carry
+// a nine-letter answer spanning the whole grid, and a curated vocabulary cannot fill those
+// acceptably. A 9x9 therefore gets its own measured ceiling, which admits twenty masks
+// whose longest entry is six letters — every one of them demonstrably fillable.
+const SIZE_BLACK_CEILINGS = Object.freeze({9: 19});
+
 export function maxBlackCells(size) {
-  return Math.round(size * size * BLACK_RATIO_CEILING);
+  return SIZE_BLACK_CEILINGS[size] ?? Math.round(size * size * BLACK_RATIO_CEILING);
 }
 
 function isBlack(mask, row, col) {

@@ -6,10 +6,10 @@
 // Style ids are stored data. `american` and `freeform` appear in saved puzzles, so they
 // must stay stable even when the user-facing labels change.
 
-// American is the intended default once its 9x9 release gate passes. Until then the
-// preference opens on Free form, so the settings card offers a generator that works for
-// every theme rather than one that reports a generation error for most of them.
-export const DEFAULT_LAYOUT_STYLE = 'freeform';
+// American is the default preference: its 9x9 release gate passes at 300/300 runs. Sizes
+// it does not support fall back to Free form for that generation without losing this
+// preference.
+export const DEFAULT_LAYOUT_STYLE = 'american';
 export const FALLBACK_LAYOUT_STYLE = 'freeform';
 
 export const layoutStyles = Object.freeze([

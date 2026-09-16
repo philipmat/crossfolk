@@ -52,7 +52,7 @@ test('the select is a comfortable touch target with visible keyboard focus', () 
 
 test('a style preference survives a size that cannot honor it', () => {
   assert.match(app, /preferredLayoutStyle\s*=\s*DEFAULT_LAYOUT_STYLE/);
-  assert.equal(DEFAULT_LAYOUT_STYLE, 'freeform');
+  assert.equal(DEFAULT_LAYOUT_STYLE, 'american');
   assert.match(app, /effectiveLayoutStyle\(/);
   // The preference itself is only reassigned from an explicit user choice.
   assert.match(app, /onchange=[^\n]*preferredLayoutStyle=/);

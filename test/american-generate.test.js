@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 import {generateAmerican} from '../public/layouts/american.js';
 import {americanPatterns, americanRules} from '../public/layouts/american-patterns.js';
-import {analyzeMask} from '../public/layouts/mask-analysis.js';
+import {analyzeMask, maxBlackCells} from '../public/layouts/mask-analysis.js';
 import {americanFillWords} from '../public/layouts/american-fill-words.js';
 import {americanThemeWords} from '../public/layouts/american-theme-words.js';
 import {supportedThemes} from '../public/themes.js';
@@ -58,7 +58,7 @@ function assertAmericanPuzzle(puzzle, label) {
   assert.equal(metrics.connected, true, `${label}: not connected`);
   assert.equal(metrics.articulationPoints.length, 0, `${label}: has an articulation point`);
   assert.equal(metrics.hasTwoByTwoBlack, false, `${label}: has a 2x2 black block`);
-  assert.ok(metrics.blackCount <= 13, `${label}: ${metrics.blackCount} black cells`);
+  assert.ok(metrics.blackCount <= maxBlackCells(9), `${label}: ${metrics.blackCount} black cells`);
   assert.equal(metrics.minimumRun >= 3, true, `${label}: has a run shorter than three`);
   assert.ok(metrics.entryCount >= americanRules[9].minimumEntryCount, `${label}: only ${metrics.entryCount} entries`);
 
@@ -142,14 +142,24 @@ test('every answer comes from the curated tier, never raw dictionary material', 
   }
 });
 
-test('difficulty changes the clue variant that is used', () => {
-  const easy = build('nature', 'easy');
-  const hard = build('nature', 'hard');
-  const clueFor = (puzzle, answer) => puzzle.entries.find((entry) => entry.answer === answer)?.clue;
+// Comparing two puzzles' shared answers is too fragile to assert this: different
+// difficulties pick different masks, and the handful of answers they happen to share can
+// all come from the legacy bank, which carries a single clue. Check the mechanism instead —
+// every answer that HAS variants must use the one for the requested difficulty.
+test('an answer with clue variants is clued for the requested difficulty', () => {
+  // Scoped to the theme being generated: an answer can be featured in more than one theme
+  // with a different, theme-appropriate clue in each, which is deliberate.
+  const variants = new Map([...americanFillWords, ...americanThemeWords.nature].map(({answer, clue}) => [answer, clue]));
 
-  const shared = easy.entries.map(({answer}) => answer).filter((answer) => hard.entries.some((entry) => entry.answer === answer));
-  assert.ok(shared.length > 0, 'the two puzzles share no answer to compare');
-  assert.ok(shared.some((answer) => clueFor(easy, answer) !== clueFor(hard, answer)), 'no clue changed between easy and hard');
+  for (const difficulty of DIFFICULTIES) {
+    const puzzle = build('nature', difficulty);
+    const checked = puzzle.entries.filter(({answer}) => variants.has(answer));
+
+    assert.ok(checked.length > 0, `${difficulty}: no entry came from the curated tier`);
+    for (const entry of checked) {
+      assert.equal(entry.clue, variants.get(entry.answer)[difficulty], `${difficulty}: ${entry.answer} used the wrong clue variant`);
+    }
+  }
 });
 
 test('a used answer set is rejected, so regeneration is fresh', () => {

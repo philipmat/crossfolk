@@ -6,7 +6,7 @@ import {americanThemeWords, americanThemeByLength} from '../public/layouts/ameri
 import {americanPatterns, americanRules} from '../public/layouts/american-patterns.js';
 import {analyzeMask} from '../public/layouts/mask-analysis.js';
 import {supportedThemes} from '../public/themes.js';
-import {dictionaryThemes, dictionaryWords} from '../public/wordnet-words.js';
+import {isKnownSpelling} from '../scripts/word-spelling.mjs';
 import {fillWords} from '../public/fill-words.js';
 import {themedPlurals} from '../public/theme-plurals.js';
 
@@ -59,15 +59,16 @@ test('every general-fill entry is a real, plainly spelled word with three clues'
   }
 });
 
-// The vendored WordNet subset stores lemmas, so a curated plural or past tense will not
-// appear in it verbatim. A large majority still should: a low rate here means the curation
-// pass drifted towards invented or misspelled forms.
-test('the curated tier stays anchored to the vendored dictionary', () => {
-  const known = new Set(dictionaryWords.map(({answer}) => answer));
-  for (const entries of Object.values(dictionaryThemes)) for (const {answer} of entries) known.add(answer);
+// Every curated answer must be a confirmed spelling under the same rule the build applies:
+// a WordNet lemma, or a regular inflection of one. Later curation deliberately went after
+// plurals and verb forms, which are not lemmas themselves, so counting bare lemma
+// membership would measure the wrong thing.
+test('every curated answer is a spelling the vendored dictionary confirms', () => {
+  const unconfirmed = [...americanFillWords, ...supportedThemes.flatMap((theme) => americanThemeWords[theme])]
+    .map(({answer}) => answer)
+    .filter((answer) => !isKnownSpelling(answer));
 
-  const matched = americanFillWords.filter(({answer}) => known.has(answer)).length;
-  assert.ok(matched / americanFillWords.length >= 0.75, `only ${matched} of ${americanFillWords.length} answers are dictionary lemmas`);
+  assert.deepEqual(unconfirmed, [], `unconfirmed spellings: ${unconfirmed.slice(0, 10).join(', ')}`);
 });
 
 test('every catalog slot length has general-fill coverage', () => {

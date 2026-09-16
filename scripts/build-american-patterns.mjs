@@ -6,25 +6,29 @@
 //
 //   node scripts/build-american-patterns.mjs
 //
-// The exhaustive enumeration takes a couple of minutes. Its result is deterministic, so
-// the committed module should only change when the rules below change.
+// The exhaustive enumeration walks hundreds of millions of masks and takes roughly twenty
+// minutes. Its result is deterministic, so the committed module should only change when the
+// rules below, or the vocabulary the fill check uses, change.
 
 import {readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {analyzeMask, maxBlackCells, validateAmericanMask} from '../public/layouts/mask-analysis.js';
+import {createSolver, normalizeWords, readHistory} from '../public/dense.js';
+import {fillWords} from '../public/fill-words.js';
+import {themedPlurals} from '../public/theme-plurals.js';
+import {americanFillWords} from '../public/layouts/american-fill-words.js';
 
 const SIZE = 9;
-const RULES = {maxEntryLength: 9, minimumEntryCount: 26};
-const CATALOG_VERSION = 'american-catalog-9x9-v1';
-const TARGET_PATTERNS = 16;
-const MAX_PER_SIGNATURE = 3;
-
-// The curated general-fill tier thins out at nine letters, so a mask that stacks several
-// of them is admissible but a poor first choice.
-const MAX_NINE_LETTER_ENTRIES = 2;
-const THEME_SLOT_LENGTHS = [5, 6, 7];
+// Six letters is the measured boundary: no mask whose longest entry is seven or more fills
+// acceptably from the curated tier, and every mask at six or below does.
+const RULES = {maxEntryLength: 6, minimumEntryCount: 24};
+const CATALOG_VERSION = 'american-catalog-9x9-v2';
+const TARGET_PATTERNS = 24;
+const MAX_PER_SIGNATURE = 6;
+const THEME_SLOT_LENGTHS = [5, 6];
+const FILL_BUDGET_MS = 5000;
 
 const OUTPUT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', 'public', 'layouts', 'american-patterns.js');
 
@@ -33,26 +37,41 @@ function maskFrom(black) {
     Array.from({length: SIZE}, (_, col) => (black.has(row * SIZE + col) ? '#' : '.')).join(''));
 }
 
-// Cheap structural rejections, applied during the search so the exhaustive walk stays
-// affordable. `validateAmericanMask` re-checks everything on the survivors.
+// Cheap structural rejections, applied at every leaf of an exhaustive walk over hundreds
+// of millions of masks. Ordering matters enormously here: one combined pass answers
+// minimum run, maximum run and entry count together, and only the few survivors reach
+// `validateAmericanMask`, whose full analysis is orders of magnitude more expensive.
 function plausible(mask) {
+  let minimumRun = SIZE + 1;
+  let longestRun = 0;
+  let entries = 0;
+
   for (let line = 0; line < SIZE; line += 1) {
     let across = 0;
     let down = 0;
     for (let index = 0; index <= SIZE; index += 1) {
       const acrossBlack = index === SIZE || mask[line][index] === '#';
       if (acrossBlack) {
-        if (across > 0 && across < 3) return false;
+        if (across) {
+          if (across < minimumRun) minimumRun = across;
+          if (across > longestRun) longestRun = across;
+          if (across >= 3) entries += 1;
+        }
         across = 0;
       } else across += 1;
 
       const downBlack = index === SIZE || mask[index][line] === '#';
       if (downBlack) {
-        if (down > 0 && down < 3) return false;
+        if (down) {
+          if (down < minimumRun) minimumRun = down;
+          if (down > longestRun) longestRun = down;
+          if (down >= 3) entries += 1;
+        }
         down = 0;
       } else down += 1;
     }
   }
+  if (minimumRun < 3 || longestRun > RULES.maxEntryLength || entries < RULES.minimumEntryCount) return false;
 
   for (let row = 0; row < SIZE - 1; row += 1) {
     for (let col = 0; col < SIZE - 1; col += 1) {
@@ -62,6 +81,21 @@ function plausible(mask) {
   }
 
   return true;
+}
+
+// The plan admits only masks that are demonstrably fillable, not merely legal. This fills
+// each survivor from the production vocabulary before it can enter the catalog.
+const productionPool = (() => {
+  const pool = normalizeWords([...fillWords, ...themedPlurals, ...americanFillWords], false, 'medium', SIZE, () => 0.5);
+  return [...new Map(pool.map((word) => [word.answer, word])).values()];
+})();
+
+function fills(mask) {
+  const solver = createSolver(mask, productionPool, {history: readHistory([])});
+  if (!solver) return false;
+
+  const until = Date.now() + FILL_BUDGET_MS;
+  return solver.search({stop: () => Date.now() >= until});
 }
 
 function enumerateMasks() {
@@ -76,7 +110,7 @@ function enumerateMasks() {
   const walk = (index, black) => {
     if (index === pairs.length) {
       const mask = maskFrom(black);
-      if (plausible(mask) && validateAmericanMask(mask, RULES).length === 0) found.push(mask);
+      if (plausible(mask) && validateAmericanMask(mask, RULES).length === 0 && fills(mask)) found.push(mask);
       return;
     }
 
@@ -121,14 +155,11 @@ function describe(mask, index) {
 // Prefer masks that the curated vocabulary can actually fill: many entries, few very long
 // ones, few cheaters, and no large black clusters.
 function fillability(record) {
-  const nines = record.lengthHistogram[9] ?? 0;
-  const eights = record.lengthHistogram[8] ?? 0;
-  return record.entryCount * 2 - nines * 9 - eights * 3 - record.cheaterPairs * 4 - record.adjacentBlackPairs;
+  return record.entryCount * 2 - record.cheaterPairs * 4 - record.adjacentBlackPairs;
 }
 
 function selectCatalog(records) {
   const eligible = records
-    .filter((record) => (record.lengthHistogram[9] ?? 0) <= MAX_NINE_LETTER_ENTRIES)
     .filter((record) => record.themeSlots.length > 0)
     .sort((left, right) => fillability(right) - fillability(left));
 
