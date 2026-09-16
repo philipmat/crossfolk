@@ -59,10 +59,12 @@ test('dense.js exposes a style-neutral constraint-solving surface', () => {
   assert.equal(typeof readHistory, 'function');
   assert.equal(typeof createSolver, 'function');
 
+  // A 3x3 double word square with six distinct answers: the solver rejects duplicates, so
+  // a symmetric square that reuses a word across a row and a column cannot be solved.
   const pattern = ['...', '...', '...'];
   const words = normalizeWords([
-    {answer: 'CAT', clue: 'Pet'}, {answer: 'ARE', clue: 'Exist'}, {answer: 'TEA', clue: 'Brew'},
-    {answer: 'CAT', clue: 'Pet'}, {answer: 'ART', clue: 'Craft'}, {answer: 'RET', clue: 'Soak'},
+    {answer: 'CAB', clue: 'Taxi'}, {answer: 'ORE', clue: 'Mined rock'}, {answer: 'TEN', clue: 'Digit count'},
+    {answer: 'COT', clue: 'Small bed'}, {answer: 'ARE', clue: 'Exist'}, {answer: 'BEN', clue: 'Scottish peak'},
     {answer: 'TEA', clue: 'Brew'}, {answer: 'EAT', clue: 'Dine'}, {answer: 'ATE', clue: 'Dined'},
   ], false, 'medium', 3, () => 0.5);
 

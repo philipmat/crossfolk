@@ -154,7 +154,7 @@ test('reusing one request id with a different profile is a conflict', async () =
   const store = {
     async claimRequest(record) {
       const prior = seen.get(record.id);
-      if (prior && prior !== record.requestFingerprint) return {status: 'conflict'};
+      if (prior && prior !== record.requestFingerprint) return {conflict: true};
       seen.set(record.id, record.requestFingerprint);
       return {status: 'claimed', leaseToken: 'lease'};
     },
@@ -166,8 +166,8 @@ test('reusing one request id with a different profile is a conflict', async () =
 
   const post = (wordProfile) => handleWords(new Request('http://localhost/api/words', {
     method: 'POST',
-    headers: {'content-type': 'application/json', 'x-request-id': '11111111-1111-4111-8111-111111111111'},
-    body: JSON.stringify({theme: 'ocean', size: 9, difficulty: 'easy', wordProfile}),
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify({theme: 'ocean', size: 9, difficulty: 'easy', wordProfile, requestId: '11111111-1111-4111-8111-111111111111'}),
   }), {env: {OPENROUTER_API_KEY: 'test'}, generationStore: store, fetchImpl: () => aiResponse(anchors(24, 6))});
 
   await post('freeform-bank');

@@ -1,6 +1,6 @@
 // The Web-standard handler every deployment target mounts. `env` is passed in by the
 // adapter; `rateLimit` is an optional `(request) => Promise<boolean>` "allowed" check.
-import {generateWords, parseModels, parseStoredProviderResponse, PROMPT_VERSION, validateOptions} from './words.js';
+import {generateWords, parseModels, parseStoredProviderResponse, PROMPT_VERSION, validateOptions, WORD_PROFILE_VERSION} from './words.js';
 import {logger as defaultLogger} from './logger.js';
 
 export const MAX_BODY = 32_000;
@@ -29,7 +29,8 @@ function requestDetails(input, env, requestId, now = Date.now()) {
   const options = validateOptions(input);
   const normalized = options.error ? {
     theme: String(input?.theme ?? '').trim(), size: Number(input?.size) || 5,
-    difficulty: String(input?.difficulty ?? 'easy').toLowerCase(), exclude: Array.isArray(input?.exclude) ? input.exclude : [], count: 40
+    difficulty: String(input?.difficulty ?? 'easy').toLowerCase(), exclude: Array.isArray(input?.exclude) ? input.exclude : [], count: 40,
+    wordProfile: String(input?.wordProfile ?? '').trim() || 'freeform-bank'
   } : options;
   const models = parseModels(env);
   const clean = {
@@ -40,7 +41,9 @@ function requestDetails(input, env, requestId, now = Date.now()) {
     exclude: normalized.exclude,
     count: normalized.count,
     promptVersion: PROMPT_VERSION,
-    models
+    models,
+    wordProfile: options.error ? null : normalized.wordProfile,
+    wordProfileVersion: WORD_PROFILE_VERSION
   };
   // Keep invalid requests auditable without allowing an untrusted exclude array to
   // exceed the diagnostic row limit. The count remains the original count and the
@@ -59,7 +62,8 @@ function requestDetails(input, env, requestId, now = Date.now()) {
     size: normalized.size,
     difficulty: normalized.difficulty,
     excludeCount: normalized.exclude.length,
-    requestJson: JSON.stringify({theme: normalized.theme.slice(0, 160), size: String(normalized.size).slice(0, 32), difficulty: String(normalized.difficulty).slice(0, 160), exclude: requestExclude, excludeCount: normalized.exclude.length}),
+    wordProfile: clean.wordProfile,
+    requestJson: JSON.stringify({theme: normalized.theme.slice(0, 160), size: String(normalized.size).slice(0, 32), difficulty: String(normalized.difficulty).slice(0, 160), exclude: requestExclude, excludeCount: normalized.exclude.length, wordProfile: normalized.wordProfile.slice(0, 160), count: String(normalized.count).slice(0, 32)}),
     requestFingerprint: requestFingerprint(clean),
     promptVersion: PROMPT_VERSION,
     configuredModelsJson: JSON.stringify(models),
@@ -178,7 +182,7 @@ export async function handleWords(request, {env = {}, rateLimit, fetchImpl, logg
       .at(-1);
     if (checkpoint) {
       try {
-        const parsed = parseStoredProviderResponse(checkpoint.provider_response_body, details.size, Number(checkpoint.provider_http_status) || 200);
+        const parsed = parseStoredProviderResponse(checkpoint.provider_response_body, details.size, Number(checkpoint.provider_http_status) || 200, {wordProfile: details.wordProfile});
         const recoveryUsage = current.attempts.map((attempt) => attempt === checkpoint ? parsed.usage : {input: attempt.input_tokens, output: attempt.output_tokens, total: attempt.total_tokens});
         const completeUsage = recoveryUsage.length > 0 && recoveryUsage.every((item) => item && item.input != null && item.output != null && item.total != null);
         const sumUsage = (field) => { const known = recoveryUsage.filter((item) => item && item[field] != null); return known.length ? known.reduce((sum, item) => sum + Number(item[field]), 0) : null; };
