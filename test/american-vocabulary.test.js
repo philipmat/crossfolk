@@ -12,9 +12,11 @@ import {fillWords} from '../public/fill-words.js';
 const DIFFICULTIES = ['easy', 'medium', 'hard'];
 const CURATED_SHORT = new Set(fillWords.map(({answer}) => answer));
 
-// Depth floors for the general-fill tier. A slot length that a catalog mask can require
-// but the curated tier barely covers produces the obscure crossings the critique found.
-const LENGTH_FLOORS = {6: 300, 7: 300, 8: 180, 9: 180};
+// Depth floors for the general-fill tier, set from measured fill feasibility rather than
+// taste. A fully checked 9x9 with two theme answers pinned in symmetric slots does not
+// fill at all from the original 2,309-word short bank; short-word depth, not long-word
+// depth, is what the constraint problem actually runs out of.
+const LENGTH_FLOORS = {3: 250, 4: 900, 5: 1200, 6: 900, 7: 300, 8: 180, 9: 180};
 
 function assertClueSet(entry, label) {
   for (const difficulty of DIFFICULTIES) {
@@ -40,7 +42,7 @@ test('every general-fill entry is a real, plainly spelled word with three clues'
   const seen = new Set();
 
   for (const entry of americanFillWords) {
-    assert.match(entry.answer, /^[A-Z]{6,9}$/, `${entry.answer} is not a 6-9 letter answer`);
+    assert.match(entry.answer, /^[A-Z]{3,9}$/, `${entry.answer} is not a 3-9 letter answer`);
     assert.ok(!seen.has(entry.answer), `${entry.answer} is duplicated`);
     seen.add(entry.answer);
     assert.ok(!CURATED_SHORT.has(entry.answer), `${entry.answer} already exists in the short curated bank`);

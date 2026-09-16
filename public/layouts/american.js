@@ -19,11 +19,11 @@ import {americanThemeWords} from './american-theme-words.js';
 import {americanRules, patternsFor} from './american-patterns.js';
 import {analyzeMask} from './mask-analysis.js';
 
-// How many themed pairs to try per mask before moving on. A mask that rejects several
-// strong pairs is usually the wrong shape for this vocabulary, and the remaining budget
-// buys more by trying a different mask than by trying a fifth pair.
-const PAIRS_PER_PATTERN = 4;
-const PATTERNS_PER_RUN = 4;
+// How many *feasible* themed pairs to search per mask before moving on. Pairs that leave a
+// crossing slot with an empty domain are rejected before this counts, so the budget is
+// spent on searches that could succeed.
+const PAIRS_PER_PATTERN = 12;
+const PATTERNS_PER_RUN = 6;
 
 function poolFor(themeCategory, customThemeWords, difficulty, size, random) {
   const curatedTheme = themeCategory ? americanThemeWords[themeCategory] ?? [] : [];
@@ -48,18 +48,19 @@ function slotIndexOf(slots, entry) {
   return slots.findIndex((slot) => slot.row === entry.row && slot.col === entry.col && slot.direction === entry.direction);
 }
 
-// Ordered, distinct pairs of theme answers of one length: the two halves of a rotational
-// pair. Least-used answers come first so regeneration stays fresh.
-function themePairs(candidates, history, random, limit) {
+// Ordered pairs of theme answers of one length: the two halves of a rotational pair. Both
+// orders are produced, because the two slots cross different fill. Least-used answers come
+// first so regeneration stays fresh.
+function themePairs(candidates, history, random) {
   const ordered = candidates
     .map((word) => ({word, uses: history.uses.get(word.answer) ?? 0, jitter: random()}))
     .sort((left, right) => left.uses - right.uses || left.jitter - right.jitter)
     .map(({word}) => word);
 
   const pairs = [];
-  for (let first = 0; first < ordered.length && pairs.length < limit; first += 1) {
-    for (let second = first + 1; second < ordered.length && pairs.length < limit; second += 1) {
-      pairs.push([ordered[first], ordered[second]]);
+  for (let first = 0; first < ordered.length; first += 1) {
+    for (let second = 0; second < ordered.length; second += 1) {
+      if (first !== second) pairs.push([ordered[first], ordered[second]]);
     }
   }
 
@@ -122,8 +123,9 @@ export function generateAmerican(options = {}) {
       if (candidates.length < 2) continue;
       sawAnchorPair = true;
 
-      for (const [first, second] of themePairs(candidates, history, random, PAIRS_PER_PATTERN)) {
-        if (Date.now() >= patternDeadline) break;
+      let attempts = 0;
+      for (const [first, second] of themePairs(candidates, history, random)) {
+        if (attempts >= PAIRS_PER_PATTERN || Date.now() >= patternDeadline) break;
 
         const solver = createSolver(pattern.mask, words, {history});
         if (!solver) break;
@@ -134,6 +136,12 @@ export function generateAmerican(options = {}) {
 
         const fixed = new Set(anchors.map(([slotIndex]) => slotIndex));
         const domains = solver.slots.map((slot, slotIndex) => (fixed.has(slotIndex) ? null : solver.candidatesFor(slot)));
+        // Most pairs strand a crossing slot with no candidate at all. Rejecting those
+        // here costs one pass over the domains instead of a search that cannot succeed,
+        // which is what buys enough attempts to find a pair that works.
+        if (domains.some((domain) => domain && !domain.length)) continue;
+
+        attempts += 1;
         const solved = solver.search({
           left: solver.slots.length - fixed.size,
           domains,
