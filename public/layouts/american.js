@@ -23,7 +23,11 @@ import {analyzeMask} from './mask-analysis.js';
 // crossing slot with an empty domain are rejected before this counts, so the budget is
 // spent on searches that could succeed.
 const PAIRS_PER_PATTERN = 12;
-const PATTERNS_PER_RUN = 6;
+
+// How finely to slice the remaining budget. Every catalog mask stays reachable while time
+// remains — capping the number of masks tried would throw away budget the deadline still
+// allows.
+const PATTERN_SLICES = 4;
 
 function poolFor(themeCategory, customThemeWords, difficulty, size, random) {
   const curatedTheme = themeCategory ? americanThemeWords[themeCategory] ?? [] : [];
@@ -101,7 +105,7 @@ export function generateAmerican(options = {}) {
   // Rotate the ranked pool so repeated generations at one difficulty do not always open
   // with the same mask, while the difficulty ordering still decides what is tried first.
   const offset = Math.floor(random() * patterns.length);
-  const ordered = [...patterns.slice(offset), ...patterns.slice(0, offset)].slice(0, PATTERNS_PER_RUN);
+  const ordered = [...patterns.slice(offset), ...patterns.slice(0, offset)];
 
   let sawAnchorPair = false;
   let ranOutOfTime = Date.now() >= deadline;
@@ -115,7 +119,7 @@ export function generateAmerican(options = {}) {
     const pattern = ordered[index];
     const metrics = analyzeMask(pattern.mask);
     const remaining = deadline - Date.now();
-    const patternDeadline = Date.now() + Math.max(250, remaining / Math.min(ordered.length - index, PATTERNS_PER_RUN));
+    const patternDeadline = Date.now() + Math.max(250, remaining / Math.min(ordered.length - index, PATTERN_SLICES));
 
     for (const pair of pattern.themeSlots) {
       const slots = pair.map((entryIndex) => metrics.entries[entryIndex]);
@@ -127,7 +131,7 @@ export function generateAmerican(options = {}) {
       for (const [first, second] of themePairs(candidates, history, random)) {
         if (attempts >= PAIRS_PER_PATTERN || Date.now() >= patternDeadline) break;
 
-        const solver = createSolver(pattern.mask, words, {history});
+        const solver = createSolver(pattern.mask, words, {history, interrupt: () => Date.now() >= patternDeadline});
         if (!solver) break;
 
         const anchors = [[slotIndexOf(solver.slots, slots[0]), first], [slotIndexOf(solver.slots, slots[1]), second]];

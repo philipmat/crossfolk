@@ -98,7 +98,7 @@ function isFullyChecked(pattern) {
 // A style-neutral constraint solver: given a pattern and a word pool, it builds the slot
 // list, the crossing index and the candidate domains, then exposes the mechanics a driver
 // needs to run its own backtracking search (`search`) with its own policy hooks.
-function createSolver(pattern, words, { fixedLetters = [], history } = {}) {
+function createSolver(pattern, words, { fixedLetters = [], history, interrupt = () => false } = {}) {
   const size = pattern.length;
   const slots = makeSlots(pattern);
   const owners = new Map();
@@ -205,6 +205,10 @@ function createSolver(pattern, words, { fixedLetters = [], history } = {}) {
           changed = true;
         }
       }
+      // One propagation sweep over a large pool is expensive enough that a caller's
+      // deadline can pass entirely inside this loop. Without this check the search only
+      // notices every sixty-fourth node, and a bounded attempt overruns its budget.
+      if (interrupt()) return false;
     }
     return true;
   }

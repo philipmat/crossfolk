@@ -115,7 +115,7 @@ function translateEntries(entries, rowOffset, colOffset) {
 // to fill the rest. `requiredThemed`, the quota commitment and the per-attempt time slice
 // are Free-form policy, expressed through the solver's `prune`/`accept`/`stop` hooks.
 function solvePattern(pattern, words, themeWords, history, deadline, fixedLetters = []) {
-  const solver = createSolver(pattern, words, { fixedLetters, history });
+  const solver = createSolver(pattern, words, { fixedLetters, history, interrupt: () => Date.now() >= deadline });
   if (!solver) return null;
 
   const { slots, fixedSlotIndexes } = solver;

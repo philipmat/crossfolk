@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generatePuzzle, supportedThemes} from '../public/engine.js';
-import {generateDense} from '../public/dense.js';
+import {generateFreeform} from '../public/layouts/freeform.js';
 import {resolveCuratedTheme} from '../public/themes.js';
 import {dictionaryThemes, dictionaryWords} from '../public/wordnet-words.js';
 
@@ -245,7 +245,7 @@ test('a future theme with a sufficiently rich vocabulary uses the same density c
   assert.ok(futureThemeWords.length >= 2000, 'the representative future theme needs a substantial candidate bank');
 
   for (const [difficulty, target] of Object.entries({easy: 0.9, medium: 0.8, hard: 0.6})) {
-    const puzzle = generateDense({
+    const puzzle = generateFreeform({
       theme: 'architecture',
       size: 13,
       difficulty,
