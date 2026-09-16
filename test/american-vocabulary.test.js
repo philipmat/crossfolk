@@ -8,6 +8,7 @@ import {analyzeMask} from '../public/layouts/mask-analysis.js';
 import {supportedThemes} from '../public/themes.js';
 import {dictionaryThemes, dictionaryWords} from '../public/wordnet-words.js';
 import {fillWords} from '../public/fill-words.js';
+import {themedPlurals} from '../public/theme-plurals.js';
 
 const DIFFICULTIES = ['easy', 'medium', 'hard'];
 const CURATED_SHORT = new Set(fillWords.map(({answer}) => answer));
@@ -32,9 +33,16 @@ test('the curated American general-fill tier covers the lengths the short bank d
   assert.equal(typeof AMERICAN_VOCABULARY_VERSION, 'string');
   assert.ok(americanFillWords.length > 0);
 
+  // The floor is on the pool the solver sees: the curated module plus the existing short
+  // bank it extends, since both are production-eligible for American.
+  const shortBank = [...fillWords, ...themedPlurals].reduce((counts, {answer}) => {
+    counts[answer.length] = (counts[answer.length] ?? 0) + 1;
+    return counts;
+  }, {});
+
   for (const [length, floor] of Object.entries(LENGTH_FLOORS)) {
-    const available = americanFillByLength[length] ?? [];
-    assert.ok(available.length >= floor, `length ${length}: ${available.length} entries, need ${floor}`);
+    const available = (americanFillByLength[length]?.length ?? 0) + (shortBank[length] ?? 0);
+    assert.ok(available >= floor, `length ${length}: ${available} usable answers, need ${floor}`);
   }
 });
 

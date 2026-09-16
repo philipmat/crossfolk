@@ -169,14 +169,16 @@ export function generateAmerican(options = {}) {
     }
   }
 
+  // Order matters: a budget that was already spent on arrival never reached a theme slot,
+  // so reporting "not enough anchors" would send the player after the wrong problem.
+  if (ranOutOfTime || Date.now() >= deadline) {
+    throw new LayoutError('American generation ran out of time. Generate again.', 'american-deadline-exceeded');
+  }
   if (!sawAnchorPair) {
     throw new LayoutError(
       'This theme has too few featured answers for a symmetric pair. Try a broader theme.',
       'american-theme-anchors-insufficient'
     );
-  }
-  if (ranOutOfTime || Date.now() >= deadline) {
-    throw new LayoutError('American generation ran out of time. Generate again.', 'american-deadline-exceeded');
   }
 
   throw new LayoutError('No American grid could be filled to standard from this theme. Generate again.', 'american-fill-exhausted');

@@ -26,7 +26,8 @@ Adapters stay thin: they supply environment access, rate limiting, and static fi
 ## Product requirements to preserve
 
 - Default to Small (5×5) and Easy. Medium is 9×9; Large is 13×13.
-- A strict majority of answers must relate to the theme. General crossing words are allowed, but do not count them as themed merely because they fit. Use clues that reflect the intended themed sense of ambiguous words.
+- A strict majority of answers must relate to the theme in **Free form**, which is the default and the only style at 5x5 and 13x13. General crossing words are allowed, but do not count them as themed merely because they fit. Use clues that reflect the intended themed sense of ambiguous words.
+- **American style** is a deliberate, product-owner-approved exception to that majority rule: it requires a rotationally symmetric pair of featured theme entries (at least two, at least five letters at 9x9) rather than a themed majority. Applying the majority rule at American densities would need dozens of themed entries and would wreck the fill. Every other guarantee below still applies. Do not extend this exception to any other style without the same explicit approval.
 - Small/Hard puzzles require at least 90% of playable letters to belong to both an Across and a Down answer, with at least 19 playable squares. Prefer fully crossed grids; do not silently lower these requirements when generation fails.
 - Keep grids connected, crossing letters consistent, answer numbering correct, and adjacent letter runs valid. Avoid duplicate answers within a puzzle.
 - Reject answer sets already present in the supplied history. Individual words may recur; a reshuffled layout of the same answers is not a new answer set.

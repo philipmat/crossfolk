@@ -23,7 +23,8 @@ function stubRegistry(generators) {
 
 test('style metadata lists exactly the implemented styles', () => {
   assert.deepEqual(layoutStyles.map(({id}) => id), ['american', 'freeform']);
-  assert.equal(DEFAULT_LAYOUT_STYLE, 'american');
+  // Flips to 'american' when its release gate passes; see the note in styles.js.
+  assert.equal(DEFAULT_LAYOUT_STYLE, 'freeform');
   assert.equal(FALLBACK_LAYOUT_STYLE, 'freeform');
 
   for (const style of layoutStyles) {

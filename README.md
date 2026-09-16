@@ -120,6 +120,19 @@ local server's HTTP bridge to the portable handler — using a stubbed OpenRoute
 reviewed in the browser. Keyboard entry, touch keyboard, answer checking, letter reveal, puzzle regeneration, large
 size, and hard clues were exercised; HTTP smoke checks cover public assets and blocked private paths.
 
+`npm test` runs its files one at a time. The Free-form parity lock and the American time budget both measure wall-clock
+behaviour, and running the suites concurrently changes what a seeded generation produces inside a fixed deadline.
+
+```sh
+npm run verify:american
+```
+
+The exhaustive American release harness is deliberately separate from `npm test`: it is 300 runs per size against a
+13.5-second ceiling, which would make routine verification take about an hour. It replays a frozen ten-seed matrix over
+every theme and difficulty, half cold and half against a rolling history, and exits non-zero when a size misses its
+aggregate success, per-cell success, answer-quality or timing gate. `npm test` keeps one smoke seed per theme instead.
+This harness must pass for a size before that size is enabled.
+
 The generation endpoint is unlimited on the local server. Cloudflare enforces the `WORDS_LIMIT` binding automatically on
 deploy.
 Live AI generation was exercised against OpenRouter with a configured key: an arbitrary theme returned words after the
@@ -201,13 +214,50 @@ only `/api/words` reaches server code.
 2. **Generate off the main thread.** `public/puzzle-worker.js` calls `public/engine.js` and returns either a puzzle or
    an error. The engine combines the theme vocabulary, optional AI candidates, and general crossing words. The AI
    supplies answers and clues—not the grid.
-3. **Fill and validate the grid.** `public/dense.js` fills word slots in predefined patterns, narrowing candidates when
-   crossing letters impose constraints and backtracking when a choice fails. It enforces a thematic majority and rejects
-   previously used answer sets. `public/engine.js` coordinates time limits, saved fallback layouts, and the alternative
-   placement search. Hard minis cannot fall back below 90% crossing coverage.
+3. **Fill and validate the grid.** `public/dense.js` is the style-neutral constraint solver: it extracts word slots from
+   a black-square mask, narrows candidates when crossing letters impose constraints, and backtracks when a choice fails.
+   Cancellation, branch pruning and the acceptance test are injected by the caller, so no style's policy is baked into
+   it. `public/engine.js` prepares the shared vocabulary and makes one call into `public/layouts/registry.js`, which
+   validates the requested style and size and dispatches to exactly one generator. A failed generation reports a stable
+   error code; it never silently becomes a different style.
+   `public/layouts/freeform.js` holds the Free-form driver — the theme-anchor search, the thematic majority, saved
+   fallback layouts and the alternative placement search. Hard minis cannot fall back below 90% crossing coverage.
 4. **Play and save locally.** A puzzle contains a two-dimensional `grid` of letters or `null` blocks, plus `entries`
    with answers, clues, zero-based row/column positions, directions, clue numbers, and theme flags. Progress and recent
    answer sets live in browser `localStorage`; there are no accounts or server-side saves.
+
+### Grid style
+
+The settings card offers a **Grid style**:
+
+- **Free form** — the original open, loosely interlocked generator. Available at 5x5, 9x9 and 13x13, and the current
+  default. A strict majority of its answers relate to the theme.
+- **American style** — a rotationally symmetric, block-separated grid in which every letter belongs to both an Across
+  and a Down answer. Available at 9x9 only.
+
+American grids are built from an audited catalog of masks in `public/layouts/american-patterns.js`. Every mask is
+re-validated from the raw grid by the tests rather than trusted: 180-degree rotational symmetry, at most 16% black
+squares (13 of 81 at 9x9), no answer shorter than three letters, 100% checked coverage, one connected white region with
+no single-cell neck, and no solid 2x2 block of black squares.
+
+American replaces the thematic-majority rule with **featured theme entries**: a rotationally symmetric pair of theme
+answers in prominent slots, rather than a themed majority. This is a deliberate, approved style-scoped exception —
+requiring a majority at American densities would need dozens of themed entries and would wreck the surrounding fill.
+
+Difficulty for American is **geometry and clue choice only**, and the README will not claim otherwise. Easy leads with
+masks that have more short footholds, Hard with longer entries, but difficulty only reorders the same catalog: it never
+raises the black-square ceiling, opens the grid up, or reaches for obscure answers. Every answer at every difficulty
+comes from the curated tiers in `public/layouts/american-fill-words.js` and `public/layouts/american-theme-words.js`,
+which carry easy/medium/hard clue variants. Raw WordNet material is curation input, never production fill.
+
+Custom themes send the selected style's **word profile** to `/api/words`: Free form asks for a larger, short-heavy bank,
+while American asks for fewer, longer anchors whose per-length counts can actually seed a symmetric pair in an admitted
+catalog mask. The server owns those counts; the browser never supplies them.
+
+**Status.** American is implemented but has not passed its release gate — it currently fills 4 of 10 built-in themes
+within the time budget, because a fully checked 9x9 needs considerably more curated short vocabulary than the original
+bank holds. It is selectable, but Free form remains the default until `npm run verify:american` passes. 13x13 American
+is not registered at all, pending its own separate fill and timing gate.
 
 ### Investigation queries
 
@@ -257,7 +307,11 @@ test/      Automated tests
 | `server/words.js`                                                                                  | Platform-neutral OpenRouter request, validation, and model fallback                  |
 | `server/index.js`                                                                                  | Local development server: static-file allowlist plus a bridge to `server/handler.js` |
 | `worker/index.js`                                                                                  | Cloudflare adapter around `server/handler.js`                                         |
-| `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js`                                   | Worker boundary, generation policy, and constraint solver                            |
+| `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js`                                   | Worker boundary, shared input preparation, and the style-neutral constraint solver   |
+| `public/layouts/styles.js`, `public/layouts/registry.js`, `public/layouts/errors.js`               | Style metadata for the UI, the single generator dispatch, and stable error codes     |
+| `public/layouts/freeform.js`, `public/layouts/american.js`                                         | The two layout generators; neither may import the other                              |
+| `public/layouts/american-patterns.js`, `public/layouts/mask-analysis.js`                           | Audited American masks and the structural analyser that re-validates them            |
+| `public/layouts/american-fill-words.js`, `public/layouts/american-theme-words.js`                  | Curated American general fill and featured theme entries, with clue variants         |
 | `public/fill-words.js`, `public/theme-fill.js`, `public/theme-plurals.js`, `public/theme-clues.js` | Curated vocabulary, theme associations, plural entries, and contextual clues         |
 | `public/mini-patterns.js`, `public/dense-fallbacks.js`                                             | Mini grid shapes and pre-generated fallback puzzles                                  |
 | `public/wordnet-words.js`, `public/WORDNET-LICENSE.txt`                                            | Generated 3–13-letter dictionary supplement and its license                          |
