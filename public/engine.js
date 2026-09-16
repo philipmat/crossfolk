@@ -1,10 +1,9 @@
-import { generateDense } from './dense.js';
+import { generateLayout } from './layouts/registry.js';
 import { fillWords } from './fill-words.js';
 import { themeVocabulary } from './theme-fill.js';
 import { themedPlurals } from './theme-plurals.js';
 import { themeClues } from './theme-clues.js';
 import { dictionaryWords, dictionaryThemes } from './wordnet-words.js';
-import { denseFallbacks } from './dense-fallbacks.js';
 import { resolveCuratedTheme, supportedThemes } from './themes.js';
 
 export { supportedThemes } from './themes.js';
@@ -182,7 +181,6 @@ const BANKS = {
 };
 
 const SIZE_MAP = { small: 5, medium: 9, large: 13 };
-const DIRECTIONS = ['across', 'down'];
 
 function resolveSize(value) {
   const size = typeof value === 'string' ? SIZE_MAP[value.toLowerCase()] : Number(value ?? 5);
@@ -238,129 +236,6 @@ function historyData(history) {
   return { sets: new Set(sets), wordUses };
 }
 
-function shuffle(values, random = Math.random) {
-  const result = [...values];
-  for (let i = result.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
-function emptyBoard(size) {
-  return Array.from({ length: size }, () => Array.from({ length: size }, () => null));
-}
-
-function canPlace(board, directions, answer, row, col, direction, requireCrossing) {
-  const size = board.length;
-  const dr = direction === 'down' ? 1 : 0;
-  const dc = direction === 'across' ? 1 : 0;
-  const endRow = row + dr * (answer.length - 1);
-  const endCol = col + dc * (answer.length - 1);
-  if (row < 0 || col < 0 || endRow >= size || endCol >= size) return -1;
-  const beforeRow = row - dr;
-  const beforeCol = col - dc;
-  const afterRow = endRow + dr;
-  const afterCol = endCol + dc;
-  if (beforeRow >= 0 && beforeCol >= 0 && beforeRow < size && beforeCol < size && board[beforeRow][beforeCol]) return -1;
-  if (afterRow >= 0 && afterCol >= 0 && afterRow < size && afterCol < size && board[afterRow][afterCol]) return -1;
-
-  let crossings = 0;
-  for (let i = 0; i < answer.length; i += 1) {
-    const r = row + dr * i;
-    const c = col + dc * i;
-    const existing = board[r][c];
-    if (existing && existing !== answer[i]) return -1;
-    if (existing) {
-      if (directions[r][c].has(direction)) return -1;
-      crossings += 1;
-    } else if (direction === 'across') {
-      if ((r > 0 && board[r - 1][c]) || (r + 1 < size && board[r + 1][c])) return -1;
-    } else if ((c > 0 && board[r][c - 1]) || (c + 1 < size && board[r][c + 1])) return -1;
-  }
-  return requireCrossing && crossings === 0 ? -1 : crossings;
-}
-
-function placementOptions(board, directions, answer, entries) {
-  const options = [];
-  if (!entries.length) {
-    for (const direction of DIRECTIONS) {
-      const row = direction === 'across' ? Math.floor(board.length / 2) : Math.floor((board.length - answer.length) / 2);
-      const col = direction === 'across' ? Math.floor((board.length - answer.length) / 2) : Math.floor(board.length / 2);
-      if (canPlace(board, directions, answer, row, col, direction, false) >= 0) options.push({ row, col, direction, crossings: 0 });
-    }
-    return options;
-  }
-  for (let r = 0; r < board.length; r += 1) {
-    for (let c = 0; c < board.length; c += 1) {
-      if (!board[r][c]) continue;
-      for (let i = 0; i < answer.length; i += 1) {
-        if (answer[i] !== board[r][c]) continue;
-        for (const direction of DIRECTIONS) {
-          const row = r - (direction === 'down' ? i : 0);
-          const col = c - (direction === 'across' ? i : 0);
-          const crossings = canPlace(board, directions, answer, row, col, direction, true);
-          if (crossings >= 0) options.push({ row, col, direction, crossings });
-        }
-      }
-    }
-  }
-  return options;
-}
-
-function place(board, directions, answer, option) {
-  const dr = option.direction === 'down' ? 1 : 0;
-  const dc = option.direction === 'across' ? 1 : 0;
-  for (let i = 0; i < answer.length; i += 1) {
-    const row = option.row + dr * i;
-    const col = option.col + dc * i;
-    board[row][col] = answer[i];
-    directions[row][col].add(option.direction);
-  }
-}
-
-function buildCandidate(words, size, target, random = Math.random) {
-  const board = emptyBoard(size);
-  const directions = Array.from({ length: size }, () => Array.from({ length: size }, () => new Set()));
-  const entries = [];
-  let remaining = [...words];
-  let themed = 0;
-  // Themed answers are placed first so general crossings cannot crowd them out, then
-  // fill answers join only while the themed answers stay a strict majority.
-  for (let themedPass = 1; themedPass >= 0; themedPass -= 1) {
-    while (remaining.length && entries.length < target) {
-      let best = null;
-      for (const word of remaining) {
-        const isTheme = word.isTheme === true;
-        if (isTheme !== (themedPass === 1)) continue;
-        if (!isTheme && themed * 2 <= entries.length + 1) continue;
-        const options = placementOptions(board, directions, word.answer, entries);
-        for (const option of options) {
-          const centrality = -Math.abs(option.row - size / 2) - Math.abs(option.col - size / 2);
-          const score = option.crossings * 24 - word.answer.length * 4 + centrality + random() * 5;
-          if (!best || score > best.score) best = { word, option, score };
-        }
-      }
-      if (!best) break;
-      place(board, directions, best.word.answer, best.option);
-      entries.push({ ...best.word, ...best.option });
-      if (best.word.isTheme) themed += 1;
-      remaining = remaining.filter((word) => word.answer !== best.word.answer);
-    }
-  }
-  return { board, entries };
-}
-
-function numberEntries(entries) {
-  const starts = [...new Set(entries.map(({ row, col }) => `${row},${col}`))]
-    .map((key) => key.split(',').map(Number))
-    .sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-  const numbers = new Map(starts.map(([row, col], index) => [`${row},${col}`, index + 1]));
-  return entries
-    .map(({ crossings: _crossings, ...entry }) => ({ ...entry, number: numbers.get(`${entry.row},${entry.col}`) }))
-    .sort((a, b) => a.number - b.number || DIRECTIONS.indexOf(a.direction) - DIRECTIONS.indexOf(b.direction));
-}
-
 export function generatePuzzle(options = {}) {
   const size = resolveSize(options.size);
   const difficulty = resolveDifficulty(options.difficulty);
@@ -382,57 +257,25 @@ export function generatePuzzle(options = {}) {
   if (words.length < 3) throw new Error(`Not enough usable themed words to build a ${size}x${size} crossword.`);
 
   const commonAnswers = new Set(fillWords.map(word=>word.answer));
-  const denseOptions = { size, difficulty, theme: String(options.theme).trim(), themeWords: words.map(word=>({...word,common:commonAnswers.has(word.answer)})), fillWords: [...dictionaryWords, ...fillWords.map(word=>({...word,common:true})), ...themedPlurals.map(word=>({...word,common:true}))], history: options.history, random };
-  let dense = generateDense({...denseOptions,timeLimitMs:size === 5 ? 2500 : 5000});
-  if (dense) return { ...dense, layoutVersion: 3 };
-  if(size===5) {
-    const available=(denseFallbacks[category] || []).filter(p=>!sets.has(p.entries.map(e=>e.answer).sort().join('|')));
-    available.sort((a,b)=>a.entries.reduce((n,e)=>n+(wordUses.get(e.answer)||0),0)-b.entries.reduce((n,e)=>n+(wordUses.get(e.answer)||0),0));
-    if(available.length) {
-      const chosen=structuredClone(available[0]);
-      chosen.entries=chosen.entries.map(entry=>({...entry,clue:byAnswer.get(entry.answer)?.clue || entry.clue,isTheme:byAnswer.has(entry.answer)}));
-      if(chosen.entries.filter(e=>e.isTheme).length>chosen.entries.length/2)return{...chosen,theme:String(options.theme).trim(),layoutVersion:3};
-    }
-    // A slower retry fits the quota where the first pass ran out of budget, which matters
-    // most for AI-supplied word sets, whose themed pools are smaller than curated ones.
-    dense=generateDense({...denseOptions,timeLimitMs:6500});
-    if(dense)return{...dense,layoutVersion:3};
-    if(difficulty==='hard') throw new Error('Could not fit a new mostly themed mini with at least 90% crossed letters. Try another theme or generate again.');
-  }
-  const target = size === 5 ? 7 : size === 9 ? 22 : 38;
-  // General crossings keep a themed grid buildable when the themed pool alone is too
-  // small to interlock; `buildCandidate` stops adding them short of a themed majority.
-  const generalSample = shuffle(denseOptions.fillWords.filter((word) => word.answer.length <= size), random).slice(0, 180);
-  let best = null;
-  let bestFresh = null;
-  const placementDeadline=Date.now()+1500;
-  for (let attempt = 0; attempt < 60; attempt += 1) {
-    if(bestFresh && Date.now()>=placementDeadline)break;
-    const pool = [
-      ...shuffle(words.filter(word=>word.answer.length<=4), random).slice(0, Math.max(24,target*2)),
-      ...shuffle(words.filter(word=>word.answer.length>4), random).slice(0,6),
-      ...shuffle(generalSample, random).slice(0, 45).map(word=>({...word,isTheme:false})),
-    ].map(word=>({...word,isTheme:word.isTheme!==false}));
-    const candidate = buildCandidate(pool, size, target, random);
-    const signature = candidate.entries.map(({ answer }) => answer).sort().join('|');
-    const repeatPenalty = sets.has(signature) ? 100 : 0;
-    const reusePenalty = candidate.entries.reduce((sum, entry) => sum + (wordUses.get(entry.answer) ?? 0), 0) * 1.5;
-    const crossings = candidate.entries.reduce((sum, entry) => sum + entry.crossings, 0);
-    const occupied = candidate.board.flat().filter(Boolean).length;
-    const score = (crossings / occupied) * 200 + crossings * 15 + candidate.entries.length * 10 - repeatPenalty - reusePenalty + random();
-    if (!best || score > best.score) best = { ...candidate, score, signature };
-    if (!sets.has(signature) && (!bestFresh || score > bestFresh.score)) bestFresh = { ...candidate, score, signature };
-    if (candidate.entries.length >= target && !sets.has(signature) && reusePenalty === 0 && crossings / occupied >= 0.65) break;
-  }
-  if (!best || best.entries.length < 3) throw new Error('Could not build a connected crossword from these themed words. Try a broader theme or more candidate words.');
-  if (sets.size) {
-    if (!bestFresh || bestFresh.entries.length < 3) throw new Error('Every usable crossword from these words is already in the game history. Add more themed words or clear older history.');
-    best = bestFresh;
-  }
-  return {
+  // One dispatch, and no `if (style === ...)` here: the registry validates the id and the
+  // size, calls exactly one generator, and stamps the authoritative style and version. An
+  // omitted style is Free form, which is what every puzzle saved before styles existed was.
+  const layoutStyle = String(options.layoutStyle ?? '').trim() || 'freeform';
+
+  return generateLayout(layoutStyle, {
     size,
-    theme: String(options.theme).trim(),
-    entries: numberEntries(best.entries),
-    grid: best.board,
-  };
+    difficulty,
+    theme: options.theme,
+    category,
+    themeCategory: category,
+    words,
+    byAnswer,
+    sets,
+    wordUses,
+    themeWords: words.map(word=>({...word,common:commonAnswers.has(word.answer)})),
+    fillWords: [...dictionaryWords, ...fillWords.map(word=>({...word,common:true})), ...themedPlurals.map(word=>({...word,common:true}))],
+    history: options.history,
+    deadline: options.deadline,
+    random,
+  });
 }

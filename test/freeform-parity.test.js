@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 
 import {generatePuzzle} from '../public/engine.js';
 import {createSolver, isFullyChecked, makeSlots, normalizeWords, numberEntries, readHistory} from '../public/dense.js';
+import {LAYOUT_VERSION} from '../public/layouts/registry.js';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const fixture = JSON.parse(await readFile(resolve(ROOT, 'test/fixtures/freeform-seeded.json'), 'utf8'));
@@ -34,10 +35,13 @@ test('the recorded seeded Free-form puzzles are reproduced exactly', () => {
     const produced = generatePuzzle({theme, size, difficulty, random: seededRandom(seed)});
 
     assert.deepEqual(
-      {size: produced.size, theme: produced.theme, layoutVersion: produced.layoutVersion ?? null, grid: produced.grid, entries: produced.entries},
+      {size: produced.size, theme: produced.theme, layoutVersion: puzzle.layoutVersion, grid: produced.grid, entries: produced.entries},
       puzzle,
       `${seed} changed`
     );
+    // The recorded fixture predates the registry, which now stamps the current version on
+    // every new result. The grid and entries are what the lock is about.
+    assert.equal(produced.layoutVersion, LAYOUT_VERSION, `${seed} layout version`);
   }
 });
 

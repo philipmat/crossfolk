@@ -24,6 +24,9 @@ const MAX_DIAGNOSTIC_TEXT = 4096;
 // of `themeSlotSignatures(9)` from `public/layouts/american-patterns.js` (not an import),
 // so a catalog change forces a conscious update here rather than silently drifting.
 export const WORD_PROFILES = Object.freeze({
+  // `freeform-bank`'s minimumUsable is recorded but NOT enforced: Free form keeps its
+  // legacy three-usable-word floor until raising it is separately approved. The number is
+  // the calibration target for that decision, not the current contract.
   'freeform-bank': Object.freeze({
     minAnswerLength: 2,
     sizes: Object.freeze({

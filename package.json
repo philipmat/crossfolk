@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file-if-exists=.env server/index.js",
-    "test": "node --test test/engine.test.js test/handler.test.js test/database.test.js test/d1-store.test.js test/browser-retry.test.js test/regressions.test.js test/theme-picker.test.js test/mask-analysis.test.js test/american-patterns.test.js"
+    "test": "node --test test/engine.test.js test/handler.test.js test/database.test.js test/d1-store.test.js test/browser-retry.test.js test/regressions.test.js test/theme-picker.test.js test/mask-analysis.test.js test/american-patterns.test.js test/american-vocabulary.test.js test/freeform-parity.test.js test/layout-registry.test.js test/engine-routing.test.js test/american-generate.test.js test/american-release.test.js test/word-profiles.test.js test/layout-style-ui.test.js",
+    "verify:american": "node scripts/american-fill-spike.mjs --size 9"
   },
   "engines": {
     "node": ">=22.13.0"
