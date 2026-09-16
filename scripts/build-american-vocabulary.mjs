@@ -136,7 +136,7 @@ async function collectFill(files) {
   return [...entries.values()].sort((left, right) => left.answer.localeCompare(right.answer));
 }
 
-async function collectThemes(files, generalAnswers) {
+async function collectThemes(files) {
   const byTheme = new Map(supportedThemes.map((theme) => [theme, new Map()]));
 
   for (const name of files) {
@@ -161,7 +161,7 @@ async function collectThemes(files, generalAnswers) {
         reject(name, line, 'spelling is not confirmed by the vendored dictionary');
         continue;
       }
-      if (generalAnswers.has(answer) || byTheme.get(theme).has(answer)) {
+      if (byTheme.get(theme).has(answer)) {
         reject(name, line, 'duplicate answer');
         continue;
       }
@@ -253,8 +253,13 @@ export const americanThemeByLength = Object.freeze(Object.fromEntries(
 }
 
 const files = await readdir(SOURCE_DIR);
-const fill = await collectFill(files.filter((name) => name.startsWith('fill-') && name.endsWith('.txt')).sort());
-const themes = await collectThemes(files.filter((name) => name.startsWith('theme-') && name.endsWith('.txt')).sort(), new Set(fill.map(({answer}) => answer)));
+const collected = await collectFill(files.filter((name) => name.startsWith('fill-') && name.endsWith('.txt')).sort());
+const themes = await collectThemes(files.filter((name) => name.startsWith('theme-') && name.endsWith('.txt')).sort());
+
+// Featured entries win a collision: an answer that carries a theme's clue must not also
+// appear as anonymous general fill, and the curated theme banks are the scarcer tier.
+const featured = new Set([...themes.values()].flatMap((entries) => [...entries.keys()]));
+const fill = collected.filter(({answer}) => !featured.has(answer));
 
 await writeFile(FILL_OUTPUT, fillModule(fill));
 await writeFile(THEME_OUTPUT, themeModule(themes));

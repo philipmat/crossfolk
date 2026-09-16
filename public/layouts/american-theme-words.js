@@ -8,17 +8,24 @@
 
 const sources = {
 nature: `
+AVALANCHE|A sudden mass of snow sliding down a mountain|Rapid downhill slide of snow and ice|A sudden overwhelming flood of requests
 BEAVER|A large rodent that builds dams|Industrious animal known for gnawing wood|A very hard worker, informally
 BLIZZARD|A severe snowstorm with strong winds|Winter storm with blinding, blowing snow|An overwhelming flurry of activity or data
 BLOOM|To produce flowers|What a rose does in spring|Peak moment of youthful freshness
+BUTTERFLY|A colorful insect with delicate wings|Winged insect that emerges from a chrysalis|A swimming stroke using both arms together
 CANYON|A deep gorge carved by a river|Steep-walled valley cut through rock|Vast gap between two opposing views
 DESERT|A dry, sandy region with little rainfall|Arid landscape with sparse vegetation|To abandon a post or duty
 EAGLE|A large bird of prey with keen eyesight|National bird symbol known for soaring flight|Two strokes under par in golf
 ELEPHANT|A huge gray mammal with a trunk|Largest land animal, known for its tusks|An obvious problem everyone avoids discussing, in the room
 FOREST|A large area covered in trees|Dense woodland ecosystem|To plant with trees, as barren land
+GLACIER|A huge slow-moving mass of ice|Ancient ice formation that carves valleys|Something moving at an extremely slow pace
+GRASSLAND|A wide open area covered in grass|Plain dominated by grasses and few trees|Habitat of grazing herds on the plains
 GROVE|A small group of trees|Cluster of trees, often fruit-bearing|Orchard-like cluster named in old poetry
+HABITAT|The natural home of an animal|Environment where a species normally lives|The typical setting where something thrives
 HURRICANE|A powerful tropical storm with spinning winds|Intense cyclone that forms over warm ocean water|A whirlwind of chaotic emotion
 LEOPARD|A spotted big cat of Africa and Asia|Fast wild cat known for its rosette markings|One that cannot change its spots
+MEADOW|A field of grass and wildflowers|Open grassy land often used for grazing|Grassy setting for a pastoral poem
+MOUNTAIN|A very high, steep landform|Towering peak higher than a hill|An enormous, overwhelming amount of something
 PANTHER|A large black wild cat|Big cat often seen prowling at night|Stealthy figure moving in total silence
 RABBIT|A small, long-eared hopping mammal|Furry animal known for its speed and burrows|To talk on and on without stopping
 RAINBOW|An arc of colors after rain|Colorful band seen when sunlight meets rain|A wide, unrealistic range of promised outcomes
@@ -30,23 +37,30 @@ SWAMP|A wet, marshy area of land|Low-lying wetland thick with vegetation|To over
 THORN|A sharp point on a rose stem|Prickly part of a rose that can prick skin|A persistent annoyance, as in "a ___ in one's side"
 TIGER|A large striped wild cat|Big cat known for its orange and black stripes|A person of fierce competitive spirit
 TORNADO|A violently rotating column of air|Funnel-shaped storm that touches down on land|A whirlwind of frantic activity
+VALLEY|Low land between hills or mountains|Area drained by a river between ridges|A low point in a graph or trend
 VOLCANO|A mountain that erupts with lava|Landform that can spew molten rock|A situation about to erupt into conflict
+WATERFALL|Water falling steeply over a cliff|Cascade where a river drops sharply|A rapid, cascading decline in value
 WETLAND|A marshy area saturated with water|Ecosystem where water covers the soil|Protected buffer zone against flooding
 WILDLIFE|Animals living in their natural state|Untamed fauna of a region|Subject of a nature documentary's focus
 WOODLAND|An area covered with trees and undergrowth|Habitat of oaks, ferns, and deer|Setting favored by fairy tale creatures
 `,
 ocean: `
+ANCHOR|A heavy device that keeps a ship in place|Metal weight dropped to hold a vessel steady|The lead newscaster of a broadcast
 BARNACLE|A small shelled creature that clings to rocks|Crusty creature that attaches to ship hulls|A person who won't stop clinging to someone
 BARRACUDA|A long, fast, sharp-toothed ocean fish|Predatory fish known for its speed and jaw|An aggressive, opportunistic competitor, figuratively
 CORAL|A hard structure built by tiny sea creatures|Colorful reef-building marine organism|A pinkish-orange color, or its reef
 CURRENT|A steady flow of water in one direction|Movement of water driven by wind or tide|Happening right now, or a flow of electricity
 DOLPHIN|A playful, intelligent sea mammal|Highly social marine mammal known for clicking sounds|Miami's NFL team, or a leaping performer at a marine park
+HARBOR|A sheltered place where ships dock|Protected port where boats find safety|To secretly hold onto a grudge or fugitive
+ISLAND|A piece of land surrounded by water|Landmass smaller than a continent, ringed by sea|A traffic median, or a kitchen counter
 JELLYFISH|A translucent sea creature with a painful sting|Drifting invertebrate with trailing tentacles|A spineless, easily swayed person, figuratively
+LAGOON|A shallow body of water near the coast|Pool separated from the sea by a reef or sandbar|Tranquil blue setting of a tropical resort
 MARLIN|A large fish famous for its long bill|Prized game fish with a spear-like snout|Ernest Hemingway's old man sought this at sea
 MOLLUSK|A soft-bodied creature often with a shell|Group of animals including clams and snails|Broad category a slug technically belongs to
 NARWHAL|An arctic whale with a long spiral tusk|Whale nicknamed the unicorn of the sea|Tusked mammal that inspired mythical unicorn tales
 OCEAN|A vast body of salt water|One of Earth's five major bodies of water|An overwhelming, boundless quantity of something
 OCTOPUS|An eight-armed sea creature|Intelligent cephalopod that can change color|Someone juggling many tasks at once, figuratively
+OYSTER|A shellfish that can produce pearls|Bivalve mollusk served on the half shell|One's for the taking, as "the world is your ___"
 PLANKTON|Tiny organisms drifting in open water|Microscopic food source for whales and fish|The base of nearly every marine food chain
 REEFS|Ridges of coral just below the surface|Underwater structures teeming with fish|Hazards charted to keep ships from wrecking
 SEAGULL|A coastal bird that scavenges for food|Noisy white bird often seen near the shore|A bird that steals fries at the beach
@@ -54,6 +68,7 @@ SEAHORSE|A small fish shaped like a chess piece|Odd fish in which the male carri
 SEASHELL|A hard covering left behind by a mollusk|Object collected while walking along the beach|Held to the ear to imagine ocean sounds inside
 SEAWEED|A plant-like growth found in the ocean|Marine algae found washed up on shore|Wrapping used for sushi rolls, dried and pressed
 SHARK|A predatory fish with rows of sharp teeth|Ocean predator feared for its bite|A ruthless businessperson or loan predator
+SHIPWRECK|The remains of a sunken vessel|Wreckage resting on the ocean floor|A hopelessly disorganized plan or situation
 SQUID|A tentacled sea creature that squirts ink|Cephalopod known for jet propulsion|Popular fried appetizer named for a sea creature
 STARFISH|A five-armed creature found in tide pools|Spiny creature that can regrow lost limbs|Shape often used for beach-themed decorations
 STINGRAY|A flat fish with a venomous tail barb|Disc-shaped fish that glides along the seabed|Venomous flat-bodied fish that ambushes prey from the sand
@@ -76,12 +91,16 @@ COMET|An icy object that grows a glowing tail near the sun|Celestial body famous
 COSMONAUT|A Russian space traveler|A crew member trained by Russia's space program|Yuri Gagarin's professional title
 COSMOS|The universe as an ordered whole|All of space and everything within it|A pink flowering garden plant, or all creation
 CRATER|A bowl-shaped hollow left by an impact|Depression formed when a meteor strikes a surface|A pockmark on the moon's surface
+ECLIPSE|When one celestial body blocks another's light|Event when the moon covers the sun's disk|To surpass or overshadow completely
 FLARE|A sudden burst of energy from the sun|Solar eruption that can disrupt radio signals|A distress signal fired into the sky
 GALACTIC|Relating to a huge system of stars|Describing something on an enormous, cosmic scale|So vast in scope it defies ordinary measurement
 GALAXY|A massive collection of stars and planets|Vast system containing billions of stars|Our home system, named for its milky appearance
+GRAVITY|The force that pulls objects toward a planet|Force keeping astronauts tethered to the ground|The weightiness or seriousness of a matter
+LAUNCH|To send a rocket into the sky|The moment a craft lifts off the ground|To introduce a new product to the market
 LAUNCHER|A device that sends a rocket into the sky|The platform or vehicle that sends a craft aloft|A device that propels a projectile, generally
 LUNAR|Relating to the moon|Describing a calendar based on moon phases|Type of eclipse when Earth blocks sunlight to the moon
 METEOR|A streak of light from space burning in the sky|Rock that glows as it enters the atmosphere|A shooting star, popularly wished upon
+MODULE|A self-contained section of a spacecraft|Detachable unit used for a lunar landing|A component of a larger training course
 NEBULA|A giant cloud of gas and dust among stars|Colorful stellar nursery seen through telescopes|Region where new stars are born from dust
 ORBIT|The curved path a planet takes around a star|Path a satellite follows around a body|A sphere of influence or control
 ORBITAL|Relating to a path around a planet or star|Describing a station that circles the Earth|A term for the bony socket around the eye
@@ -92,6 +111,7 @@ ROCKETRY|The science of building vehicles for space travel|The engineering field
 ROVER|A robotic vehicle that explores another planet|Wheeled probe sent to explore Mars|A wandering dog's classic name
 SHUTTLE|A reusable craft that carries astronauts to orbit|Vehicle that once ferried crews to the space station|A bus service that runs back and forth
 SOLAR|Relating to the sun|Powered by sunlight|System containing eight planets and one star
+SPACESHIP|A vessel designed to travel beyond Earth|Fictional or real craft built for interstellar travel|Category that a classic flying saucer belongs to
 STARDUST|Fine particles left behind by celestial bodies|Cosmic material said to compose living things|A romantic sense of magic or wonder
 STARSHIP|A fictional vessel that travels between the stars|Vessel imagined for journeys beyond the solar system|Name for a famous fictional craft, the Enterprise
 SUNSPOT|A dark patch on the surface of the sun|Cooler region on the sun linked to solar activity|A blemish that can disrupt satellite signals
@@ -104,17 +124,27 @@ BREAD|A baked staple made from flour and water|Food made by baking a leavened do
 BROCCOLI|A green vegetable with tight, tree-like florets|Vegetable many children famously refuse to eat|A vegetable a former president publicly disliked
 BUTTER|A dairy spread churned from cream|Fat product spread on toast|To flatter someone excessively
 CABBAGE|A leafy green vegetable formed in a tight head|Round vegetable used to make coleslaw|Old slang for paper money
+CASSEROLE|A baked dish cooked slowly in one deep dish|Oven-baked meal combining many ingredients|A potluck staple often topped with crispy onions
+CHEESE|A dairy product made from curdled milk|Product aged from milk, sliced onto sandwiches|What you say to smile for a photo
+CHOCOLATE|A sweet treat made from cacao|Rich confection melted for desserts and drinks|A shade of brown named after a sweet treat
 CUCUMBER|A long green vegetable used in salads|Cool, watery vegetable used to make pickles|Describing someone who stays remarkably calm
 DOUGHNUT|A fried, ring-shaped sweet pastry|Glazed treat often paired with coffee|A shape often used to describe a torus
+GARLIC|A pungent bulb used to season food|Aromatic clove said to ward off vampires|The reason for keeping breath mints handy after dinner
 GRAVY|A sauce made from meat juices|Thickened sauce poured over mashed potatoes|Easy, unearned extra benefit or profit
 HAMBURGER|A ground beef patty served in a bun|Classic sandwich topped with lettuce and cheese|Named after a German city, despite no ham inside
 LEMON|A sour yellow citrus fruit|Tart fruit used to flavor drinks and dishes|A defective car bought by an unlucky buyer
+LOBSTER|A large clawed shellfish served as a delicacy|Pricey crustacean often served with butter|What sunburned skin can resemble in color
 MANGO|A sweet tropical fruit with a large pit|Juicy orange-fleshed fruit popular in smoothies|A tropical fruit whose name lends itself to a color
 MEATBALL|A rounded lump of seasoned ground meat|Spherical dish often served with spaghetti|An awkward, clumsy person, in old slang
+MUFFIN|A small baked cake, often with fruit inside|Individually portioned quick bread for breakfast|Slang for waistline overflow, as in "___ top"
 MUSTARD|A tangy yellow condiment|Sharp condiment made from ground seeds|To lack enthusiasm, as in failing to "cut the ___"
+NOODLE|A long, thin strip of pasta or dough|Strand often served in soup or stir-fry|To think something over casually
 OMELETTE|A dish of beaten eggs cooked in a pan|Folded egg dish often filled with cheese|Something you can't make without breaking eggs
+ORANGE|A round citrus fruit with a thick peel|Sweet fruit that shares its name with a color|A word famously said to have no perfect rhyme
 PANCAKE|A flat, round cake cooked on a griddle|Breakfast dish stacked and topped with syrup|To make a hard, flat emergency landing
 PASTA|An Italian food made from wheat dough|Dish like spaghetti or penne|The base ingredient of a carbonara dish
+PICKLE|A cucumber preserved in vinegar brine|Tangy, crunchy condiment often on a burger|A difficult or awkward situation
+PINEAPPLE|A spiky tropical fruit with sweet yellow flesh|Fruit topped with a crown of spiky leaves|A controversial topping some add to pizza
 POPCORN|A puffed snack made from heated kernels|Movie theater snack that pops when heated|Term for entertainment that is enjoyable but shallow
 PRETZEL|A salty baked snack twisted into a knot|Snack shaped in a distinctive knotted loop|To twist one's body into an awkward position
 SALAD|A dish of mixed raw vegetables|Cold dish often tossed with dressing|A jumbled mix of unrelated things, tossed together
@@ -122,6 +152,7 @@ SANDWICH|Fillings placed between two slices of bread|Portable meal built between
 SEAFOOD|Edible creatures harvested from the sea|Category including fish, shrimp, and crab|What a pescatarian's diet is largely built on
 SPAGHETTI|Long, thin strands of Italian pasta|Noodle often twirled onto a fork|Term for a messy tangle of wires or cords
 SUGAR|A sweet crystalline substance used in cooking|Sweetener extracted from cane or beets|A term of endearment, or a mild curse substitute
+WAFFLE|A grid-patterned breakfast cake|Batter cooked in a hinged iron with squares|To speak evasively without committing to an answer
 `,
 music: `
 ACCORDION|A squeezebox instrument with buttons and a keyboard|Folk instrument that expands and contracts to play|A folding style shared by certain paper crafts and doors
@@ -131,6 +162,7 @@ BAGPIPES|A wind instrument played by squeezing an air bag|Scottish instrument kn
 BALLAD|A slow, sentimental song telling a story|Emotional song often about love or loss|A narrative poem set to a simple tune
 BANJO|A stringed instrument with a round drum body|Twangy instrument central to bluegrass music|Instrument often associated with a dueling scene
 BASSOON|A long wooden instrument with a deep tone|Double-reed instrument with a low, woody sound|Instrument voicing the grandfather in Peter and the Wolf
+CADENCE|The rhythmic flow of a piece of music|A rising and falling pattern in sound or speech|A marching chant kept in step by soldiers
 CHORD|Multiple musical notes played together|Combination of notes forming harmony|A straight line connecting two points on a curve
 CHORUS|The repeated part of a song after each verse|The catchy section audiences sing along to|A group of singers performing together
 CLARINET|A single-reed woodwind with a smooth tone|Licorice-colored woodwind popular in jazz bands|Instrument featured in the opening of Rhapsody in Blue
@@ -138,10 +170,13 @@ CONCERT|A live performance by musicians|An event where a band plays for an audie
 CYMBAL|A metal disc struck to create a crash sound|Percussion instrument played with a drumstick|Instrument a toy monkey famously clashes together
 DRUMBEAT|A steady rhythm struck on a percussion instrument|The pulsing pattern that drives a march forward|A persistent, repeated call to action
 DRUMS|Percussion instruments struck with sticks|Instruments that keep a band's beat|Large metal containers used to store oil
+GUITAR|A six-stringed instrument played by strumming|Instrument central to most rock bands|Instrument famously smashed on stage by rockers
 HARMONICA|A small instrument played by blowing and drawing breath|Pocket-sized instrument common in blues music|Instrument nicknamed the "mouth organ"
 HARMONY|Pleasant-sounding notes played together|Two or more voices blending agreeably|A state of peaceful agreement between people
+KEYBOARD|An electronic instrument with piano-like keys|Portable instrument often used in pop bands|The set of keys used for typing on a computer
 MAESTRO|A skilled conductor of an orchestra|Title given to a master musician|A term of respect for any highly skilled expert
 MELODY|A sequence of musical notes that forms a tune|The catchy part of a song you hum|The element of a song most easily whistled
+ORCHESTRA|A large group of musicians playing together|Ensemble combining strings, brass, and percussion|The section of theater seating closest to the stage
 ORGAN|A keyboard instrument that uses pipes or reeds|Instrument that fills a cathedral with sound|A vital part of the body, like the heart
 PIANO|A large keyboard instrument with hammers and strings|Instrument played with black and white keys|A dynamic marking meaning to play softly
 PICCOLO|A small, high-pitched relative of the flute|The highest-pitched instrument in a marching band|Italian word for "small," lending this instrument its name
@@ -158,24 +193,34 @@ XYLOPHONE|A percussion instrument with tuned wooden bars|Instrument played by st
 `,
 travel: `
 ABROAD|Overseas, away from one's home country|Where one travels when going international|Beyond the border, in another land entirely
+AIRPORT|Place where planes take off and land|Hub with runways, gates, and security lines|Where a journey often starts with a long line
 ARRIVE|To reach one's destination|To complete a journey by getting there|What a delayed flight eventually does, late
 BACKPACK|Bag carried on the shoulders while hiking or traveling|Straps-and-pockets bag for a trekker|What a hosteler slings on before catching a train
+BAGGAGE|Suitcases and bags carried while traveling|What gets loaded into a plane's cargo hold|What claim tickets match at the end of a flight
 CABIN|Small rustic lodge in the woods for travelers|Log structure where vacationers might stay|Cramped sleeping quarters aboard a ship or plane
 CAMPER|Vehicle equipped for sleeping outdoors|Vacationer who sleeps in a tent or RV|One roughing it in the wild, or the vehicle they drive
+CARAVAN|Group of vehicles traveling together|A towed camper, or a desert convoy|Desert convoy, or a home that hitches a ride
+DEPART|To leave on a journey|To set off from a starting point|What a flight does when it pushes back from the gate
 DEPOT|Station where trains or buses load passengers|Terminal building for departures and arrivals|Small-town stop where the whistle blows twice
 EXCURSION|A short pleasure trip|An organized outing away from home|A brief jaunt, often with a guide and a bus
 FERRY|Boat that carries passengers across water|Vessel used to cross a river or channel|Watercraft that shuttles cars and people, no bridge needed
 GETAWAY|A short vacation trip|An escape from daily routine|A quick trip, or what a fleeing driver makes
+HOSTEL|Budget lodging popular with backpackers|Shared-room accommodation for young travelers|Bunk-bed lodging where strangers become roommates
 HOTEL|Place where travelers rent a room for the night|Lodging with a front desk and room service|Place with many keys, though none unlock a house
 ITINERARY|Planned schedule of a trip|List of stops and dates for a journey|What a travel agent hands you before departure
+JOURNEY|A trip from one place to another|The act of traveling some distance|What matters more than the destination, they say
+LANDMARKS|Notable sites travelers stop to see|Recognizable features that mark a location|What postcards usually picture, plural
 LAYOVER|Wait between connecting flights|A pause at an airport before the next leg|Time spent stuck in a terminal, missing lounge access
 LUGGAGE|Bags packed for a trip|What you check in at the airport counter|Cargo that circles the carousel, hopefully yours
 MOTEL|Roadside lodging for motorists|Cheap overnight stop along a highway|Drive-up lodging where the room is steps from the car
 NAVIGATOR|Person who plots the course of a journey|One who reads the map on a road trip|The one blamed when the route goes wrong
 PASSPORT|Document needed to cross international borders|Booklet stamped at customs checkpoints|Small booklet that proves who you are abroad
+RESORT|Vacation destination with pools and lodging|Getaway spot for relaxing holidays|Where guests unwind, last on a list of options too
 ROUTE|Path taken to reach a destination|Planned course for a journey|What a GPS calculates before you set off
+SOUVENIRS|Items bought to remember a trip|Mementos brought home from a vacation|Trinkets that clutter a shelf after a holiday
 STOPOVER|Brief stay between legs of a journey|A short break during a longer trip|A pause en route, longer than a layover
 SUITCASE|Case used to pack clothes for a trip|Rigid bag rolled through an airport|What you zip shut before heading to the gate
+TICKET|Pass needed to board a plane or train|Paper or digital proof of a paid fare|What you must show before boarding a plane or train
 TOURIST|Person visiting a place for pleasure|Visitor exploring sights away from home|One easily spotted by a camera and a map
 TRAIN|Vehicle that travels on rails|Mode of transport boarded at a platform|Long line of connected cars pulled along steel tracks
 TRIPS|Journeys taken away from home|Short excursions or vacations|What travel agents help you plan, plural
@@ -190,23 +235,31 @@ BADMINTON|Racket sport played with a feathered shuttlecock|Net sport where the b
 BASEBALL|Sport played with a bat and a diamond-shaped field|Game of innings, home runs, and a pitcher's mound|Sport where three strikes end a turn at the plate
 BOXING|Sport of fighting with padded gloves|Combat sport decided by rounds and judges|Sport settled between the ropes, not on a mat
 CATCHER|Baseball player positioned behind home plate|Fielder who receives the pitcher's throws|The one squatting behind the plate, mask and all
+CHAMPIONS|Winners of a league or tournament|Those who hoist the trophy at season's end|Who confetti falls on, after the final whistle
 COACH|Person who trains a sports team|One who calls the plays from the sideline|The person yelling instructions, not on the field
 CROSSBAR|Horizontal beam stretched across a goal's frame|Frame piece a shot can clang off|What a near-miss shot rattles instead of finding the net
 DARTS|Game of throwing small pointed missiles at a board|Pub sport aiming for triple twenty|Sport where a bullseye earns the most, thrown by hand
+DEFENSE|The side trying to stop the other team from scoring|Unit tasked with preventing goals or points|What a good offense is said to need, ironically
 DRIBBLE|To bounce or tap a ball while moving|To advance a ball with repeated light touches|What a point guard does before a crossover move
 DUGOUT|Shelter where a baseball team sits during a game|Sunken bench area beside the diamond|Where substitutes wait, out of the batter's view
 FOOTBALL|Sport played with an oval pigskin and end zones|Game decided by touchdowns and field goals|Sport where a Hail Mary isn't always a prayer
 GOALPOSTS|Upright frames a ball must pass between to score|Structures a kicker aims for|What shifts, proverbially, when expectations change
+HELMET|Protective headgear worn in contact sports|Hard shell that guards a player's skull|What a catcher and a cyclist both strap on
+HOCKEY|Sport played with sticks and a puck or ball|Fast game on ice or turf with a small disc|Sport where a slap shot beats a goalie's glove
 MARATHON|Long-distance race of just over 26 miles|Endurance run tracing a Greek battlefield's legend|Race where hitting the wall has nothing to do with bricks
 MEDAL|Award given to a top competitor|Disc hung around a winner's neck|What podium finishers take home, in gold, silver, or bronze
+OFFENSE|The side trying to score in a game|Unit responsible for advancing the ball|The unit blamed when the scoreboard stays quiet
+OVERTIME|Extra period played when a game is tied|Additional minutes added beyond regulation|Sudden-death period nobody wants to see from the bench
 REFEREE|Official who oversees fair play in a match|Person who blows the whistle on fouls|The one nobody agrees with, no matter the call
 RELAY|Race in which teammates pass a baton|Track event run in team stages|Event where the baton, not the runner, finishes last leg
 ROOKIE|Athlete in their first professional season|A newcomer still learning the pro ropes|Veteran's opposite, fresh off the draft
 RUGBY|Contact sport played with an oval ball|Sport featuring scrums and tries, no helmets worn|Game where forward passes are illegal, unlike its cousin
 SCORE|Tally of points in a game|The running count that decides a winner|What a fan checks obsessively during a game
 SOCCER|Sport played with a ball and no hands|Game decided by goals in two long halves|The world's most popular sport, called football elsewhere
+SPECTATOR|Person watching a game from the stands|Fan who cheers from the bleachers|One who never breaks a sweat but still loses their voice
 STADIUM|Large venue where crowds watch sporting events|Tiered structure surrounding a playing field|Where tens of thousands roar over one small ball
 TEAMMATE|Fellow player on the same side|A companion who shares your jersey colors|The one you high-five after an assist
+TENNIS|Racket sport played over a net|Game scored in love, deuce, and sets|Sport where zero is called by a French word
 TOUCHLINE|Sideline marking the boundary of a soccer pitch|Edge of the field where a coach paces|Where a ball is out, and the throw-in begins
 TRACK|Oval course used for running races|Surface where sprinters compete|What a runner follows, and what a scout does to talent
 UMPIRE|Official who enforces the rules of a game|Person who calls balls and strikes|The one whose call is final, unless replay disagrees
@@ -218,6 +271,7 @@ ARMADILLO|Armored mammal that can roll into a ball|Small mammal covered in bony 
 BEAVER|Animal known for building dams with branches|Rodent famous for gnawing down trees|A rodent whose flat tail slaps water as a warning
 CAMEL|Desert animal with one or two humps|Hardy animal that can go days without water|An animal that stores fat, not water, in its hump
 CHIPMUNK|Small striped rodent that stores food in its cheeks|Tiny burrowing rodent with racing stripes on its back|A striped rodent, or a singing cartoon trio
+CROCODILE|Large reptile with powerful jaws living near rivers|Toothy reptile that lurks just below the water's surface|A reptile blamed for insincere tears
 DOLPHIN|Intelligent marine mammal known for leaping|Playful sea creature that communicates with clicks|A marine mammal, or the mascot of an NFL team
 DONKEY|Stubborn hoofed animal used to carry loads|Long-eared beast of burden related to the horse|An animal whose stubbornness became a personality trait
 EAGLE|Large bird of prey with sharp talons|Majestic raptor often seen as a national symbol|A bird that soars, and a golf score two under par
@@ -229,11 +283,13 @@ HORSE|Large hoofed animal ridden or used to pull carts|Farm animal known for gal
 HYENA|African animal known for its distinctive laughing call|Scavenging predator that hunts in a cackling pack|A scavenger whose call sounds like mockery
 JAGUAR|Large spotted cat found in the Americas|Powerful rainforest predator with a rosette pattern|A spotted cat that shares its name with a car brand
 LEOPARD|Spotted big cat known for climbing trees with prey|Solitary cat famed for its rosette-spotted coat|A cat whose spots, proverbially, never change
+MONKEY|Tree-dwelling primate with a long tail|Playful primate known for swinging through branches|A primate that mimics, hence the phrase for copying
 MOUSE|Small rodent with a long tail|Tiny critter often caught in a trap|A small rodent, or the thing beside your keyboard
 OCTOPUS|Eight-armed sea creature known for its intelligence|Marine mollusk that squirts ink to escape danger|A sea creature that can squeeze through a coin slot
 ORANGUTAN|Long-armed ape native to Indonesian rainforests|Reddish-haired great ape known for tree-swinging|A great ape whose name means forest person
 PANTHER|Large wild cat, often depicted as solid black|Sleek predator that prowls silently at night|A big cat whose name also fits a hockey team
 PENGUIN|Flightless bird that swims well in cold waters|Tuxedo-patterned bird found in icy climates|A bird that flies underwater but never in air
+PORCUPINE|Spiny rodent covered in sharp quills|Slow rodent that defends itself with barbed spines|A rodent you'd never want to hug
 RABBIT|Long-eared animal known for hopping|Furry critter that lives in a burrow|An animal pulled from a hat, or one that multiplies fast
 RACCOON|Masked mammal known for raiding trash cans|Nocturnal animal with a ringed tail and nimble paws|A masked bandit that washes its food before eating
 SEAHORSE|Small marine fish with a curved, arching neck|Odd fish where the male carries the young|A fish shaped like a chess piece, upright and curled
@@ -260,6 +316,8 @@ FROST|Thin layer of ice that forms on cold surfaces|Icy coating seen on grass on
 GUSTY|Marked by sudden strong bursts of wind|Blustery, as a day that flips umbrellas inside out|Descriptive of a day when kites practically fly themselves
 HUMID|Describing air heavy with moisture|Sticky and damp, as a summer afternoon|How the air feels just before a downpour breaks
 HURRICANE|Powerful tropical storm with a calm central eye|Rotating ocean storm that earns a name each season|A storm whose calm center hides its fiercest winds
+ICICLE|Hanging spike of ice formed by dripping water|Frozen dagger that forms along a cold roofline|What forms when melting meets freezing overnight
+LIGHTNING|Bright flash of electricity during a storm|Electric discharge that precedes a thunderclap|What never strikes twice, or so the saying goes
 MISTY|Covered in a light haze or fog|Hazy, as a morning view across a valley|Blurred by fine droplets hanging in the air
 MONSOON|Seasonal wind bringing heavy rainfall|Rainy season that floods parts of Asia yearly|A season defined by a dramatic shift in wind and rain
 MUGGY|Uncomfortably warm and damp|Sticky-hot, as a summer evening with no breeze|How the air feels right before a thunderstorm
@@ -278,22 +336,32 @@ THUNDER|Loud rumbling sound following lightning|The boom that follows a flash in
 TORNADO|Rotating column of air touching the ground|Funnel-shaped windstorm that can flatten a town|A spinning menace that chases storm hunters
 TORRID|Extremely hot and dry|Scorching, as a desert afternoon|Blazing hot, whether describing a climate or a pace
 TYPHOON|Powerful tropical storm in the Pacific|Violent rotating storm named in Asian waters|A hurricane's twin, born on the other side of the globe
+WHIRLWIND|Rapidly rotating column of air|A small spinning gust that kicks up dust|A swirling gust, or a romance that moves too fast
 WINTRY|Cold and snowy, like the season|Having the harsh feel of the coldest season|Bleak and frigid, as a bare December landscape
 `,
 garden: `
 BLOOM|The flower stage of a plant in full color|What a rose does when it opens fully|What a garden does each spring, right on cue
+BLOSSOM|A flower on a tree or plant, especially in spring|What a fruit tree does before bearing fruit|What an orchard does each spring, before fruiting
 CABBAGE|Round leafy vegetable grown in tight heads|Leafy garden crop used in coleslaw|A leafy vegetable, or old slang for money
+CARROT|Orange root vegetable grown underground|Crunchy vegetable rabbits are said to love|A root vegetable, or an incentive dangled on a stick
+CELERY|Crisp, stringy green vegetable grown in garden beds|Pale green stalk often eaten with a dip|A vegetable famous for having negative calories, they say
 COMPOST|Decayed organic matter used to enrich soil|Rotted scraps turned into rich garden fertilizer|What a bin of peelings becomes, given time
+CUCUMBERS|Long green vegetables grown on garden vines|Cool crunchy vegetables used in salads and pickles|What slices go on the eyes at a spa, and in a salad
 FERTILIZE|To enrich soil to help plants grow|To feed soil with nutrients before planting|To give a garden bed a nutritional boost
 FLOWERPOT|Container used to grow a plant indoors|Clay or plastic vessel that holds a growing plant|What a windowsill display usually rests in
 GREENERY|Lush plants and foliage in a garden|General term for leafy, growing plants|What softens a yard, one leaf at a time
+HARVESTS|Gathers ripe crops from the field or garden|Collects the season's ready produce|Reaps what was sown, at last
 HEDGES|Rows of trimmed shrubs forming a garden border|Bushes clipped into a neat property line|What a topiary artist shapes into animals
 IRRIGATE|To supply land with water using channels or pipes|To water crops systematically|To keep a dry bed from staying dry
+LETTUCE|Leafy green grown for salads|Crisp garden green forming the base of a salad|A leafy crop, or old slang for cash
 MULCH|Material spread over soil to retain moisture|Wood chips or straw laid around plants|What keeps garden soil cool and weeds down
+NURSERY|Place where young plants are grown for sale|Facility that raises seedlings before planting|Where saplings wait before finding a permanent bed
+ONIONS|Layered bulbs grown in garden soil|Pungent vegetables that bring gardeners to tears|Bulbs peeled in layers, often through watery eyes
 PESTICIDE|Chemical used to kill garden pests|Spray applied to protect crops from insects|What an organic gardener tries hardest to avoid
 PETAL|Colorful part of a flower surrounding its center|Delicate leaf-like piece that gives a bloom its color|What falls off a rose, one at a time in a love game
 PLANT|A living thing grown in soil, like a flower|What a gardener puts into the ground to grow|A living organism, or what a factory is also called
 PUMPKIN|Large orange squash grown on a garden vine|Vining gourd carved for autumn decoration|A garden gourd that turns into a carriage in one tale
+RADISH|Small crisp root vegetable, often red|Peppery root grown quickly in a garden bed|A root vegetable that adds bite to a salad
 ROSEBUSH|Thorny shrub that produces fragrant blooms|Flowering shrub prized for its fragrant blooms|A thorny shrub that guards its own beauty
 SEEDLING|A young plant just past sprouting, not yet mature|A tiny sprout not yet ready for the ground|What a sprout is called before it matures further
 SHRUB|Woody plant smaller than a tree, often trimmed|Bushy plant used to form a garden hedge|A low woody plant, or an old vinegar-based drink
@@ -305,6 +373,7 @@ TOMATO|Red garden fruit often mistaken for a vegetable|Juicy garden crop used in
 TOOLSHED|Small structure storing garden equipment|Backyard building housing rakes and spades|Where a trowel rests between planting seasons
 TRELLIS|Lattice frame that supports climbing plants|Wooden or wire structure for vines to grow on|A framework roses climb, one rung at a time
 TROWEL|Small hand tool for digging in a garden|Scoop-shaped tool used to plant seedlings|A gardener's small shovel, also used to spread mortar
+VEGETABLE|Edible plant grown in a garden plot|Produce like carrots or beans grown from the earth|What a picky eater pushes to the side of the plate
 WEEDS|Unwanted plants that gardeners pull out|What sprout uninvited between the vegetables|What a gardener spends a Saturday pulling
 `,
 };

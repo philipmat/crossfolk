@@ -14,10 +14,13 @@ ABANDON|Leave behind for good|Give up on completely|Desert a ship, say, without 
 ABILITY|Skill or talent|Capacity to do something well|What separates the merely willing from the capable
 ABSENCE|State of being away|Time when someone is not present|Makes the heart grow fonder, they say
 ABSENT|Not present|Missing from class or work|Like a mind that's wandered off, not here in body
+ABSOLUTE|Complete and total|Utterly without exception|Zero on the Kelvin scale, e.g.
 ABSOLVE|Free from blame|Officially clear of guilt|Grant a priest's pardon, in a sense
 ABSTAIN|Choose not to vote|Deliberately hold back from something|Sit out a ballot, or skip the wine at dinner
 ABSTAINED|Chose not to vote either way|Declined to cast a ballot, for or against|Kept quiet during roll call, by choice
+ABSTRACT|Not concrete or physical|Existing as an idea rather than a thing|Summary at the start of a research paper
 ABUSED|Treated cruelly|Mistreated, as power or trust|Took advantage of, in a harmful way
+ACADEMIC|Relating to school or study|Scholarly in nature|Of merely theoretical interest, say
 ACADEMY|School for special training|Institution for education or training|Where cadets or film voters convene
 ACCENT|Distinctive way of pronouncing words|Regional inflection in speech|What gives away where you grew up, in speech
 ACCEPT|Agree to receive|Say yes to an offer|Take what's given, without objection
@@ -26,34 +29,44 @@ ACCIDENTS|Unexpected mishaps, often causing damage|Fender benders and spills, fo
 ACCLAIM|Enthusiastic praise|Widespread public approval|What critics shower on a hit
 ACCORD|Formal agreement|Peace deal between parties|Harmony reached after negotiation
 ACCOUNT|A bank record|A report or explanation of events|What a ledger and a witness both give
+ACCURATE|Free from errors|Precisely correct|Right on the money
 ACCUSE|Charge with wrongdoing|Point the finger at someone|Lay blame, in a courtroom sense
 ACCUSED|Charged with a crime|Named as the wrongdoer|Sitting in the dock, formally
 ACHIEVE|Succeed in doing|Reach a goal through effort|Cross the finish line you set for yourself
 ACROBAT|Circus performer who tumbles|One skilled at gymnastic feats|Walks a tightrope for a living
 ACROSS|From one side to the other|Direction in a crossword grid|Opposite of down, in puzzle terms
 ACTING|Performing in a play or film|Temporarily filling a role|What an understudy does, briefly
+ACTIVATE|To turn something on|Make operational|Flip the switch, in effect
 ACTIVE|Full of energy|Currently in operation|Not dormant, like a volcano
 ACTORS|People who perform in plays or films|Cast members of a production|Those who pretend for a living
 ADAMANT|Refusing to change one's mind|Firmly unyielding in a stance|Hard as a diamond, figuratively speaking
 ADAPTS|Adjusts to new conditions|Changes to suit circumstances|Evolves behavior to fit surroundings
 ADDRESS|Where someone lives|To speak directly to a group|What's on an envelope, or what a speaker gives a crowd
+ADEQUATE|Good enough|Sufficient for the purpose|Passable, but nothing more
+ADJACENT|Next to something|Sharing a border with|Touching at one edge, in geometry
 ADJOURN|To pause a meeting|Suspend proceedings until later|What a judge calls before lunch
 ADJUST|Alter slightly to fit|Fine-tune a setting|Recalibrate after a shift in conditions
+ADJUSTED|Made small changes to|Modified to fit better|Recalibrated after a shift
 ADJUSTING|Changing something to fit better|Tweaking the thermostat, say|Getting used to new glasses, perhaps
 ADMIRAL|High-ranking naval officer|Commander of a fleet|Top brass at sea
 ADMIRE|Regard with respect|Look up to someone|Feel warm approval, from a distance
 ADMIRED|Looked up to|Regarded with high esteem|Held in awe, quietly
 ADMIRER|One who looks up to another|A secret devotee of someone|Sends flowers without signing the card
 ADOPTED|Taken in as one's own child|Formally accepted as one's own|Made official without being born into it
+ADOPTION|Legally taking in a child|Formal acceptance of a plan|Bringing a shelter pet home, for one
+ADORABLE|Extremely cute|Charming and lovable|Fit for a greeting card, say
 ADORED|Loved deeply|Held in great affection|Worshipped, in a fan's eyes
 ADVANCE|Move forward|Progress or move ahead|What troops do before dawn, or cash does before payday
+ADVANCED|Highly developed|Ahead of the norm|Given beforehand, as a payment
 ADVENTURE|An exciting and risky undertaking|What a bold traveler seeks abroad|A theme park ride category, broadly
 ADVICE|Guidance offered|Suggestion on what to do|What a columnist dispenses weekly
 ADVISE|Offer guidance|Recommend a course of action|Counsel someone, formally
 ADVISED|Given guidance|Recommended a course of action|Counseled, in hindsight
 ADVISER|One who gives guidance|A trusted counselor|Sits just behind the throne
+ADVISORY|Giving guidance|Serving in a consulting role|Weather warning before a storm
 AFFAIR|A matter or event|A secret romantic relationship|A scandal waiting to break
 AFFECT|Influence or change|Have an impact on|Move someone emotionally, subtly
+AFFECTED|Influenced or changed|Touched emotionally|Put on for show, as an accent
 AFFECTION|A feeling of fondness or love|What a pet shows by nuzzling you|Warmth between old friends, unspoken
 AFFORD|Have enough money for|Be able to spare the cost|Manage financially, just barely
 AFRAID|Feeling fear|Scared of something|Reluctant, out of worry
@@ -65,16 +78,20 @@ AGREEMENT|A deal both sides accept|What lawyers draw up and sign|A nod between r
 AILMENT|A minor illness|A physical complaint or disorder|What brings you to the doctor's waiting room
 AIRFARE|Cost of a plane ticket|Price paid for a flight|What spikes before the holidays
 AIRLINE|Company that flies planes|A commercial carrier operating scheduled flights|Delivers peanuts at thirty thousand feet
+AIRPLANE|Vehicle that flies using wings and engines|Mode of transport crossing the sky|Mode of travel with a tray table
 AIRPLANES|Aircraft with fixed wings|What you board at gate twelve|Things that queue on a runway, not a road
-AIRPORT|Place planes take off from|Hub for arriving and departing flights|Where security lines test your patience
+AIRPORTS|Places where planes land|Facilities for departures and arrivals|Where layovers happen
 ALBUMS|Collections of songs|Books for photos or stamps|What a band releases every few years
 ALGEBRA|Math with letters and numbers|Branch of math using symbols for values|Where X finally gets solved for
 ALIMONY|Payments after a divorce|Court-ordered support for an ex-spouse|What a settlement check still buys
 ALLERGIES|Reactions to pollen, dust or pet fur|Reasons for sneezing every spring|Why some avoid peanuts at parties
 ALLERGY|Reaction to something like pollen|Immune overreaction to a substance|Why a cat in the room ends a visit early
+ALLIANCE|A partnership between groups|Formal agreement to cooperate|Bond forged by common cause
 ALLIED|Joined in alliance|United for a common cause|On the same side, by treaty
+ALLOWING|Giving permission|Letting something happen|Not standing in the way of
 ALLOWS|Permits|Gives permission for|Makes room for, grudgingly
 ALMOST|Nearly|Not quite there|Just shy of the mark
+ALPHABET|Set of letters used in writing|The A-to-Z of a language|Soup that spells out words
 ALTARS|Tables used in religious ceremonies|Sacred platforms in a church|Where vows are exchanged, traditionally
 ALTERS|Changes something|Modifies a garment, say|Tweaks the plan at the last minute
 AMASSED|Gathered in large amounts|Accumulated over time|Piled up a fortune, bit by bit
@@ -86,86 +103,117 @@ AMOUNT|A quantity|How much of something there is|The sum total, in the end
 AMOUNTS|Quantities of something|Sums or totals of a thing|What a bill's line items add up to
 AMUSED|Entertained|Found something funny|Mildly delighted, with a smirk
 ANAGRAM|Word made by rearranging letters|A puzzle formed from scrambled letters|What LISTEN becomes when you shuffle it
+ANALYSIS|Detailed examination|Careful study of data|What a lab report provides
 ANATOMY|Study of body structure|The physical structure of an organism|What a med student memorizes bone by bone
-ANCHOR|Heavy device that holds a ship in place|News broadcaster who leads a show|What keeps a floating idea grounded
+ANCESTOR|A relative from the past|Family member who came before|Root of a family tree
 ANCHOVY|A small salty fish|A tiny fish often used in savory dishes|Pizza topping some diners always pick off
 ANIMAL|A living creature, not human or plant|A beast, wild or domestic|One acting on pure instinct
 ANIMATE|To give life or movement to|Bring a cartoon character to life|Make a drawing move frame by frame
+ANIMATED|Full of life|Brought to life through motion|Drawn frame by frame, as a film
 ANKLES|Joints between foot and leg|Where socks meet shoes|What a sprain often targets
+ANNOUNCE|To make known publicly|State something officially|Declare from a podium
+ANTIQUES|Old valuable objects|Items sold for their age|What fill a roadshow appraisal
+APPARENT|Obvious to see|Seemingly so|Clear at first glance, legally speaking
 APPEAL|Request for a decision to be reviewed|Attractiveness or charm|A plea, or a court's second chance
 APPEAR|Come into view|Seem to be|Show up, as if from nowhere
+APPETITE|Desire to eat|Hunger for food|What a starter is meant to whet
 APPETIZER|A small dish served before the main course|Soup or salad, typically, before the entree|What whets the palate before the entree arrives
+APPROVAL|Official acceptance|A nod of agreement|Green light from the boss
+AQUARIUM|Tank for fish|Glass home for sea life|Where a diver might work behind glass
 ARCADE|A place with coin-operated games|A covered passageway with shops|Where quarters once bought a few minutes of fun
+ARGUMENT|A heated disagreement|Case made to support a claim|What two lawyers exchange in court
 ARMCHAIRS|Comfortable seats with rests for elbows|Where grandpa naps after dinner|Seats for critics who never leave the couch
+ARRANGED|Put in order|Organized in advance|Set up ahead of time, as flowers
+ARTISTIC|Showing creative skill|Having a flair for creative work|Given to painting or sculpture
+ASSEMBLY|A gathering of people|A group meeting|Where furniture parts come together
 ASSISTANT|A person who helps with tasks|The person who answers the boss's phone|Watson to a detective's Holmes
 ATTENTION|Focused concentration on something|What a teacher demands from the class|"Ten-hut!" calls soldiers to give this
 AUDIENCES|Groups of people watching a show|Who applauds at the end of a concert|Crowds a comedian either wins or loses
 AUTOMATIC|Operating by itself, without manual control|Like a car with no clutch pedal|A gun that fires with one steady trigger pull
-AVALANCHE|A huge mass of snow sliding down a mountain|A skier's worst fear on a steep slope|A flood of mail, in a common metaphor
+BACHELOR|Unmarried man|Man who has never married|Degree earned after four years, often
 BACKED|Supported|Gave financial support to|Moved in reverse, or stood behind someone
 BACKPACKS|Bags worn on both shoulders|What students carry books in|Hikers strap these on before the trail
+BACKYARD|Area behind a house|Outdoor space at the rear of a home|Where the grill lives in summer
 BADGER|A burrowing animal with black and white stripes|To pester persistently|To nag someone, like the animal's namesake verb
-BAGGAGE|Luggage for travel|Suitcases and parcels carried while traveling|Emotional weight from a past relationship, so to speak
+BAKERIES|Shops that sell bread|Places for fresh pastries|Where the smell of dough greets you
 BAKERY|Shop selling bread and cakes|Place where dough becomes breakfast|Where the early riser smells success
 BALANCE|Steady equilibrium|Even distribution of weight or amounts|What a tightrope walker and a checkbook both need
+BALANCED|Evenly distributed|Steady and not one-sided|Neither too rich nor too plain, as a diet
 BALCONY|Outdoor platform on a building|Raised platform projecting from a wall|Overhang where you might watch a parade unfold
 BALLOONED|Swelled up quickly in size|Grew rapidly, like a budget out of control|What a debt did after the missed payments
 BALLOT|A voting slip|Paper used to cast a vote|What decides an election, one mark at a time
+BANDAGES|Strips used to cover wounds|First-aid coverings|What a nurse applies to a cut
+BANISTER|Rail beside a staircase|Handhold along the stairs|What a child slides down, dangerously
 BANNED|Officially forbidden|Prohibited by authority|Struck from the list, permanently
 BANNER|A large sign or flag|Headline spanning a page|What flies above a rally
 BANQUET|A large formal dinner|An elaborate feast for many guests|Where the head table gets the best view
 BARELY|Only just|By a narrow margin|With almost nothing to spare
 BARGAIN|A good deal on a purchase|An item priced below its usual value|What a haggler hopes to strike
+BARGAINS|Good deals|Items sold below usual price|What shoppers hunt for on sale day
 BARGES|Flat-bottomed boats for cargo|Vessels that haul goods on canals|To shove your way in, or a flat-bottomed canal boat
 BARLEY|A cereal grain|Grain used in brewing beer|What malt starts life as, in the field
 BARREL|A large cylindrical container|Unit for measuring oil|The tube a bullet travels through
 BASEBALLS|Hard white spheres used with a bat and glove|What a pitcher hurls toward home plate|Stitched spheres that break windows in comics
+BASEMENT|Room below ground level|Lowest floor of a house|Where the furnace usually sits
 BASEMENTS|Rooms below ground level in a house|Where the furnace and old boxes live|Floors that flood first when the pipes burst
 BASKETS|Woven containers for carrying things|Containers used to hold or carry goods|What a shopper fills before checkout
+BATHROOM|Space with a toilet and sink|Facility for washing up|Where the towels hang
 BATTERIES|Devices that store electrical power|What a remote control dies without|Cells that go flat, not the kind on a farm
 BATTERY|Device that stores electric power|A power cell for devices|What dies right when you need your phone most
 BATTLE|A fight between armies|A struggle or contest|What's waged, not always with weapons
 BEACON|A guiding light|A signal fire or tower|What a lighthouse offers ships at night
 BEATING|A physical thrashing|A defeat or a rhythmic striking|What a drum and a losing team both take
+BEAUTIES|Very attractive people or things|Standouts for their looks|Contestants in a pageant, say
 BEAUTIFUL|Very pleasing to look at|How a sunset is often described|A word overused in wedding toasts
 BEAUTY|Quality of being pleasing to look at|Attractiveness|What's said to be only skin deep
 BEDROOM|Private space for sleeping in a home|A furnished space meant for sleeping|Where the alarm clock does its worst
+BEDROOMS|Private spaces for sleeping|Areas of a house with a bed|Where nightstands usually sit
 BEFORE|Earlier than|In advance of|Ahead of, on a timeline
 BEGGAR|A person who asks for money|One living off charity|What a fairy tale wish can't always help
 BEGINNING|The start of something|Chapter one, essentially|Where a story's middle and end are not yet
+BEHAVIOR|The way someone acts|Manner of conduct|What a therapist studies in patients
 BEHIND|At the back of|Late, as in a schedule|Supporting someone, from the rear
 BELFRY|A tower that houses bells|The upper part of a church tower|What's said to have bats in it, idiomatically
 BELIEF|Something accepted as true|A conviction or faith|What doesn't require proof, to the faithful
 BELIEVE|To accept something as true|Hold something to be true or real|What faith asks of you without proof
+BELIEVED|Accepted as true|Took on faith|Trusted without proof
 BELIEVERS|People who have strong faith in something|Congregation members, collectively|Those convinced before the evidence arrives
 BELONG|Be rightfully placed|Be a member of a group|Fit in, without question
 BENEATH|Below something|In a position lower than|Where the surface hides what's really going on
 BENEFITED|Gained an advantage from something|Profited from a lucky break|What one did by simply being in the right place
+BENEFITS|Advantages gained|Perks of a job|What health insurance provides, for one
 BESIEGE|To surround with force|Surround a place to force surrender|What an army does before the walls fall
 BETRAY|Be disloyal to|Reveal a secret, or turn against|Give away, as a hidden emotion might
+BEVERAGE|A drink|Liquid refreshment|What's listed on a diner's menu board
 BEVERAGES|Drinks of any kind|What's listed on a menu's drinks page|What a vending machine dispenses, broadly
 BEWARE|Be cautious|Watch out for danger|What a warning sign commands
 BEYOND|On the far side of|Further than|Past the limits of understanding
 BICKER|Argue over trivial things|Squabble constantly|What siblings do in the back seat
 BICYCLE|Two-wheeled pedal vehicle|A pedal-powered vehicle with two wheels|What training wheels are eventually removed from
+BICYCLES|Two-wheeled vehicles|Pedal-powered rides|What a peloton rides in a race
 BILLBOARD|A large outdoor advertising sign|What towers over the highway selling burgers|A giant ad that blocks the skyline view
 BINDER|A folder for holding papers|Ring-bound organizer|What holds a school report together
+BIRTHDAY|The day each year marking one's arrival|Annual day of celebration for a person|When candles get blown out
 BIRTHDAYS|Yearly anniversaries celebrated with a cake|Occasions marked with cake and candles|Occasions that add a candle every year
 BISHOP|A senior clergy member|A chess piece that moves diagonally|A church official, or a diagonal-only chess piece
 BLACKBIRD|A common dark-feathered garden singer|A garden visitor known for singing at dusk|A dark-feathered singer, unrelated to a stealth jet
 BLAMED|Held responsible|Accused of causing something|Pointed to as the culprit
 BLANKET|Warm bed covering|A large piece of soft fabric for warmth|What snow does to a whole town overnight
 BLANKETED|Covered completely, as with snow|What fresh snow does to a quiet town|Smothered a story to keep it from spreading
+BLANKETS|Warm bed coverings|Coverings used for warmth|What a picnic is spread on
 BLAZER|A type of jacket|Casual sports coat|School uniform staple, with a crest maybe
 BLEACH|A chemical used to whiten|Cleaning agent that removes color|What turns dark roots blond
 BLEMISH|A small flaw or mark|An imperfection that mars appearance|What a dab of makeup tries to hide
 BLESSED|Given divine favor|Regarded as fortunate or sacred|What a sneeze earns you a response for
+BLESSING|A wish for good fortune|Something granted as a favor|Grace said before a meal
 BLINDFOLD|A cloth tied over the eyes to block sight|What's worn in a game of pin the tail|Worn so a hostage can't identify the room
+BLINDING|Extremely bright|So intense it obscures sight|Dazzling, as a headlight at night
 BLOOMS|Flowers that have opened|Buds bursting into color|What a garden does each spring
-BLOSSOM|A flower on a tree|To bloom or develop fully|What spring does to a bare orchard
 BLOSSOMED|Came into flower|Bloomed into something impressive|What a shy student did under a good mentor
+BLOSSOMS|Flowers on a tree|Buds that open into flowers|What cherry trees do each spring
 BLOUSE|A woman's shirt|Loose-fitting top|Office wear paired with a skirt, often
 BLUEPRINT|A detailed technical plan or design|An architect's drawing for a new building|A startup's plan, sketched before the funding
+BOARDING|Getting onto a vehicle|Entering a plane or ship|Lodging provided at a school, say
 BOARDROOM|A space where executives hold meetings|Where the CEO pitches next year's budget|Where mergers are decided over coffee
 BOARDS|Flat pieces of wood|Committees that govern a company|What a ship's crew climbs onto
 BOASTED|Bragged about something|Spoke with excessive pride|Talked up a fish story, and then some
@@ -176,14 +224,19 @@ BOILING|Very hot, like bubbling water|Heated to the point of bubbling|What a ket
 BOLSTER|To support or strengthen|Reinforce or give added support to|What a pep talk does for sagging morale
 BONANZA|A sudden source of wealth|An unexpected windfall of good fortune|What a lucky strike in a mine yields
 BONNET|A type of hat|The hood of a British car|What covers an engine, across the pond
+BOOKCASE|Furniture for storing reading material|Shelving unit for a library|Where a novel waits its turn
 BOOKING|A reservation made in advance|An arrangement securing a place or time|What you make before the flight fills up
 BOOKSHELF|Furniture built to display reading material|Where novels gather dust between reads|Furniture that groans under a heavy reading habit
 BOOKSTORE|A shop that sells reading material|Where you browse before a long flight|A shop where pages outnumber the customers
 BORDER|The boundary between two countries|The edge or frontier of a region|What a passport control checks, on either side
+BORDERED|Had an edge next to something|Was adjacent to|Trimmed along the edge, as fabric
 BORROWING|Taking something with intent to return it|What a library card lets you do for free|Taking a cup of sugar, neighborly style
 BOTHER|To annoy or trouble|To make the effort to do something|What a pesky fly does all afternoon
 BOTTLED|Sealed inside a container|Packaged in a glass or plastic container|Kept feelings shut up instead of voiced
+BOUNDARY|A dividing line|Limit of an area|Fence marking where one yard ends
 BOUNDED|Marked off by limits|Enclosed within set limits|Leapt in one motion, or was fenced in
+BOUQUETS|Bunches of flowers|Floral arrangements|What a bride carries down the aisle
+BRACELET|Jewelry worn on the wrist|Band worn around the arm|What a charm hangs from
 BRACELETS|Ornaments worn around the wrist|Jewelry that jingles on a charm chain|What handcuffs are, unkindly speaking
 BRACKET|A support fixed to a wall|A supporting fixture, or a tournament chart|What holds a shelf up, or pairs off tournament teams
 BREAKDOWN|A collapse, or a detailed analysis|What a car does on the highway, or an accountant gives|A summary of costs, or a very bad day at the wheel
@@ -191,24 +244,29 @@ BREAKFAST|The first meal of the day|Eggs and toast, typically|The meal that foll
 BREATHE|Draw air into the lungs|Inhale and exhale air|What panic makes people forget how to do
 BRIBERY|Offering money for favors|Illegally paying someone for favorable treatment|What a plain envelope under the table buys
 BRIEFCASE|A rigid container for carrying documents|What a lawyer carries files in|A commuter's box for papers and a sandwich
+BRIEFING|A short informational meeting|Update given before a task|What a pilot gets before takeoff
+BRIGHTEN|To make lighter or happier|Add more light to|Cheer up a gloomy room
 BROADCAST|To transmit over radio or television|What a network does with the evening news|To spread seed by hand, in old farming
 BROCHURES|Informational pamphlets, often glossy|What a travel agent hands you for Hawaii|Glossy handouts that oversell a timeshare
 BROTHER|A male sibling|A son of the same parents as you|The one who got the family hand-me-downs first
 BUILDER|One who constructs things for a living|A person or company that constructs things|Who you call before the walls go up
+BUILDING|A structure with walls and a roof|A constructed edifice|What a crane helps put up
 BUILDINGS|Constructed structures with walls and a roof|What a skyline is made of|Things architects sketch and cranes assemble
 BULLDOZER|A heavy machine for clearing land|What flattens a lot before construction|A machine that argues with no words, only force
 BUNDLED|Wrapped together tightly|Grouped or packaged together|What a cable, phone, and internet deal often is
 BUOYANT|Able to float|Cheerful and optimistic, or able to float|What a cork is in water, and a mood on payday
+BUSINESS|A commercial enterprise|Trade or commerce|None of yours, as the saying goes
 BUTCHER|One who sells meat|A person who prepares and sells meat|Who to blame for a botched haircut, informally
 BUTTERCUP|A small yellow wildflower|A field flower held under a chin to test a liking for dairy|A golden bloom named for a dairy product
-BUTTERFLY|An insect with large colorful wings|What emerges from a cocoon|A swimming stroke, or a garden's winged bloom
 CABINET|A storage cupboard|A case with shelves or drawers for storage|Where the good china waits for company
+CABINETS|Storage units with doors|Furniture for dishes or files|Group of a government's top advisers
 CABINS|Small wooden houses|Rooms on a ship|Where a pilot sits, or a lake house
-CADENCE|A rhythmic flow of sound|The rhythm or beat of a sequence|What a marching drill and a speech both need
+CALENDAR|Chart showing days and months|System for tracking dates|What hangs on the wall marking holidays
 CALENDARS|Charts showing the days of the year|What hangs on the wall marking meetings|Grids that turn a year into little boxes
 CALMED|Made peaceful|Soothed after distress|Settled down, like rough seas
 CAMERA|Device for taking pictures|Equipment used to record video|What a director calls action for
 CAMERAS|Devices that take pictures|Equipment used to capture photos or video|What smile for, before the shutter clicks
+CAMPFIRE|Outdoor blaze for cooking and warmth|Blaze around which stories are told|Where marshmallows get toasted
 CAMPFIRES|Outdoor blazes built for warmth or cooking|Where marshmallows get toasted at night|What ghost stories are traditionally told around
 CANDIDATE|A person seeking an office or position|Someone on the ballot this November|One of many hoping for a single job offer
 CANDLE|A wax stick with a wick|Source of light before electricity|What you blow out on a birthday
@@ -216,41 +274,50 @@ CANDLES|Wax sticks with a wick, for light|Wax objects burned to give light|What 
 CANDOR|Honesty in speech|Frankness of expression|Bluntness, offered without a filter
 CANOES|Narrow boats paddled by hand|Small watercraft for rivers|What you paddle, not row
 CANVAS|Cloth used for painting|Sturdy fabric for tents|What an artist stretches before starting
+CAPACITY|Maximum amount something can hold|Ability to contain or do|Role someone serves in, officially
 CAPTAIN|Leader of a ship or team|The person in charge of a vessel or squad|Who goes down with the ship, traditionally
+CAPTAINS|Leaders of a team or ship|Those in command|Who wears the armband on a soccer team
 CAPTIVE|A prisoner|One held against their will|What an audience is when the doors are locked
 CAPTOR|One who holds another prisoner|A kidnapper|Whoever holds the keys when someone's taken hostage
 CAPTURE|To take by force|Seize or take control of something|What a photograph does to a fleeting moment
-CARAVAN|A group traveling together, or a trailer home|A group of travelers, or a towable home|What crosses a desert single file, camel by camel
+CAPTURED|Taken by force|Seized and held|Caught on camera, say
+CARAVANS|Groups traveling together|Convoys crossing the desert|Trailers pulled behind a car, in Britain
 CARDBOARD|A stiff, thick paper material|What moving boxes are made of|A material weak villains are made of, figuratively
+CARDINAL|Of primary importance|A high-ranking church official|Red songbird, or a basic number
 CAREFUL|Cautious and attentive|Being cautious to avoid mistakes|What a tightrope walker had better be
+CARELESS|Not paying enough attention|Done without caution|Sloppy with the details
 CARGOES|Goods carried by a ship or plane|Loads of goods being transported|What a freighter's hold is packed with
 CARING|Showing kindness|Concerned for others' welfare|Nurturing, without being asked
+CARNIVAL|A fair with rides and games|Festive traveling amusement show|Season of parades before Lent
 CARPENTER|A skilled worker who builds things from wood|Who you'd call to fix a squeaky floor|A tradesman who measures twice, cuts once
 CARPET|Soft floor covering|Wall-to-wall flooring|What's rolled out for celebrities
 CARPETS|Floor coverings|Woven fabric coverings for floors|What gets rolled out to welcome a VIP
-CARROT|An orange root vegetable|Vegetable said to help eyesight|The reward half of a motivational pair
 CARTON|A cardboard container|Box for holding milk or eggs|What a dozen eggs come packaged in
+CARTOONS|Animated drawings|Comic strips or animated shows|What a Saturday morning once meant
 CARTRIDGE|A replaceable container for ink or ammunition|What you swap when the printer runs dry|A gun's or a printer's small refillable part
 CARVED|Cut into a shape|Sculpted from wood or stone|Sliced, as a holiday turkey
 CASHED|Exchanged for money|Redeemed a check|What you do to a paycheck at the bank
 CASHEW|A curved edible nut|A nut often found in trail mix|What's roasted and salted in many snack bowls
 CASHIER|One who handles store payments|A worker who processes purchases at a register|Who scans your groceries and takes your card
 CASING|An outer covering|Protective shell around a device|What a sausage or a bullet is wrapped in
-CASSEROLE|A dish baked slowly in one pot|What a potluck table is usually covered in|Comfort food that survives the freezer for months
+CASSETTE|Old tape format for music|Analog recording format in a case|What you'd rewind with a pencil
 CASTLE|A large fortified building|A medieval fortress|What a king calls home, or a chess move
 CASUAL|Relaxed and informal|Not dressy|Nonchalant, without much thought
 CATALOG|A list of items for sale|A published list or collection of items|Thick mailer full of things you didn't know you wanted
+CATALOGS|Lists of items for sale|Printed collections of products|What arrive in the mail before holidays
 CATALOGUE|An organized list of items for sale|What arrives in the mail before the holidays|A list of everything a shop wants you to buy
+CATCHING|Grabbing something in the air|Contagious, as an illness|Snagging a fly ball
 CAUSED|Made something happen|Brought about a result|Was the reason behind an effect
 CAUTION|Care to avoid danger|Careful attention to avoid risk or harm|What a yellow sign urges at a sharp curve
 CAVERN|A large cave|A hollow underground chamber|Where stalactites hang overhead
 CEASED|Stopped|Came to an end|Stopped abruptly, as hostilities under a truce
 CEASING|Stopping an action|Coming to an end or halt|What the music does right before the lights come up
 CEILING|The top surface of a room|The overhead interior surface of a room|What a glass one keeps some careers capped by
+CEILINGS|Upper interior surfaces of rooms|Overhead surfaces of a room|Where chandeliers hang
 CELEBRATE|To mark an occasion with joy|What you do on a birthday or anniversary|To pop the cork when good news lands
-CELERY|A crunchy green vegetable|A stalk often paired with peanut butter|The diet food said to burn more calories to chew
 CELLAR|An underground room|Storage space beneath a house|Where wine ages in the dark
 CEMENT|Building material that hardens|Mixture used to make concrete|What solidifies a deal, figuratively
+CEMETERY|A burial ground|Place where the dead are buried|Where headstones stand in rows
 CENSUS|An official population count|A government headcount|What determines representation, every ten years
 CENTER|The middle point|A hub of activity|What a basketball team relies on in the paint
 CENTRAL|In or near the middle|Of chief importance, or in the middle|What a plot's main theme always is
@@ -259,28 +326,34 @@ CENTURY|A period of 100 years|A hundred-year span of time|What a cricket batter 
 CERAMIC|Made of baked clay|Pottery made by firing clay|What a coffee mug is usually made of, unless it's tin
 CERTAINLY|Without any doubt|A firm way of saying "of course"|The confident answer before an "of course"
 CHAIRLIFT|A seat on a cable that carries skiers uphill|What you ride up before skiing down|A slow ride up the slope, dangling by a cable
+CHAIRMAN|Head of a board or committee|Person who presides over meetings|One who bangs the gavel
 CHAIRS|Seats with a back and legs|Furniture for sitting|What committee heads sit in, figuratively
 CHALKY|Like chalk in texture|Powdery and dry|Pale, as a face drained of color
 CHAMBER|A private room|An enclosed space, or a legislative hall|Where a single bullet waits in a revolver
-CHAMPIONS|Winners of a major contest|Who lifts the trophy at the end of the season|Underdogs, once the final whistle blows
+CHAMBERS|Rooms, especially formal ones|Enclosed spaces in a structure|Where a judge might confer privately
 CHANCE|A possibility|An opportunity|What a gambler bets everything on
 CHANGE|Make different|Coins given back after a purchase|What's left in your pocket after a purchase
 CHANNEL|A TV station|A path for water, or a broadcast station|What you flip through late at night
+CHANNELS|TV stations|Passages for water or signals|What a remote control flips through
 CHAPEL|A small place of worship|A church attached to a larger building|Where a quick wedding might happen, in Vegas
 CHAPTER|A section of a book|A numbered division within a book|Where a story pauses with a cliffhanger
+CHAPTERS|Sections of a book|Divisions of a story|Local branches of a club
 CHARACTER|A person portrayed in a story|Someone's moral qualities, or a role in a play|What a novelist invents but a biographer finds
 CHARGE|A fee|To accuse formally|What a battery needs, or a bull does
 CHARITY|An organization that helps those in need|Giving help to those less fortunate|What begins at home, they say
+CHARMING|Very pleasant and likeable|Delightfully attractive|Able to win people over with ease
 CHARMS|Attractive qualities|Small trinkets on a bracelet|What a snake responds to, allegedly
 CHARTER|To rent a plane or boat|A formal document granting rights, or to hire a vessel|What a private jet or a founding document both are
 CHARTS|Graphic displays of data|Rankings of top songs|Where a hit single climbs each week
 CHASED|Ran after|Pursued quickly|Followed with intent, like a cat after a mouse
 CHEAPEN|To lower the value of|Make something seem less valuable or dignified|What a knockoff copy does to the original's reputation
+CHEATING|Acting dishonestly|Breaking the rules to gain advantage|Peeking during an exam
 CHEATS|Acts dishonestly|Breaks the rules for advantage|Copies answers, so to speak
 CHECKBOOK|A booklet of blank bank drafts|What you balance to avoid overdraft fees|A ledger for money that isn't cash yet
 CHECKED|Verified or examined|Looked over for accuracy|Patterned like a chessboard, or looked over twice
+CHECKING|Verifying something|Looking something over|Type of bank account for daily use
 CHECKLIST|A rundown of items to verify one by one|What a pilot reviews before takeoff|A pilot's ritual before wheels leave the ground
-CHEESE|A dairy product made from milk|Food that pairs with wine|What you say for a photo
+CHEMICAL|Substance used in a reaction|Related to chemistry|Additive listed on a label
 CHEMICALS|Substances used in scientific reactions|What a lab technician handles with gloves|Compounds a factory discharges, if unregulated
 CHEMIST|A scientist who studies substances|One trained in the science of matter and reactions|British term for a pharmacist
 CHERISH|To hold dear|Treasure something deeply|What you do with a keepsake from a lost friend
@@ -290,20 +363,25 @@ CHESTNUTS|Roasted brown treats enjoyed on a winter day|What street vendors roast
 CHICKEN|A common farm bird|A domesticated fowl kept for eggs and meat|What a coward is called, informally
 CHILDHOOD|The years of being young|The stage of life before adolescence|The years recess mattered more than rent
 CHIMNEY|A structure for smoke to escape|A vertical flue for smoke from a fire|Santa's preferred entrance, traditionally
-CHOCOLATE|A sweet food made from cacao beans|What melts in a fondue pot|A dark treat blamed for both joy and cavities
+CHIMNEYS|Structures that vent smoke|Flues rising from a fireplace|Where Santa is said to enter
+CHOPPING|Cutting into pieces|Slicing with quick strokes|What a knife does to an onion
 CHOWDER|A thick, creamy soup|A hearty soup often made with seafood|What clams and cream become in a bowl
+CINNAMON|A spice from tree bark|Warm reddish-brown spice|Flavor in a holiday roll
 CIRCUIT|A closed loop, like for electricity|A path for an electric current, or a touring route|What a comedian works, town after town
+CIRCULAR|Having the shape of a ring|Round in form|Flyer passed out door to door
 CIRCULATE|To move around continuously|What blood does through the body|What a rumor does at a party, unfortunately
 CITIZEN|A legal member of a country|A person with legal rights in a nation|What a passport officially proves you are
 CLARIFIED|Made clear or easier to understand|What a spokesperson does after a confusing statement|Butter, once its milk solids are removed
 CLARIFY|To make something easier to understand|Explain something to remove confusion|What a follow-up question is meant to do
 CLASSIC|Widely regarded as excellent|Of lasting, recognized quality|What never goes out of style
 CLASSICAL|Of a traditional, long-established style|The kind of music with symphonies, not synths|Music heard in a concert hall, not a nightclub
+CLASSIFY|To sort into categories|Arrange by type|Mark a document as top secret
 CLASSROOM|A space where students are taught|Where chalk dust and homework begin|Four walls where recess feels far away
 CLEANED|Made free of dirt|Tidied up or made spotless|What a maid leaves a room after doing
 CLEANSE|To make thoroughly pure|Purify or rid of impurities|What a juice fast claims to do for your system
 CLEARANCE|Official permission to proceed|What a store calls its end-of-season sale|The gap a truck needs under a low bridge
 CLIMATE|The typical weather of a region|Long-term weather patterns of an area|What determines whether you pack a coat
+CLIMBING|Going up using hands and feet|Ascending a slope or rope|What ivy does on a wall
 CLOCKWORK|A mechanism driven by gears and springs|How a well-run operation is said to run|What an orange became, in a dystopian film title
 CLOSING|Coming to an end|The final part of something|What a store does at nine sharp
 CLOTHES|Garments worn on the body|Items worn to cover the body|What a laundry basket is never actually empty of
@@ -345,8 +423,6 @@ COURTYARD|An open area enclosed by walls or buildings|Where a fountain sits behi
 CRACKDOWN|A strict enforcement action against wrongdoing|What police launch against illegal parking|A sudden squeeze on rule-breakers
 CREATURES|Living beings, especially animals|What a zoologist studies in the wild|Monsters, in an old horror film title
 CRIMINALS|People who commit crimes|Who a detective chases through the city|Those a jury is asked to judge
-CROCODILE|A large reptile with powerful jaws|What lurks in a river, waiting to snap|What fake tears are famously compared to
-CUCUMBERS|Long green vegetables often sliced in salads|What's pickled to make a dill spear|Slices placed on the eyes at a spa
 CULTIVATE|To grow or develop, as with crops or skills|What a farmer does to a field|To nurture a friendship over many years
 CUPBOARDS|Storage cabinets, often in a kitchen|Where the dishes hide between meals|What a mouse might raid at midnight
 CURIOSITY|A strong desire to learn or know|What killed the cat, proverbially|The itch that sends scientists down rabbit holes
@@ -354,6 +430,7 @@ CURRENTLY|At the present moment|A word for "right now" in a formal report|The te
 CUSTOMARY|Usual or traditional|The way things are always done at a wedding|What etiquette calls expected, not required
 CYLINDERS|Tube-shaped solid or hollow objects|What a car engine's pistons move inside|Shapes a soup can and a drum have in common
 DABBLE|Try something casually|Engage in an activity without commitment|Dip a toe into a new hobby
+DAFFODIL|A yellow spring flower|Trumpet-shaped spring bloom|Symbol of a cancer charity in spring
 DAFFODILS|Bright yellow flowers that bloom in spring|What a poet wandered lonely among, famously|Spring blooms tied to a certain poet's cloud
 DAMAGE|Harm done to something|Physical injury to property|What an insurance claim covers
 DAMAGED|Harmed or broken|Injured or impaired in some way|What a fender is after a fender bender
@@ -363,11 +440,16 @@ DANGER|Risk of harm|A threat to safety|What a red flag warns of
 DANGEROUS|Likely to cause harm|How a cliff edge without a rail feels|What a curve sign warns drivers about
 DARING|Bold and adventurous|Willing to take risks|Fearless, to the point of recklessness
 DARKEN|Make less light|Turn to dusk|What a storm cloud does to the sky
+DARKNESS|Absence of light|State of being unlit|What a nightlight helps chase away
+DATABASE|Organized collection of computer records|Structured set of digital information|What a query searches through
 DATING|Going out romantically|Determining the age of something|What a fossil's age is done through
+DAUGHTER|A person's female child|Female offspring|Who calls a mother "mom"
 DAUGHTERS|A person's female children|What a father walks down the aisle|Girls, once they've grown past being called that
 DAWNED|Began to grow light|Started, as a realization|Struck someone suddenly, like an insight
+DAYLIGHT|Natural brightness from the sun|Illumination during waking hours|What saving time shifts by an hour
 DAYTIME|The hours when the sun is up|The period between sunrise and sunset|When soap operas traditionally aired
 DAZZLE|Impress greatly|Shine brightly|Blind briefly with brilliance
+DEADLINE|A due date|Time limit for finishing something|What a procrastinator races against
 DEADLINES|Final times by which a task must be done|What a reporter races against every night|What writers famously need to hear whoosh by
 DEADLY|Capable of causing death|Extremely dangerous|Lethal, in a serious tone
 DEALER|One who trades goods|Person who distributes cards in a game|Who you buy a used car from
@@ -381,46 +463,57 @@ DECEIT|Dishonest behavior|The act of misleading someone|What a con artist relies
 DECENT|Satisfactory or good|Morally proper|Good enough, without being impressive
 DECIDE|Make a choice|Reach a conclusion|Settle a matter, once and for all
 DECIDED|Made up one's mind|Reached a firm conclusion|What a coin flip settles when you can't choose
+DECIDING|Making a choice|Determining an outcome|Casting the tie-breaking vote
 DECODE|Convert from code to plain language|Interpret a hidden message|Crack a cipher's meaning
 DECORATED|Made more attractive with ornaments|What a tree becomes each December|How a general's uniform gets extra medals
+DECREASE|To become smaller|Reduce in amount|What a diet aims to do to weight
 DECREE|An official order|A ruling issued by an authority|What a monarch proclaims
 DECREED|Ordered officially|Issued an official order or ruling|What a monarch does instead of asking nicely
+DEDICATE|To devote to a purpose|Set apart for a special use|Inscribe a book to someone
 DEDICATED|Devoted to a task or cause|How a hard worker approaches every project|What a book's opening page often is, to someone
 DEEPEN|Make deeper|Increase in intensity|What a river does after heavy rain
 DEFAULT|The standard setting|A preset option, or failure to pay a debt|What happens to a loan when payments stop
 DEFEAT|To beat in a contest|A loss in competition|What a champion inflicts on a challenger
 DEFECT|A flaw or imperfection|To abandon one's country or cause|What quality control looks for on an assembly line
 DEFEND|Protect from harm|Argue in support of|What a lawyer does for a client
-DEFENSE|Protection from attack|A means of protecting against harm|What a lawyer mounts, or a goalie provides
+DEFENDER|One who protects|A guard in sports|Position in front of the goalkeeper
 DEFIANT|Boldly resisting authority|Openly refusing to comply|What a toddler's crossed arms silently announce
 DEFICIT|An amount that is short of what's needed|A shortfall, especially of money|What spending more than you earn creates
 DEFIED|Openly resisted|Refused to obey|Went against the odds
 DEFINE|State the meaning of|Explain precisely|What a dictionary entry does for a word
+DEFINITE|Certain and clear|Not vague|Fixed and beyond doubt
 DEFROST|To remove built-up ice from|Thaw something that was frozen|What you do to chicken before dinner
 DEGREE|A unit of measurement|A qualification from a university|What a thermometer reads, or a graduate earns
 DELETE|Remove text or data|Erase from a file|What the backspace key ultimately does
+DELICATE|Easily broken|Fine and fragile|Requiring gentle handling, as lace
 DELICIOUS|Very pleasant to taste|How a home-cooked meal is often described|The word on a menu that oversells the soup
 DELIGHT|Great pleasure|A feeling of joyful satisfaction|What a child's laugh is pure evidence of
 DELIVERED|Brought and handed over to someone|What a stork is said to do with babies|What a punchline does, if it lands well
+DELIVERY|The act of bringing something to a place|Distribution to a recipient|A pitcher's throw, in baseball
 DELUXE|Luxurious|Of superior quality|What a hotel calls its pricier room
 DEMAND|Ask for firmly|Economic desire for a product|What supply is always paired with
+DEMANDED|Insisted upon|Required firmly|Asked for, no questions allowed
 DEMOTED|Moved to a lower rank|Reduced in position or status|What a benched star player has just been
 DENIAL|Refusal to admit something is true|Rejection of a request|A river in Egypt, so the joke goes
 DENIED|Refused to accept|Said something was untrue|Turned down a request flatly
 DENOTE|Be a sign of|Indicate a meaning|What a symbol does for its referent
 DENTAL|Relating to teeth|Concerning oral health care|What kind of floss is, essentially
 DENTIST|A tooth doctor|A specialist who treats teeth|Who you see twice a year, reluctantly
-DEPART|Leave a place|Set off on a journey|What a train does from the platform
+DENTISTS|Doctors for teeth|Oral health professionals|Who checks for cavities
 DEPARTURE|The act of leaving|What's posted on the airport board next to a gate|A break from tradition, or a plane's exit
 DEPICT|Show in a picture|Represent in words or art|What a portrait does for its subject
 DEPLOY|Position troops for action|Put into use or effect|What an army does before a battle
 DEPOSE|Remove from power|Question under oath|What a coup does to a leader
 DEPOSIT|Money put into an account|A sum placed into a bank or as a down payment|What secures an apartment before you move in
 DEPOSITED|Placed somewhere for safekeeping|What you do with a paycheck at the bank|What silt does at a river's mouth over centuries
+DEPOSITS|Sums placed in a bank|Amounts paid upfront|Layers left behind by a river
 DEPUTY|An assistant to a leader|A second-in-command|Who a sheriff relies on for backup
 DERIVE|Obtain from a source|Trace the origin of|What pleasure is taken, from a small thing
 DESCRIBED|Told or explained in detail|What a witness does for the police sketch artist|What a good travel writer does to a place unseen
+DESERTED|Abandoned|Left empty|Devoid of people, as a ghost town
+DESIGNER|One who creates plans or products|A creative professional|Label on a pricey handbag
 DESKTOP|Computer that sits on a table, not a lap|A stationary computer setup|What clutters up with icons over the years
+DESKTOPS|Computers meant to stay in place|Non-portable computers|Screens you see before opening any app
 DESPAIR|Complete loss of hope|A feeling of hopelessness|What a losing streak eventually breeds
 DESTINY|One's fate|Events that will necessarily happen to someone|What the stars supposedly have in store for you
 DETAILS|Small individual facts|Specific pieces of information|What the devil is famously in
@@ -428,32 +521,45 @@ DETECTIVE|A person who investigates crimes|Who examines clues at a crime scene|S
 DEVELOPER|A person who builds property or writes software|Who turns an empty lot into condos|A chemical bath that brings a photo to light
 DEVIOUS|Not straightforward, cunning|Willing to lie or deceive to get one's way|What a scheme rarely calls itself
 DEVOTED|Loyal and loving|Dedicated fully to a person or cause|What a lifelong fan of a losing team still is
+DEVOTION|Deep love or loyalty|Strong dedication to a cause|Faithful commitment, especially religious
 DIAGRAM|A drawing that explains something|A simplified visual explanation|What an instruction manual leans on more than words
 DIALECT|A regional form of a language|A variety of language specific to a region|What gives away where you grew up, before you say much
+DIALECTS|Regional forms of a language|Local varieties of speech|What differs between a Boston and a Texas accent
 DIAMOND|A hard, precious gemstone|A valuable clear gem, or a baseball field|What an engagement ring usually shows off
+DIAMONDS|Precious clear gemstones|Hard sparkling stones|Suit in a deck of cards
 DICTATE|To say aloud for another to write|Speak words for someone else to record|What a boss does instead of asking
+DICTATOR|A ruler with total power|An authoritarian leader|One who brooks no opposition
 DIETARY|Relating to food intake|Concerning what one eats|What a restaurant menu lists restrictions for
 DIFFERENT|Not the same as another|How two twins can still turn out|What "vive la" precedes, in a French phrase
 DIFFICULT|Hard to do or understand|How a tricky exam question feels|What a diplomat calls a problem, tactfully
+DIGESTED|Broken down for absorption|Processed by the stomach|Understood after some thought
 DIGGING|Excavating the ground|Turning up earth with a tool|What archaeologists do all day in the sun
 DILEMMA|A difficult choice between options|A situation with two hard choices|What being caught between two bad options is called
 DIMENSION|A measurable extent, like length or width|Height, width, and depth, each is one|A parallel world, in a sci-fi plot
 DIMPLED|Marked with small hollows|Having small indentations, as in a cheek|What a smile sometimes leaves behind on a cheek
+DINOSAUR|An ancient extinct reptile|Prehistoric giant creature|Someone hopelessly out of date, informally
 DINOSAURS|Extinct giant reptiles from millions of years ago|What a museum's biggest skeletons belong to|What an asteroid is blamed for ending
 DIPLOMA|A certificate of graduation|A document proving completion of study|What gets rolled up and tossed in the air
+DIRECTOR|One who oversees a film or company|A person in charge of operations|Who yells "cut" on a movie set
 DIRECTORS|People who oversee or manage an operation|Who yells "cut" on a film set|Board members who vote on a company's fate
 DISAGREED|Held a different opinion|What siblings do about whose turn it is|What two critics did over the same film
+DISASTER|A sudden calamity|A very bad event|Total flop, informally
 DISASTERS|Very bad, damaging events|What a relief fund is set up after|Dates that end up in history textbooks, badly
 DISCARD|To throw away|Get rid of something no longer needed|What a card player does with an unwanted hand
 DISCOUNTS|Reductions in price|What a coupon gets you at checkout|What a haggler always asks for first
+DISCOVER|To find something new|Come upon unexpectedly|Stumble upon by chance
 DISCOVERY|The finding of something new|What a scientist announces after a breakthrough|What an explorer claims, even if locals knew already
 DISEASE|An illness|A disorder affecting health|What a vaccine is designed to outsmart
 DISHONEST|Not truthful|How a cheater's excuse usually sounds|What a forged signature clearly is
 DISSOLVED|Broken down completely into a liquid|What sugar does in hot tea|What a parliament does before new elections
+DISTANCE|The space between two points|How far apart things are|What a marathon covers, in miles
 DISTANCES|Amounts of space between two points|What a marathon measures in miles|What absence makes the heart grow fonder over
 DIVIDENDS|Payments made to shareholders from profits|What a stockholder collects quarterly|What patience is said to pay, proverbially
+DOCTRINE|A set of beliefs|A guiding principle|What a church teaches as truth
+DOCUMENT|A written record|An official paper|To record evidence of something
 DOCUMENTS|Official written or printed papers|What you sign at a mortgage closing|Files a shredder makes quick work of
 DONATIONS|Gifts of money or goods to a cause|What a charity drive collects|What a tax receipt often follows
+DOORSTEP|The entrance ledge just outside a home|Threshold just outside an entrance|Where the newspaper used to land
 DOORSTEPS|The area just outside a home's entrance|Where the morning paper used to land|Where a salesman pitches before being turned away
 DOWNFALLS|Sudden losses of power, status, or success|What pride is said to come before|What a tragic hero's one flaw guarantees
 DRAGONFLY|A winged insect often seen near ponds|What darts over a pond with shimmering wings|An insect named for a mythical fire-breather
@@ -463,61 +569,82 @@ DRUMSTICK|The leg portion of a cooked chicken or turkey|What a player twirls bet
 DUPLICATE|An exact copy of something|What a locksmith makes of your house key|A twin document, not a twin sibling
 EARNED|Received in return for work|Gained through effort|What a paycheck reflects, hopefully deserved
 EARNEST|Sincere and serious|Showing sincere conviction|What a heartfelt apology should always be
+EARRINGS|Jewelry dangling from the lobe|Ornamental jewelry worn in pairs|What a stud or hoop adorns
 EARTHLY|Relating to this world|Of this physical world, not spiritual|What worries some people say to let go of
 EASILY|Without difficulty|In a simple manner|Without breaking a sweat
 EASTERN|Located in the east|Relating to or from the east|What direction the sun always rises from
+EASTWARD|Toward the direction of sunrise|In the direction the sun rises|Which way you'd face to greet the dawn
 ECHOED|Repeated a sound|Reflected back, as sound off a wall|Reverberated through a canyon
-ECLIPSE|When one body blocks another's light|A temporary blocking of light by another body|What the moon does to the sun, briefly
+ECONOMIC|Relating to money and trade|Concerning finances of a nation|Having to do with supply and demand
 ECONOMY|A country's system of trade and industry|The wealth and resources of a region|What a recession is bad news for
 EDIBLE|Safe to eat|Fit for consumption|What separates a mushroom from poison, hopefully
 EDITED|Prepared text for publication|Revised and corrected|Trimmed the fat from a rough draft
 EDITING|Correcting and improving written text|Revising content for accuracy or style|What a red pen is put to good use for
 EDITOR|One who prepares text for publication|Person who oversees a newspaper's content|Who decides what makes the final cut
 EDUCATE|To teach|Provide knowledge or training|What a good teacher does beyond the textbook
+EDUCATED|Having received schooling|Well informed through learning|Made an informed guess, as in a bet
 EFFECT|A result|The outcome of a cause|What follows a cause, inevitably
 EIGHTH|Coming after seventh|One of eight equal parts|The fraction a slice of pizza often is
 EITHER|One or the other|Any of two options|Word used before or, offering a choice
 ELAPSE|Pass by, as time|Slip away gradually|What minutes do while you wait
 ELASTIC|Able to stretch and spring back|Flexible and able to return to shape|What a rubber band and a budget both need to be
 ELECTED|Chosen by vote|Put in office by popular vote|What a winning candidate has just been
+ELECTION|A vote to choose a leader|Formal process of choosing by ballot|Day when ballots are cast
+ELECTRIC|Powered by a flow of current|Charged with excitement, figuratively|Sort of eel that delivers a shock
+ELEGANCE|Refined gracefulness|Stylish and tasteful quality|Simplicity that impresses, in a proof
 ELEGANT|Graceful and stylish|Refined in appearance or manner|What a simple solution to a hard problem often is
 ELEMENT|A basic part of something|A fundamental component, or a chemical substance|What the periodic table is entirely made of
 ELEVATE|To raise up|Lift to a higher position or level|What a promotion does to your job title
+ELEVATED|Raised to a higher position|Above the normal level|Given a promotion, in status
+ELEVATOR|A lift between floors|Car that moves people up and down|What you'd take instead of the stairs
 ELEVEN|The number after ten|A cricket or soccer team's size|What's on a football roster, on the field
 ELICIT|Draw out a response|Provoke a reaction|Coax an answer from a reluctant witness
 ELIXIR|A magical potion|A supposed cure-all liquid|What a snake-oil salesman peddles
 ELUSIVE|Hard to find or catch|Difficult to pin down or achieve|What a good night's sleep can feel like some weeks
 EMBARK|Begin a journey|Board a ship|Set out on a new venture
 EMBASSY|A diplomatic office abroad|An official diplomatic mission in a foreign country|Where a lost passport gets replaced overseas
+EMBEDDED|Fixed firmly into a surface|Deeply set within something|Reporter traveling with troops, say
 EMBERS|Glowing remains of a fire|Hot coals after flames die down|What's left after a campfire fades
 EMBLEMS|Symbols representing something|Symbolic badges or signs|What a coat of arms is covered in
 EMBRACE|A hug|To hold someone closely, or accept fully|What a warm welcome always includes
 EMERALD|A green gemstone|A precious green gem|Gem whose color matches a clover or a golf course
+EMERALDS|Green precious gemstones|Bright green jewels|Birthstones for the month of May
 EMERGE|Come out into view|Arise from hiding|What a butterfly does from a cocoon
+EMERGING|Coming into view|Newly developing|Surfacing from beneath the water
 EMOTION|A strong feeling|A mental state like joy or fear|What a poker face tries hard to hide
+EMOTIONS|Feelings such as joy or fear|States of mind and heart|What a poker face tries to hide
 EMPIRE|A group of nations under one ruler|A vast territory under single control|What Rome once was, at its peak
 EMPIRES|Large territories under one ruler|Extensive realms under a single authority|What board games let you build from a single square
 EMPLOY|Give a job to|Make use of|Put a skill to work
+EMPTYING|Removing all contents|Making something hollow|Draining the last drop, as a glass
 EMULATE|To copy someone's behavior|Try to match or imitate someone's success|What a rookie does to a veteran's technique
 ENABLE|Make possible|Give the means to do something|What a permission setting does in an app
 ENAMEL|Hard coating on teeth|Glossy protective coating|What a dentist worries about eroding
 ENCASE|Enclose completely|Surround on all sides|What a shell does for a turtle
 ENCLOSE|To surround completely|Surround on all sides|What a fence does to a yard
+ENCLOSED|Surrounded on all sides|Shut in completely|Included along with a letter, as a check
 ENCODE|Convert into code|Translate into a coded form|What a programmer does before transmitting data
+ENDANGER|To put at risk|Expose to harm|Threaten a species with extinction
 ENDING|The final part|The conclusion of a story|What a twist changes at the last minute
 ENDLESS|Never coming to a stop|Continuing without limit|What a waiting room's magazine selection feels like
 ENDORSE|To publicly support|Give public approval or support to|What a celebrity does for a product, for a fee
+ENDORSED|Publicly supported|Gave approval to|Signed the back of a check
 ENDURE|Withstand hardship|Continue to exist over time|Outlast a difficult ordeal
 ENDURED|Went through something difficult|Suffered through patiently|What a marathon runner's legs did, mile after mile
 ENEMIES|People who oppose you|Those who wish you harm|What allies can become overnight, in politics
+ENERGIES|Vigor or strength|Capacities for work or activity|Sources of power, as renewable ones
+ENFORCED|Made sure a rule was followed|Compelled by authority|Made mandatory by law
 ENGAGE|Occupy someone's attention|Begin a battle|What gears do when a clutch is released
+ENGAGING|Charming and interesting|Holding one's attention|Locking gears together, mechanically
 ENGINE|A machine that produces power|The part of a car that makes it move|What under the hood does the heavy lifting
+ENGINEER|A designer of machines or structures|A professional problem solver|One who drives a train, in some countries
 ENGRAVE|To carve letters into a surface|Cut a design into a hard surface|What a jeweler does to the inside of a ring
 ENHANCE|To improve|Make something better or more effective|What a filter does to an ordinary photo
 ENJOYED|Took pleasure in|Found something pleasurable|What a lazy Sunday is meant to be
 ENJOYS|Takes pleasure in|Finds satisfaction in|Savors, without needing a reason
 ENLARGE|To make bigger|Increase in size|What a photo does when you zoom too far
 ENLIST|Join the military|Sign up for a cause|What a recruit does before boot camp
+ENORMOUS|Extremely large|Immense in size|Bigger than big, informally
 ENOUGH|Sufficient in amount|As much as needed|What a parent says when patience runs out
 ENSURE|Make certain|Guarantee an outcome|What a checklist helps you do
 ENSURED|Made certain of|Guaranteed something would happen|What a seatbelt does for a passenger's safety
@@ -527,11 +654,19 @@ ENTICE|Attract with a promise|Tempt someone|Lure with the smell of fresh cookies
 ENTIRE|Whole|Complete, with nothing missing|Every last part, no exceptions
 ENTITLE|To give a right to|Give someone a claim to something|What a coupon does at the checkout
 ENTITY|Something that exists independently|A distinct organization or being|What a corporation is, legally speaking
+ENTRANCE|A way into a place|A doorway or opening|To captivate someone completely
 ENTRIES|Items submitted for a contest|Individual items in a list or contest|What a diary is made up of, day by day
+ENVELOPE|Paper covering for a letter|Container for mailing documents|What a stamp goes on
 ENVIED|Wished for what another had|Felt jealous of|Coveted a neighbor's good fortune
 ENVOYS|Diplomatic representatives|Messengers sent on official business|Who a country sends to negotiate
+EPISODES|Individual installments of a show|Single parts of a series|What a cliffhanger ends, until next week
 EQUALS|Is the same as|Matches in value|What a balanced scale shows on both sides
+EQUATION|A math statement showing two things are the same|Formula solved by finding an unknown value|What a chemist balances on paper
 ERASED|Rubbed out|Removed completely|Wiped from a whiteboard, or from memory
+ERUPTING|Bursting out suddenly|Exploding forth, as a volcano|Blowing its top, so to speak
+ESCALATE|To increase in intensity|Grow more serious step by step|Step up a conflict, level by level
+ESTIMATE|A rough calculation|An approximate judgment of amount|What a contractor gives before a job
+EVENINGS|Times of day before night|Later parts of the day|When the sun sets and prime time begins
 FABLES|Short moral stories|Tales often featuring talking animals|What Aesop was famous for writing
 FACADE|The front of a building|An outward, often false appearance|What crumbles when the truth comes out
 FACING|Positioned toward|Confronting a problem|Dealing with a challenge head-on
@@ -540,19 +675,25 @@ FACTORY|A place where goods are made|A building where products are manufactured|
 FACTUAL|True to what really happened|Concerned with what is true|What a documentary claims to be, unlike a drama
 FADING|Losing color or strength|Gradually disappearing|What an old photograph does over decades
 FAILED|Did not succeed|Fell short of a goal|Flunked, in academic terms
+FAINTING|Losing consciousness briefly|Passing out suddenly|Swooning at dramatic news, in old novels
 FAINTS|Loses consciousness briefly|Passes out|Swoons, in an old-fashioned novel
 FAIRLY|In a just manner|Reasonably, or moderately|Without favoring one side
+FAIRNESS|Just and equal treatment|Impartiality in judgment|What a referee is meant to ensure
 FAIRWAY|The mowed strip on a golf course|The stretch of a golf hole between tee and green|Where a golfer hopes the drive actually lands
 FALCON|A fast bird of prey|A raptor used in hunting|What a knight's glove might hold, feathered
 FALCONS|Fast birds of prey|Swift hunting birds used in an old sport|What swoops from a trainer's glove during a hunt
 FALTER|Lose strength or momentum|Stumble while speaking or acting|Hesitate right before the finish line
+FAMILIAR|Well known|Easily recognized|On a first-name basis with, so to speak
 FAMOUS|Widely known|Celebrated publicly|What a household name has become
 FANATIC|Someone extremely enthusiastic about something|Someone with excessive zeal for a cause|What a die-hard supporter is, for better or worse
 FANTASY|An imagined scenario|A genre involving magic and imagination|What daydreaming is basically made of
 FARAWAY|Distant|Located a long way off|What a dreamy, unfocused look is often called
+FAREWELL|A goodbye|A parting word|Final address before departing
 FARMED|Cultivated land for crops|Raised animals for food|Outsourced work to another party, in business jargon
 FARMER|One who grows crops or raises animals|A person who works the land|Who rises before dawn to tend fields
+FASHIONS|Popular styles of clothing|Current trends in dress|What runway shows debut each season
 FASTEN|Attach securely|Close a buckle or button|What a seatbelt does before takeoff
+FASTENED|Attached securely|Closed tightly|Buckled up before a flight
 FATEFUL|Having important, often bad, consequences|Decisively important to what follows|What the day a decision is finally made becomes
 FATHER|A male parent|The head of a family, traditionally|Who gives away the bride, traditionally
 FATIGUE|Extreme tiredness|Weariness from exertion|What a double shift leaves you with by morning
@@ -563,11 +704,15 @@ FAVORED|Preferred over others|Regarded with special preference|What the team wit
 FAVORS|Kind acts done for others|Small gifts given at a party|What you owe after someone helps you move
 FEARED|Was afraid of|Regarded with dread|Was worried it might happen
 FEARFUL|Feeling afraid|Full of anxiety or dread|What a jumpy cat during a thunderstorm clearly is
+FEARLESS|Having no dread of danger|Bold and courageous|Undaunted by the dark, say
 FEASTED|Ate a large, hearty meal|Enjoyed a lavish meal|What guests did well past dessert
+FEASTING|Eating a large, lavish meal|Indulging at a big meal|Making a holiday dinner disappear
 FEATHER|Part of a bird's covering|One of the light structures covering a bird|What tickles in an old-fashioned prank
+FEATHERS|Coverings on a bird's body|Light plumage of a bird|What fill an old-fashioned pillow
 FEATURE|A distinctive characteristic|A notable part or quality of something|What a magazine's cover story usually is
 FEDERAL|Relating to a national government|Relating to a central governing authority over states|What a nationwide tax return ultimately answers to
 FEEBLE|Physically weak|Lacking strength or effectiveness|Unconvincing, like a poor excuse
+FEEDBACK|Response or reaction to something|Comments given for improvement|Screech from a microphone too close to a speaker
 FEEDER|A device that dispenses food|A hanging station for birds|What keeps the backyard birds coming back
 FEELING|An emotional state|A sense or emotion experienced|What a gut instinct is another name for
 FELLOW|A man or boy|A member of a learned society|A companion, in old-fashioned speech
@@ -576,6 +721,7 @@ FENCED|Enclosed with a barrier|Sold stolen goods|Dueled with swords, in sport
 FERRET|A small domesticated weasel-like animal|A pet known for its playful curiosity|To search out information persistently
 FERTILE|Able to produce crops or offspring|Productive or capable of growth|What soil after spring rain tends to be
 FERVOR|Intense passion|Great enthusiasm|What a zealot brings to a cause
+FESTIVAL|A celebration or event|An organized period of celebration|Weekend of music on a farm field, often
 FESTIVE|Cheerful and celebratory|Suited to or marked by celebration|What a room full of tinsel and lights becomes
 FEUDAL|Relating to a medieval land system|Concerning lords and vassals|Describing a hierarchy of knights and serfs
 FEVERS|Elevated body temperatures|Symptoms of illness marked by heat|What a thermometer confirms when you feel unwell
@@ -587,23 +733,42 @@ FIELDS|Open areas of land|Areas of study or expertise|What a farmer plows in spr
 FIERCE|Aggressively intense|Showing strong feeling|Ready to fight at a moment's notice
 FIFTIES|The decade after the forties|A ten-year stretch just past the midpoint of a century|What a person calls their age just past midlife
 FIGHTER|One trained for combat|A combatant, or a type of aircraft|What a boxer or a jet both are called
+FIGHTERS|Those who battle|Combatants in a struggle|Jets built for aerial combat
 FIGURE|A number|A person's shape|What a detective tries to work out
 FIGURES|Numbers or statistics|Numerical data, or shapes of a body|What an accountant crunches all day
+FILAMENT|A thin wire or thread|Fine strand of material|What glows inside an old light bulb
 FILLED|Made full|Occupied completely|Completed, as a job vacancy
 FILLER|Material used to fill a gap|Content added just to take up space|What cosmetic injections add to lips
 FILMING|Recording a movie|The process of shooting a movie or show|What action is the cue to begin
 FILTER|A device that removes impurities|To sift through information|What coffee grounds pass through before your cup
 FINALE|The last part of a performance|The concluding section of a show|What fireworks provide at a show's end
+FINALIST|A contestant who reached the last round|Competitor still in contention near the end|Who's left standing before the winner is named
 FINALLY|At last|After a long time or delay|What you say when the bus shows up after a long wait
 FINANCE|Management of money|The management of large amounts of money|What a spreadsheet full of numbers usually concerns
+FINANCED|Provided money for|Paid for with borrowed funds|Backed a venture with capital
+FINISHED|Brought to completion|Done with a task|Polished to a shine, as furniture
 FIREARM|A gun|A weapon that shoots a projectile|What a holster is designed to carry
 FIREFLY|A glowing insect seen at dusk|A beetle that produces light at night|What lights up a summer evening without a switch
+FIREWOOD|Cut timber meant for burning|Logs used as fuel|What's stacked by a hearth for winter
+FIREWORK|A device that explodes with light and sound|Pyrotechnic display item|What lights up the sky on a holiday night
 FISHING|Casting a line to catch dinner|The pastime of angling for a catch|What a quiet lake and a patient hobby have in common
 FITNESS|Physical health and strength|The condition of being physically strong and healthy|What a gym membership is supposed to improve
 FIXTURE|Something permanently attached|A built-in feature, or a recurring team favorite|What a beloved diner has become in its neighborhood
+FLAGSHIP|The lead vessel of a fleet|The main product of a brand|Store that best represents a company
 FLASHED|Shone briefly and suddenly|Appeared suddenly and briefly|What lightning did before the thunder followed
 FLATTEN|To make level and even|Press or knock something down until it's level|What a rolling pin does to dough
+FLATTERY|Excessive praise|Insincere compliments|What gets you everywhere, they say
+FLOATING|Resting on top of water|Suspended without sinking|Not yet assigned a fixed rate, as interest
+FLOURISH|To grow or develop successfully|Thrive vigorously|A dramatic gesture with a pen
 FODDER|Food for livestock|Coarse feed for cattle or horses|What tabloids treat celebrity gossip as, endlessly
+FOLLOWED|Went after|Came next in sequence|Tailed a suspect, in a detective story
+FOOTNOTE|A small explanatory comment below the text|Reference marker's explanation at page's bottom|Minor detail in the history books
+FOOTPATH|A trail for walking|Narrow route for pedestrians|Route through the woods marked with blazes
+FORECAST|A prediction of future weather|Projected outcome|What a meteorologist gives each evening
+FOREHEAD|The upper part of the face|Area above the eyebrows|Where a thermometer strip might be placed
+FOREMOST|Most important|Leading or primary|First and above all others
+FORTRESS|A strong defensive structure|A stronghold built for defense|Castle built to withstand a siege
+FRACTURE|A break, especially in a bone|A crack or split|What an X-ray reveals after a fall
 GADGET|Small mechanical device|Handy little tool|Spy movie's clever contraption
 GALLOP|Horse's fastest pace|Run at full speed, as a horse|Rhythm of hooves at top speed
 GALVANIZE|To spur into sudden action|To coat with zinc, or to energize|What a rousing speech does to a crowd
@@ -613,7 +778,6 @@ GARBAGE|Household waste to be thrown out|What gets put out for weekly collection
 GARDEN|Plot of land for growing plants|Backyard plot for flowers or vegetables|Eden, for one
 GARDENER|One who tends plants and flowers|Person who mows lawns and plants beds|Cultivates more than just small talk
 GARDENING|Tending plants and lawns as a hobby|Weekend work with trowel and hose|A pastime that often ends in dirty knees
-GARLIC|Pungent bulb used in cooking|Flavorful clove in many dishes|Vampire repellent, in legend
 GARMENT|A single piece of clothing|Item you might try on in a fitting room|What a tailor stitches together
 GATEWAY|An entrance or opening passage|Portal that leads to something new|Arch marking the start of a journey
 GATEWAYS|Entry points or doors|Points of access to a place|Portals that open onto new ground
@@ -634,7 +798,6 @@ GIGANTIC|Extremely large|Huge in size|Larger than life, and then some
 GIGGLE|Laugh in a light, silly way|Snicker at something funny|Nervous laugh at a joke
 GIGGLED|Laughed in a light, silly way|Reacted to a joke with soft laughter|Reacted the way a tickled child does
 GIRDLE|Undergarment that shapes the waist|Tight foundation garment|Old-fashioned corset alternative
-GLACIER|A huge slow-moving mass of ice|Frozen river of ice creeping down a mountain|Slow mover carving out a valley over centuries
 GLADIATOR|Ancient arena combatant|Fighter who battled for a Roman crowd|Colosseum contender facing lions or rivals
 GLADNESS|Feeling of happiness|State of being pleased|What a smile often signals
 GLANCING|Looking briefly|Taking a quick look|Striking at an angle, as a blow
@@ -674,12 +837,10 @@ GRAPHS|Charts showing data trends|Visual plots of numbers|Bar or line displays i
 GRASPED|Held on to firmly|Understood, or took hold of|Got a firm grip on an idea, or a rope
 GRASPING|Holding tightly|Gripping firmly|Reaching to understand, or just reaching
 GRASSES|Green lawn plants|What a meadow is mostly covered in|What a lawnmower keeps in check
-GRASSLAND|Wide open plain, mostly treeless and green|Prairie or savanna terrain|Where herds graze under open sky
 GRASSY|Covered with turf|Like a lawn or meadow|Green and lush underfoot
 GRATEFUL|Feeling thankful|Appreciative of a favor|What a thank-you note expresses
 GRAVEL|Small loose stones|Material used to surface a driveway|Crunchy stuff underfoot on a path
 GRAVITATE|To be drawn toward something|To move as if pulled by attraction|What iron filings do near a magnet
-GRAVITY|The force that pulls things down to Earth|What keeps your feet on the ground|What Newton reportedly pondered under a tree
 GREASE|Oily substance for lubrication|Slick coating on machine parts|Kitchen residue, or a classic musical
 GREEDY|Wanting more than one's share|Never satisfied with enough|Piggish at the buffet
 GREENISH|Somewhat like the color of grass|Tinged with an emerald hue|Not quite ripe, colorwise
@@ -706,13 +867,11 @@ GUARDIAN|Protector of someone|Legal caretaker of a minor|Angel said to watch ove
 GUIDANCE|Helpful advice|Direction offered to someone|What a counselor's office provides
 GUIDELINE|A rule for how to proceed|Suggested standard of conduct|Not a law, but close to one
 GUIDING|Leading or showing the way|Directing someone toward a destination|What a lighthouse beam does for ships
-GUITAR|Six-stringed instrument|Instrument strummed or picked|Rock band's lead instrument, often
 GUITARS|Stringed instruments played by strumming|What a rock band's front line often plays|What gets plugged into an amplifier on stage
 GUNSHOT|The sound of a firearm firing|A single discharge from a firearm|What starts a footrace, besides a whistle
 GUTTER|Channel for rainwater along a roof|Trough that carries runoff|Bowling lane's side channel
 GYMNASIUM|Room for indoor exercise|School's indoor sports hall|Where the basketball team practices
 GYMNASTS|Athletes on balance beams|Competitors in tumbling and vaulting|Flippers who stick the landing
-HABITAT|The natural home of an animal or plant|The environment where a species normally lives|What a nature documentary usually opens by describing
 HAGGLE|Bargain over a price|Negotiate back and forth|Argue down a market vendor
 HAIRCUT|A trim or style given to one's locks|What a barber provides|What you get before a big interview, maybe
 HAMLET|Very small village|Tiny rural settlement|Tiny place too small for a mayor
@@ -729,7 +888,6 @@ HANDSOME|Attractive, said of a man|Good-looking|Generous, as in a sum of money
 HANGAR|Building that shelters aircraft|Airplane storage building|Where a plane naps between flights
 HANGARS|Large buildings that shelter aircraft|Where planes are stored and serviced|Where a jet sleeps between flights
 HAPPEN|Take place|Occur by chance or design|Come to pass, as fate decrees
-HARBOR|Sheltered area for ships|Port where boats dock|Secretly hold, as a grudge
 HARBORS|Sheltered areas where ships dock|Safe ports for boats to anchor|What a grudge is said to be kept in
 HARDCOVER|Book bound with a stiff, rigid binding|Sturdier alternative to paperback|Library edition built to survive many readers
 HARDEN|Make firm or solid|Toughen, as clay in a kiln|Steel one's resolve
@@ -741,7 +899,6 @@ HARMONIC|Describing pleasing combinations of musical notes|Relating to pleasing 
 HARMONIES|Pleasing combinations of musical notes|Backing vocals blended with a melody|What a barbershop quartet perfects
 HARNESS|A set of straps used to control an animal|Gear used to control a horse, or to tap energy|What you'd clip a rock climber into
 HARVEST|The gathering of crops|The season's yield of grain or fruit|What a farmer celebrates each autumn
-HARVESTS|Gathers ripe crops|Reaps a season's produce|What autumn brings in from the fields
 HATCHES|Openings in a ship's deck or floor|Small doors that open on a boat or plane|What a chick does to an egg, or a submarine seals
 HATCHING|Emerging from an egg|Coming to life from a shell|Devising a secret plan, so to speak
 HATCHLING|A young animal freshly out of its shell or egg|A baby bird or reptile in its first days|A turtle fresh from the sand nest
@@ -768,7 +925,6 @@ HEAVENLY|Wonderful, like paradise|Blissfully delightful|Fit for angels
 HEIGHT|How tall something is|Vertical measurement|Peak of a career, figuratively
 HEIRLOOM|Item passed down generations|Family treasure handed down|Grandma's ring, eventually yours
 HEIRLOOMS|Valuable items passed down in a family|Grandma's jewelry kept for the next generation|What gets fought over in a will
-HELMET|Protective headgear|Hard hat for a cyclist|Football player's head protection
 HELMETS|Protective headgear|What cyclists and construction workers wear|What a knight wore into battle, essentially
 HERBIVORE|An animal that eats only plants|A deer or cow, dietarily speaking|No meat on this creature's menu
 HERITAGE|Cultural traditions passed down|Legacy from one's ancestors|What a family tree grows into
@@ -790,7 +946,6 @@ HISTORY|The study of past events|The record of what has happened over time|What 
 HOARDED|Collected and stored away greedily|Kept a large stockpile, often secretly|What a dragon does with its treasure, in myth
 HOBBIES|Activities done for fun in one's spare time|Pastimes pursued outside of work|What fills a resume's interests section
 HOBBLE|Walk with difficulty|Limp along unsteadily|Restrain a horse's legs
-HOCKEY|Sport played with a puck|Game on ice with sticks|Sport where a rink sees a slap shot
 HOLDER|Something that supports an object|Container that keeps something in place|Record breaker's title
 HOLDERS|Objects that keep something in place|Things designed to grip or contain items|What a napkin ring or a candle both are
 HOLIDAY|A day of celebration or rest from work|A break from routine, often for travel|What a calendar marks in red
@@ -807,7 +962,6 @@ HONESTY|The quality of being truthful|Sincerity and freedom from deceit|What is 
 HOOKED|Caught, as by a fisherman|Strongly attracted to something|Addicted, in slang
 HORROR|Intense fear or dread|Feeling of shock and dismay|Film genre with jump scares
 HOSPITAL|Place for medical treatment|Facility with doctors and wards|Where an ambulance is headed
-HOSTEL|Budget lodging for travelers|Cheap dormitory-style inn|Backpacker's overnight stay
 HOWLED|Cried out with a long wail|Wailed like a wolf|Wind's sound in a storm
 HUMANITY|People considered as a whole|Mankind collectively|Compassion shown toward others, in one word
 HUMBLE|Not proud or arrogant|Modest about one's achievements|Bring down a peg
@@ -820,7 +974,6 @@ HYBRID|Mix of two different things|Vehicle powered two ways|Crossbred plant or a
 HYSTERIA|Uncontrollable excitement or fear|Widespread panic|Mob mentality at fever pitch
 ICEBERG|A huge floating chunk of frozen freshwater|A frozen mass drifting in polar seas|What sank a famous unsinkable ship
 ICEBOX|Old-fashioned refrigerator|Cooler that once used ice blocks|Grandma's fridge, back in the day
-ICICLE|Hanging spike of frozen water|Frozen drip from a roof|Winter's dagger off the eaves
 ICICLES|Hanging spikes of frozen water|Frozen drips hanging from a roof edge|What forms along eaves in a hard frost
 IDEALLY|In the best possible situation|Under perfect circumstances|How a plan would unfold if nothing went wrong
 IDENTICAL|Exactly alike in every way|Indistinguishable from another|What twins often are, at first glance
@@ -905,7 +1058,6 @@ INVASION|A hostile attack|An unwelcome incursion|What a swarm of ants stages in 
 INVENT|Create something new|Devise an original idea|Fabricate an excuse
 INVENTOR|One who creates something new|Person credited with a device or process|One patenting a better mousetrap, say
 INVITE|Ask someone to attend|Request the pleasure of company|Ask for trouble, informally
-ISLAND|Land surrounded by water|Small landmass in the sea|Traffic feature in a road
 ISOLATED|Alone and separate|Cut off from others|Stranded, in effect
 JACKET|Short outer coat|Garment worn over a shirt|Book's removable paper cover
 JACKKNIFE|A large folding pocket blade|A tight midair dive at the pool|What a trailer truck does when it skids
@@ -932,7 +1084,6 @@ JOINED|Connected together|Became a member of|Enlisted, as in the army
 JOSTLE|Push roughly in a crowd|Bump against others|Elbow for position in a line
 JOURNAL|A daily written record of events|A diary, or a publication for scholars|What a ship's captain keeps a log in
 JOURNALS|Personal diaries|Written daily records|What an academic publishes research in
-JOURNEY|A trip from one place to another|A long voyage or process of change|What a thousand miles is said to begin with a step
 JOURNEYED|Traveled from one place to another|Made a long trip|What Odysseus did for ten years
 JOVIAL|Cheerful and friendly|Full of good humor|Santa-like in temperament
 JOYFUL|Full of happiness|Expressing great delight|Noel's traditional adjective
@@ -961,7 +1112,6 @@ KERNEL|Seed of a grain|Core piece of corn|Essential part of an argument
 KEROSENE|Fuel used in lamps|Flammable liquid used for heating|What an old lantern burns
 KETCHUP|A tomato-based condiment|A red sauce squeezed onto fries|What often stains a white tablecloth red
 KETTLE|Container for boiling water|Pot used to heat water for tea|Proverbial container for a fishy mess
-KEYBOARD|Panel of buttons used for typing|Input device with letters and numbers|What a pianist and a typist both use
 KEYBOARDS|Sets of buttons for typing|What a pianist or typist presses|Where QWERTY and ivories both live
 KEYHOLE|The opening on a lock made for one specific insert|What a burglar might pick to get past a lock|What a nosy neighbor might peek through
 KEYNOTE|The main speech at a conference|The central address setting an event's theme|What a conference's opening speaker delivers
@@ -1008,14 +1158,12 @@ LACQUER|A glossy protective coating|A hard, shiny varnish applied to wood or nai
 LADDER|Climbing tool with rungs|Frame used to reach high places|Run in a stocking
 LADDERS|Structures with rungs for climbing|Tools used to reach high places|What a run in a stocking is also called
 LADYBUGS|Small spotted red beetles|Garden insects with polka dots|What a gardener welcomes for aphid control
-LAGOON|Shallow body of water near the sea|Coastal pool cut off by a reef|Resort's calm swimming cove
 LAGOONS|Shallow bodies of water near the sea|Calm coastal pools separated by a reef or sandbar|What a coral atoll typically encircles
 LAMENT|Express deep sorrow|Mourn a loss aloud|Funeral song's mournful tone
 LAMENTS|Expresses grief or sorrow|Mourns something lost, often aloud|What an elegy does in verse
 LAMPPOST|A pole holding a street light|Fixture that lights a sidewalk at night|What a dog often pauses beside
 LANDING|The act of an aircraft touching down|A safe arrival on the ground, or a stair platform|What a gymnast tries to stick after a vault
 LANDMARK|A notable geographic feature|A well-known building or site|What a tour guide points out first
-LANDMARKS|Notable, easily recognized features|What a tour guide points out|A tower or monument that orients a city
 LANDOWNER|A person holding title to real estate|One who collects rent from tenants|Who a deed names as the holder
 LANDSCAPE|The visible scenery of a region|What a painter captures outdoors|A wide view, or the terrain itself
 LANGUAGE|A system of communication|Words used by a group of people|What a parrot mimics, badly
@@ -1027,7 +1175,6 @@ LATHER|Foam from soap and water|Soapy froth while washing|Get into a frenzy, inf
 LATTER|The second of two just mentioned|Second-named, in formal writing|Opposite of 'former' in a pair
 LAUGHABLE|So absurd it invites ridicule|Ridiculously weak, as an excuse|What a flimsy alibi turns out to be
 LAUGHTER|Sound made when amused|An expression of amusement|Said to be the best medicine
-LAUNCH|Set something into motion|Send a rocket into space|Kick off a new product
 LAUNCHING|Starting or setting into motion|Sending off a rocket or a new product|What a shipyard does with a new vessel
 LAUNDRY|Clothes that need washing|The washing and drying of clothes|What piles up in a hamper before a big trip
 LAVENDER|A fragrant purple flower|Pale purple color|Scent found in many soaps and sachets
@@ -1060,7 +1207,6 @@ LESSON|Something taught or learned|Unit of instruction in a class|Moral of a fab
 LESSONS|Instructional sessions on a subject|Things learned from experience or study|What a piano teacher schedules weekly
 LETHAL|Capable of causing death|Extremely dangerous|Deadly weapon's defining trait
 LETTER|Written message sent by mail|Symbol in the alphabet|Varsity award for athletes
-LETTUCE|A leafy green salad vegetable|The crisp green base of most salads|What a burger's crunch layer usually is
 LIBERAL|Open to new ideas; generous|Favoring reform, or generous in amount|How a heavy hand with the salt shaker might be described
 LIBERTY|Freedom from oppressive control|The state of being free to act as one chooses|What a statue in New York Harbor personifies
 LIBRARIAN|One who manages a collection of books|Keeper of the card catalog|Who shushes the noisy reading room
@@ -1070,7 +1216,6 @@ LIFEGUARD|One who watches over swimmers' safety|Whistle-wielding pool or beach w
 LIFELINES|Vital connections that provide support|What a rope thrown to a swimmer is|A phone-a-friend, in a quiz show
 LIFETIME|The span of one's existence|Duration from birth to death|Warranty that outlasts the product, ideally
 LIGHTING|Illumination in a room|The arrangement of lamps and fixtures|What sets the mood in a photo shoot
-LIGHTNING|A brilliant flash from a storm cloud|What thunder follows|Nature's flashbulb before the boom
 LIGHTS|Sources of illumination|Lamps that brighten a room|City's glow seen from a plane
 LIKELY|Probable to happen|Expected to occur|Favorite to win, in betting terms
 LIKENESS|A close resemblance|A portrait or image of someone|What a wanted poster attempts to capture
@@ -1087,7 +1232,6 @@ LITERALLY|In a strict, exact sense|Word for word, not figuratively|Often misused
 LITTER|Group of animals born together|Trash scattered about|Cat's bathroom material
 LIVELY|Full of energy|Spirited and active|Bustling, as a party
 LIZARD|Scaly reptile with four legs|Cold-blooded creature that basks in sun|Gecko or iguana, for one
-LOBSTER|A large sea creature with claws, eaten as seafood|A clawed crustacean served at seafood restaurants|What comes with a bib at a fancy dinner
 LOBSTERS|Clawed sea crustaceans|Shellfish often served with butter|What turns red only after cooking
 LOCATION|A particular place|A specific spot or site|What three words can now pinpoint, in an app
 LOCKER|Small storage compartment|Cabinet for gym clothes|School hallway's metal box
@@ -1158,7 +1302,6 @@ MATERIALS|Substances from which things are made|What a builder orders for a proj
 MATTER|Physical substance|Subject under discussion|What's wrong, as one might ask
 MATTERS|Issues or subjects of importance|Things being dealt with or considered|What mind over is a common phrase about
 MATTRESS|A padded bed surface|Cushion used for sleeping|What a coin bank of old was hidden under
-MEADOW|Field of grass and wildflowers|Open grassy land|Cows' favorite grazing spot
 MEADOWS|Open grassy fields|Grassy areas often used for grazing|Where wildflowers bloom instead of crops
 MEANDERED|Wandered aimlessly or slowly|Followed a winding, indirect course|What a lazy river does through a valley
 MEANING|The sense or significance of something|What something is intended to convey|What a dictionary entry tries to pin down
@@ -1204,18 +1347,14 @@ MISTAKE|An error or wrong action|A slip made through carelessness or misundersta
 MISTAKEN|Wrong in one's belief|Incorrect in judgment|Case of mixed identity, in short
 MOBILE|Able to move easily|Portable, like a phone|Hanging nursery decoration
 MODEST|Not boastful about oneself|Humble in size or claims|Unassuming, as a budget
-MODULE|Self-contained unit|Section of a larger system|Spacecraft's detachable part
 MOISTURE|Water in small amounts|Slight wetness in the air|What a dehumidifier removes
 MOMENT|Very brief period of time|Short instant|Physics term for turning force
 MOMENTUM|Force of motion|The drive that keeps something moving|What a rolling snowball gains downhill
-MONKEY|Primate with a tail|Playful jungle animal|Meddle, when used as a verb
 MONSTERS|Frightening imaginary creatures|Terrifying beasts of fiction|What hide under a child's bed, allegedly
 MORTAL|Subject to death|Human, as opposed to divine|Fatal, as a wound
 MOTHER|Female parent|Woman who raised you|Source, as of invention
 MOTIVE|Reason behind an action|Cause driving behavior|Detective's key question, essentially
-MOUNTAIN|A very tall natural landform|A towering peak|What a molehill is exaggerated into
 MOUNTING|Increasing steadily|Rising in intensity|Fixing a picture to a wall
-MUFFIN|Small baked bread, often sweet|Breakfast pastry in a cup|Plain cousin of a cupcake
 MURDER|Unlawful killing of a person|Crime of taking a life|Group of crows, collectively
 MURMURED|Spoke very quietly|Said in a low, indistinct voice|What a brook does over stones
 MUSCLE|Tissue that enables movement|Body part that contracts to move bones|Force one's way in, as a verb
@@ -1278,7 +1417,6 @@ NOMINATE|To propose for an award or office|To formally suggest as a candidate|Wh
 NOMINATED|Proposed as a candidate|Put forward for an award|What an envelope reveals at an awards show
 NOMINEE|A person proposed for an award or office|Someone put forward as a candidate|Who waits nervously at an awards ceremony
 NONSENSE|Meaningless talk|Words strung together without meaning|What gibberish amounts to
-NOODLE|Strip of pasta|Long strand used in soup|Think something over, as a verb
 NOODLES|Long strips of pasta or similar food|Thin strands of dough boiled and served in dishes|What slurps loudly from a bowl of ramen
 NORMAL|Usual or standard|Conforming to what's expected|Line perpendicular to a surface, in geometry
 NORTHERN|Relating to the north|Situated toward the north|Where the compass needle mostly points
@@ -1302,7 +1440,6 @@ NUISANCE|An annoying person or thing|A source of irritation|What a barking dog n
 NUMBER|Mathematical value|Digit or figure|Song in a musical, informally
 NUMERAL|A written symbol for a value|A figure or digit, like those on an old clock face|What Roman clocks display instead of digits
 NUMEROUS|Very many|Existing in large quantity|More than a few, considerably
-NURSERY|A room prepared for a baby|A room set up for an infant, or a plant shop|Where you'd buy a sapling for the backyard
 NUTRIENT|A substance that sustains life and growth|A vitamin or mineral the body needs|What a food label lists under "per serving"
 NUTRIENTS|Substances that provide nourishment|What a balanced diet supplies|What a food label breaks down by gram
 OATMEAL|A breakfast porridge made from oats|A warm cereal made from rolled grains|What a horse and a hiker might both have for breakfast
@@ -1335,7 +1472,6 @@ ODDBALL|A person who behaves unusually|Someone or something markedly eccentric|W
 ODDITY|Something strange or unusual|Peculiar occurrence|Circus sideshow attraction
 OFFEND|Cause displeasure or hurt|Upset someone's feelings|Violate a rule or law formally
 OFFENDED|Upset by an insult|Hurt by rude behavior|Took something the wrong way
-OFFENSE|A violation of a rule or law|An attacking side in a sports game|What a quarterback leads down the field
 OFFENSIVE|Causing displeasure or offense|A military attack, or a rude remark|What a joke becomes when it goes too far
 OFFERED|Presented something for acceptance|Proposed something to someone|What a job candidate hopes to hear after the interview
 OFFERINGS|Things presented or given|A menu's list of dishes|What a collection plate gathers
@@ -1349,7 +1485,6 @@ OMELETS|Egg dishes folded around fillings|Beaten eggs cooked flat and folded ove
 OMISSION|Something left out|An act of excluding|What a lie by silence amounts to
 OMNIVORES|Animals that eat both plants and meat|Bears and humans, dietarily speaking|Neither strict carnivore nor herbivore
 ONGOING|Continuing to happen|Still in progress, not yet finished|How a long-running investigation is described in the news
-ONIONS|Pungent layered bulbs|Vegetable that brings tears when cut|Burger topping that layers up
 ONLOOKER|A person watching an event|A spectator or bystander|One at the edge of the crowd, just watching
 ONLOOKERS|People who watch an event without taking part|A crowd gathered at the scene|Who a street performer's hat is passed to
 ONWARDS|Moving forward in space or time|Continuing ahead from a certain point|What from here typically precedes in a schedule
@@ -1367,12 +1502,10 @@ OPTICAL|Relating to sight or vision|Concerning the eyes or how light is seen|Wha
 OPTIMISM|A hopeful outlook|Belief in a positive future|What sees the glass as half full
 OPTION|A choice available|Alternative course of action|Financial contract to buy later
 ORACLE|Source of wise predictions|Prophet consulted for guidance|Ancient Delphi's mouthpiece
-ORANGE|Citrus fruit|Color between red and yellow|Fruit with no perfect rhyme
 ORATION|A formal public speech|A ceremonial speech delivered to an audience|What a valedictorian delivers at graduation
 ORATOR|Skilled public speaker|Person who gives eloquent speeches|Podium's confident occupant
 ORCHARD|A field of fruit trees|Land planted with rows of fruit trees|Where apples are picked before the cider press
 ORCHARDS|Areas planted with fruit trees|Groves of fruit-bearing trees|Where apples grow in tidy rows
-ORCHESTRA|A large group of instrumental musicians|Ensemble led by a conductor|Who tunes up before the overture
 ORDERED|Arranged in sequence, or requested from a menu|Instructed, or organized in a system|What a judge does to restore a courtroom
 ORDINARY|Common and unremarkable|Not special or unusual|Nothing to write home about
 ORGANIC|Grown without synthetic chemicals|Relating to living matter, or naturally produced|What a farmers market label often promises
@@ -1409,46 +1542,91 @@ OVERRIDE|To disregard using higher authority|To set aside a decision by force|Wh
 OVERSEAS|Located across the ocean|In a foreign country abroad|Where a passport gets its first stamp
 OVERSIZE|Larger than standard|Bigger than the usual dimensions|What a costume mascot's head always is
 OVERTAKE|To pass while moving|To catch up and go beyond|What a faster runner does on the final lap
-OVERTIME|Extra work hours|Additional playing period in sports|What a tied game forces
 OVERTURN|To reverse a decision|To flip upside down|What an appeals court sometimes does
 OVERWORK|To labor excessively|To strain oneself with too much labor|What burnout is the result of
-OYSTER|Shellfish that can make pearls|Bivalve served on the half shell|World, per the idiom, that's yours
 OYSTERS|Shellfish sometimes eaten raw|Bivalve mollusks that can produce pearls|What a grain of sand becomes a pearl inside of
+PACKAGE|A wrapped parcel for shipping|What arrives by courier, boxed up|Bundle of software features, or a deal in one
 PACKED|Filled tightly, as a suitcase|Crammed full, like a rush-hour train|So full there was no room for one more thing
 PACKET|A small parcel or bundle|Small wrapped item sent by mail|Sugar's tiny paper home at a café table
 PADDLE|A flat blade used to row a boat|What you use to propel a canoe|Ping-pong bat, or how you'd move up a creek
+PAINTED|Applied color with a brush|Covered a wall with a fresh coat|Described vividly, as a scene in words
 PAINTINGS|Pictures made with paint on canvas|Artworks hung in a gallery or museum|What a brush leaves behind on stretched cloth
 PAINTS|Colors squeezed from tubes onto a palette|Pigments an artist mixes on a palette|Numbers you might follow to complete a picture
 PALACE|A grand royal residence|Home to a king or queen|Buckingham, for one
+PALACES|Grand royal residences|Homes fit for monarchs|Where crowns are kept, plural
 PARACHUTE|Fabric canopy that slows a fall from the sky|Gear a skydiver deploys before landing|What turns a plunge into a gentle descent
 PARADE|A public procession, often festive|March down Main Street with bands and floats|What rain famously isn't supposed to stop
+PARADES|Public processions with marching bands|Events with floats and cheering crowds|Shows off, as one might with new wealth
 PARAGRAPH|A block of text on a single topic|Written passage that starts with an indented line|Prose unit that ends before a fresh thought begins
+PARCELS|Wrapped packages sent by mail|Items a postal worker delivers|Divides land into plots, or the plots themselves
 PARDON|Forgiveness for an offense|Official release from punishment|"Come again?" or what a governor grants
+PARDONS|Official forgivenesses for crimes|What a governor might grant an inmate|Says sorry repeatedly, or absolves
 PARENT|A mother or father|One who raises a child|Company that owns subsidiaries, in business terms
+PARENTS|Mothers and fathers|Those who raise children|Sources from which something originates
+PARKING|Leaving a car in a space|What a meter charges for|Setting an idea aside for later
 PARROT|A colorful tropical bird known for mimicry|Bird that can repeat human speech|Echo someone's words mindlessly, as a bird might
+PARTIES|Celebrations with guests|Political groups or social gatherings|Sides in a legal dispute
+PARTNER|A business associate|One who shares a dance or a firm|The other half of a doubles team
+PASSAGE|A corridor or hallway|A section of writing, or a route through|The act of a bill becoming law
 PASSED|Went by successfully|Got by an exam, or went beyond another car|Handed off, as a baton
 PASSENGER|One who rides in a vehicle but does not drive|Traveler occupying a seat on a plane, train, or bus|Backseat rider with no hand on the wheel
+PASSING|Going by without stopping|Meeting a grade requirement|Fleeting, as in a fancy
+PASSION|Intense enthusiasm|Strong feeling for a hobby or cause|Suffering before a crucifixion, in theology
 PASTRY|Sweet baked dough used in desserts|Flaky treat from a bakery|Croissant or turnover, essentially
+PASTURE|A grassy field for grazing|Where cattle feed outdoors|Retirement, as in put out to it
+PATCHES|Small repaired areas|Fixes for software bugs|Squares of a quilt, or cures for smoking
 PATENT|Legal protection for an invention|Exclusive right granted to an inventor|What protects a new gadget from copycats
+PATIENT|Someone under medical care|Willing to wait calmly|Enduring delay without complaint, as a virtue
 PATROL|A group that guards an area|Police make rounds doing this|Walk the beat, keeping watch
+PATTERN|A repeated design|A guide for sewing a garment|A predictable sequence of behavior
 PAUSED|Stopped temporarily|Hit a button to halt a video|Pressed the middle button on a remote
+PAUSING|Stopping briefly|Hitting the button between songs|Hesitating mid-sentence for effect
 PAVEMENTS|Concrete surfaces meant for walking or driving|Hard-surfaced paths running along city streets|What a jackhammer tears up during roadwork
+PAYMENT|Money given for goods|What settles a bill|A consequence one must face for wrongdoing
+PEACOCK|A bird with a colorful tail fan|A showy male bird known for strutting|One who shows off, figuratively
+PEANUTS|Small legumes used for butter|Snack often served salted in shells|A trivial sum of money
+PEASANT|A rural farm worker of old|A humble laborer in feudal times|One dismissed as unrefined or common
 PEBBLE|A small smooth stone|Tiny rock found on a beach|What you might skip across a pond
+PEBBLES|Small smooth stones|What you might skip across a pond|Tiny obstacles underfoot on a path
+PEDDLER|A traveling seller of goods|One who hawks wares door to door|A spreader of rumors, figuratively
+PELICAN|A bird with a large throat pouch|A seabird known for scooping fish|What crosses at a striped road crossing in Britain
 PELLET|A small round mass, as of food or shot|Compressed bit of animal feed|Tiny ball fired from an air gun
 PENALTIES|Punishments for breaking a rule|Fines or sanctions imposed for an offense|What a referee's whistle sometimes brings
+PENALTY|A punishment for breaking rules|A kick awarded after a foul|The price paid for early withdrawal
 PENCIL|A writing tool with graphite|What you sharpen to write or draw|Write in something erasable, essentially
+PENCILS|Writing tools with graphite cores|What you sharpen before a test|Schedules something in tentatively
+PENDANT|A hanging piece of jewelry|A charm worn on a necklace|An ornament dangling below a chain
+PENSION|Retirement income|What a former employer pays monthly|A small European guesthouse, to a traveler
 PEOPLE|Human beings in general|The population of a place|Whom a famous preamble claims to speak for
 PEPPER|A spicy table seasoning|Salt's common partner in a shaker|Bombard with rapid-fire questions
+PEPPERS|Spicy or sweet garden vegetables|What you might stuff and bake|Riddles with questions repeatedly
+PERFECT|Flawless|Without a single error|To refine a skill until it is ideal
+PERFUME|A scented liquid worn on skin|What a spritz adds before a date|To mask an odor with something sweet
+PERHAPS|Maybe|Possibly, but not certainly|A hedge word softening a claim
+PERMITS|Official authorizations|Documents allowing construction|Allows something to happen, as rules do
+PERSIST|To continue despite difficulty|To keep going when others quit|What a stubborn stain seems to do
 PERSON|A single human being|Any individual man, woman, or child|Grammar's first, second, or third one
+PERSONA|A public image someone presents|The character an actor adopts|A mask worn in social situations, figuratively
 PERSONNEL|The staff of an organization|Employees considered as a group|Who a human-resources office keeps files on
+PHANTOM|A ghostly figure|Something imagined, not real|A pain felt in a limb no longer there
 PHRASE|A short group of words|A common expression or saying|Turn of speech worth quoting
+PHRASES|Short groups of words|Expressions used in speech|Musical passages between rests
+PHYSICS|The science of matter and energy|What Newton's laws belong to|The subject behind a falling apple's tale
 PICKED|Chosen or selected|Plucked, as fruit from a tree|Selected first for a team, say
-PICKLE|A cucumber preserved in brine|Tangy vinegared cucumber snack|A tricky situation, informally
+PICKLED|Preserved in vinegar brine|Cucumbers turned into relish, in style|Thoroughly drunk, in slang
+PICKLES|Vegetables preserved in brine|What accompanies a deli sandwich|Tricky situations one gets stuck in
 PICNIC|An outdoor meal on a blanket|Al fresco lunch in a park|Basket lunch under a shady tree
+PICNICS|Outdoor meals on a blanket|Park lunches with baskets|Easy tasks, informally
+PICTURE|An image or photograph|What you frame and hang|To imagine something vividly in the mind
 PIGEON|A common city bird|Bird known for cooing on ledges|Homing bird, or a naive target of a scam
+PIGLETS|Baby pigs|Young farm animals in a litter|Small greedy eaters, affectionately
+PILGRIM|A religious traveler to a shrine|One who journeys for spiritual reasons|An early New England settler, historically
 PILLAR|A vertical supporting column|Structural support in a building|Community leader, figuratively a support
 PILLOW|A soft cushion for the head|What you rest your head on in bed|Fluffed up before bedtime, typically
-PINEAPPLE|Spiky tropical fruit with yellow flesh|Fruit topping sometimes found on pizza|Crown-topped fruit that isn't a pine or an apple
+PILLOWS|Soft cushions for the head|What you fluff before bed|What softens a blow, figuratively
+PIMPLES|Small skin blemishes|What acne cream treats|Minor flaws marring a surface
+PIONEER|An early settler of new land|One who leads the way in a field|The first to try an untested method
+PIRATES|Sea robbers|Ship raiders flying a skull flag|Those who illegally copy media
 PISTOL|A small handheld firearm|Handgun carried in a holster|Fastest gun in a duel, informally
 PLANET|A celestial body orbiting a star|Earth, for one|Round world that circles the sun
 PLASMA|The fourth state of matter|Ionized gas found in stars|Component of blood, or a TV screen type
@@ -1471,7 +1649,6 @@ POLITE|Showing good manners|Courteous and well-mannered|How you'd act meeting ro
 POLLUTION|Harmful waste released into air, water, or soil|Environmental contamination from smoke or chemicals|What a smokestack contributes to the atmosphere
 POODLE|A curly-haired dog breed|Fancy pooch known for its groomed coat|Show dog often seen with a fancy trim
 POPULATED|Filled with inhabitants|Having residents living in an area|What a census counts town by town
-PORCUPINE|Spiny rodent covered in quills|Forest animal that bristles when threatened|An animal whose hug you'd want to avoid
 PORTRAITS|Paintings or photos of a person's face|Artistic likenesses meant to capture a subject|What hangs in a gallery of family faces
 POSITIONS|Jobs or postings within a company|Postures, or places things occupy|Where pieces sit on a chessboard, say
 POSTCARDS|Small cards mailed without an envelope|Souvenirs sent home with a stamp and a picture|Vacation greetings that arrive after the traveler returns
@@ -1490,122 +1667,190 @@ PROVIDING|Supplying what is needed|Giving support or resources to others|What a 
 PUBLISHED|Made available in print or online|Released a book, article, or paper|What a manuscript becomes once it hits shelves
 PURCHASED|Bought with money|Acquired something in exchange for payment|What a receipt confirms after checkout
 QUAINT|Charmingly old-fashioned|Pleasantly odd or old-timey|Like a cobblestone village, say
+QUALIFY|To become eligible for something|To meet the requirements for entry|To soften a statement with conditions
+QUALITY|A degree of excellence|What separates the best from the rest|A distinguishing trait or characteristic
+QUARREL|A heated argument|A falling out between friends|A cause to pick a fight over
 QUARRY|A pit where stone is mined|Site where rock is excavated|The prey being hunted, in old use
+QUARTER|One fourth of a whole|A coin worth twenty-five cents|To lodge soldiers in a town
+QUARTET|A group of four musicians|An ensemble playing string instruments|Four voices or parts performing together
 QUARTZ|A common crystalline mineral|Clear or colored mineral used in jewelry|What gives some watches their steady tick
 QUEASY|Feeling nauseated|Slightly sick to one's stomach|How a rough boat ride might leave you
 QUENCH|To satisfy thirst|Put out a fire, or satisfy thirst|What cold water does to a summer thirst
 QUESTIONS|Things asked in order to get information|Inquiries posed to seek an answer|What a pop quiz is full of
 QUEUES|Lines of people waiting|Orderly waiting lines|What forms outside a popular ride
+QUIBBLE|A minor objection|A small complaint over petty details|To argue over trivial distinctions
+QUICKEN|To speed up|To make a pulse race faster|To bring life or urgency to something dull
 QUICKSAND|Loose wet ground that can trap and swallow objects|Ground that gives way and sucks you down|What an old adventure film hero always seems to step in
+QUIETLY|In a soft, unobtrusive manner|Without drawing attention|Done on the sly, without fanfare
+QUILTED|Padded and stitched in layers|Sewn with a soft filling between fabric|Describes a cozy stitched bedcover's finish
 QUILTS|Bedcovers stitched from patches|Patchwork blankets sewn by hand|What grandma might piece together for a wedding gift
 QUIRKY|Oddly unconventional|Charmingly eccentric|Like an offbeat indie film character
 QUIVER|A case for arrows|Container archers carry on their back|To tremble slightly, as with fear
+QUIVERS|Trembles slightly|Shakes with cold or fear|Cases that hold an archer's arrows
 QUORUM|The minimum number needed to vote|Required attendance for a meeting to proceed|What a board needs before business begins
 QUOTATION|A passage repeated from another source|An exact phrase attributed to its speaker|What appears in marks when someone else's words are borrowed
 QUOTED|Repeated someone's exact words|Cited a source directly|Gave a price estimate for a job
 QUOTES|Exact words cited from someone|Marks used to enclose speech|What a contractor gives before a job starts
-RADISH|A crunchy red root vegetable|Peppery salad vegetable, often red|Small round root that adds bite to a salad
+QUOTING|Repeating someone's exact words|Citing a source in an essay|Giving a price for a job before starting
+RABBITS|Long-eared burrowing animals|Pets known for hopping and multiplying|What a magician pulls from a hat
+RADIANT|Glowing brightly|Beaming with joy|Emitting heat without direct contact
+RADIATE|To spread outward from a center|To give off heat or light|To visibly exude confidence or charm
 RAFFLE|A game where tickets win prizes|Fundraiser with a prize drawing|Buy a ticket for a chance at a basket of goodies
+RAILWAY|A track for trains|A line connecting distant towns|A network built for steam-era travel
 RAISED|Lifted upward|Brought up, as a child|Increased, as a salary or one's voice
 RAISIN|A dried grape|Shriveled dried fruit|What a grape becomes in the sun
 RAMBLE|To wander while talking at length|Go on a long, aimless walk or speech|Hike without a set destination
+RAMPAGE|A violent rush of destruction|A wild spree causing chaos|A shopping spree taken to an extreme
+RANCHER|One who raises cattle|A worker on a large western spread|One who wrangles livestock for a living
 RANDOM|Without a specific pattern|Chosen without method|Chance-based, like a lottery draw
 RANGER|A park protection officer|Guardian of a forest or park|Lone one who patrols the wilderness
+RANSOMS|Payments demanded for a captive's release|Sums paid to free a hostage|What a kidnapper's note might demand
 RAPIDS|Fast-moving turbulent river water|Whitewater section of a river|Where a raft gets a bumpy ride
 RASCAL|A mischievous person|Playfully troublesome individual|What you'd call a naughty puppy, fondly
 RASPBERRY|Small red or black bramble fruit|Tart berry often used in jam|A fruit, or a mocking sound made with the tongue
+RATIONS|Limited supplies of food|Portions doled out during a shortage|What soldiers carry in their packs
 RATTLE|To make a series of clattering sounds|A baby's noisy toy|Unnerve someone, or shake with a clatter
 RAVINE|A deep narrow gorge|Steep-sided valley cut by a stream|Canyon's smaller, narrower cousin
+REACHED|Arrived at a destination|Got in touch with someone|Extended an arm toward something
 REACTIONS|Responses to something that happens|Immediate replies to an event or stimulus|What chemicals produce when mixed in a beaker
 REACTS|Responds to a stimulus|Chemical elements combine and do this|Fire brigade to an alarm, say
 READER|A person who enjoys books|One absorbed in a novel or magazine|Device that displays e-books
 READINESS|The state of being prepared|Being fully set to act at once|What a fire drill is meant to test
+READING|Looking over written words|A book club's monthly activity|A gauge's current measurement
 REALISTIC|True to life, not fanciful|Practical and grounded in fact|What a painting looks like when it fools the eye
+REALIZE|To become aware of something|To suddenly understand a truth|To convert an asset into cash
 REARRANGE|To put things in a new order|Shift items into a fresh order or layout|What a decorator does to a cluttered room
 REASON|A cause or explanation|Justification for an action|Rhyme's usual partner, in a phrase
 REBATE|A partial refund|Money returned after a purchase|What you mail in for cash back
 REBELLION|An uprising against authority|Organized resistance to those in charge|What a mutiny amounts to at sea
+REBUILD|To construct again after damage|To restore a ruined structure|To reassemble trust after betrayal
 RECALL|To remember|Bring back to mind|Manufacturer's fix for a faulty car model
+RECEIPT|Proof of a purchase|A slip handed over at checkout|The formal acknowledgment of a delivery
+RECEIVE|To accept something given|To be on the getting end of a gift|To welcome guests formally
 RECEIVERS|Those who get something delivered|Devices or people that pick up a signal or pass|What a quarterback throws footballs toward
 RECEPTION|A formal gathering to welcome guests|The front desk area of a hotel or office|What a wedding party enjoys after the vows
 RECIPE|Instructions for cooking a dish|Set of steps to bake or cook something|Grandma's secret formula for a pie
+RECIPES|Instructions for cooking dishes|Cards passed down in a family cookbook|Formulas for achieving a desired outcome
 RECORD|An account of facts, or a vinyl disc|Highest achievement, as in sports|Spin one on an old turntable
 RECOVERED|Got back to health or normal|Regained something lost, like strength|What a stolen car is once police find it
+RECYCLE|To reprocess used materials|To sort bottles and cans for reuse|To reuse an old idea as if new
 REDUCE|To make smaller|Cut down in size or amount|Simmer a sauce until it thickens
 REDUCTION|A decrease in size or amount|The act of making something smaller|What a sale sign promises on the price tag
 REFERENCE|A source consulted for information|A mention or citation pointing elsewhere|What a librarian's desk specializes in
+REFLECT|To think deeply|To show an image, as a mirror does|To bounce light back off a surface
 REFLEX|An automatic bodily response|Knee-jerk reaction to a tap|What a doctor tests with a small hammer
 REFORM|To improve by change|Overhaul a system for the better|Turn over a new leaf, institutionally
+REFORMS|Changes made to improve a system|Policy overhauls in government|Corrects the behavior of a wrongdoer
 REFRESHED|Made to feel new energy again|Renewed after rest|What a nap leaves a tired mind feeling
+REFUSAL|A rejection of an offer|Saying no to a request|The act of declining an invitation
 REFUSE|Garbage or trash|Waste collected at the curb|To turn down an offer firmly
 REGARD|Consideration or respect|Esteem in which someone is held|To look upon in a particular way
 REGARDING|Concerning or about a topic|With respect to a particular subject|What "re:" in an email subject line means
 REGIME|A system of government or rule|Ruling administration in power|Strict diet and exercise plan, informally
+REGIMEN|A structured routine|A prescribed diet and exercise plan|A strict daily discipline
 REGION|A geographic area|A distinct area or zone|Wine-growing area known for its grapes
+REGIONS|Distinct geographic areas|Zones on a map|Sections of the brain with specific roles
 REGULATOR|One who oversees rules and compliance|A device that controls a flow, like gas or pressure|What keeps a scuba diver's air supply steady
 REHEARSAL|A practice run before a performance|A trial session for actors or musicians|What a dress run is, minus the audience
+RELATED|Connected by family or topic|Belonging to the same category|Told, as in a story
 RELATIVES|Family members|People connected to you by blood or marriage|Who show up uninvited at a holiday dinner
+RELEASE|To let go of something|To publish an album or film|To set free from custody
+RELIEVE|To ease pain or worry|To take over a shift from someone|To bring comfort after distress
 RELISH|A tangy pickle-based condiment|Sweet or dill topping for a hot dog|To savor with great enjoyment, as a challenge
 RELOAD|To refill, as a gun or webpage|Put fresh ammunition in|Hit refresh on a stuck browser tab
 RELUCTANT|Unwilling or hesitant|Showing resistance to doing something|What a cat is about a bath
 REMAIN|To stay in place|Continue to exist|Stay put after everyone else has left
 REMAINDER|What is left over|The portion still left after some is used|What's left on the clock after time expires
+REMAINS|What is left over|Leftover pieces after a meal|A body discovered at a scene
 REMEDY|A cure or treatment|Solution to a problem or ailment|Chicken soup for a cold, say
 REMINDERS|Notes that help you remember something|Prompts set to jog your memory|What a sticky note on the fridge provides
+REMORSE|Deep regret for wrongdoing|Guilt felt after a mistake|The sting of conscience after betrayal
 REMOTE|Far away, or a TV control|Isolated and distant|What you fumble for between couch cushions
 RENDER|To provide or depict|Portray artistically, or melt fat down|Turn raw computer data into an image
+RENEWAL|A fresh start|Extending a subscription or lease|The rebirth of an old idea
 RENTED|Paid to use temporarily|Leased for a period of time|Borrowed an apartment, in a sense, for a monthly fee
 REPAIR|To fix something broken|Restore to good condition|Patch up a leaky roof
 REPAIRING|Fixing something broken|Restoring a damaged item to working order|What a mechanic does under the hood
+REPAIRS|Fixes for broken things|Work done on a damaged car|Mends a rift between friends
 REPEAT|To say or do again|Do something a second time|Encore, in other words
 REPENT|To feel regret for wrongdoing|Express sorrow for a sin|Vow to change one's sinful ways
 REPLAY|To show again, as a sports moment|Instant rewind of a highlight moment|Watch the goal a second time, in slow motion
+REPLIED|Answered a message|Responded to a question|Retorted sharply in an argument
 REPORT|An account of information, or a news story|Detailed account submitted for review|Loud sound of a gunshot, oddly enough
 REPORTERS|Journalists who cover the news|People who write or broadcast current events|Who chase a story with a microphone in hand
+REPTILE|A cold-blooded scaly animal|A snake or lizard, biologically|A sneaky, untrustworthy person, informally
 RESCUE|To save from danger|Save someone from a perilous situation|Firefighter's job, essentially
+RESCUED|Saved from danger|Pulled from a burning building|Adopted a stray from a shelter
+RESERVE|To book in advance|A backup supply kept aside|A quiet, restrained manner
 RESIDENCE|A place where someone lives|A formal term for a home or dwelling|What an address on a lease refers to
+RESIDUE|What remains after a process|A film left behind after evaporation|Traces left at a crime scene
 RESIGN|To formally quit a position|Step down from a job|Hand in one's notice
+RESIGNS|Quits a position formally|Steps down from office|Accepts an outcome without a fight
 RESIST|To withstand or oppose|Fight back against a force|What a rebel does against occupation
 RESISTANT|Opposed to change or pressure|Not easily affected by something, like water|What a raincoat is to a downpour
-RESORT|A vacation destination, or fallback|Fancy hotel with a pool and beach|Last option when all else fails
+RESORTS|Vacation destinations|Hotels with pools and spas|Turns to a measure as a last option
 RESOURCES|Materials or assets available for use|Supplies a country or company can draw on|What a budget meeting fights over
 RESPECTED|Held in high regard|Admired for good qualities|What a judge with a long track record earns
+RESTFUL|Calm and relaxing|Perfect for an afternoon nap|Free of disturbance, like a quiet retreat
 RESULT|An outcome or consequence|What follows from a cause|Final score, in other words
 RETAIL|The selling of goods to consumers|Business of selling directly to shoppers|Storefront selling, as opposed to wholesale
 RETINA|The light-sensing layer of the eye|Part of the eye that detects light|What a camera's sensor mimics
 RETRIEVAL|The act of getting something back|Fetching or recovering an item|What a search engine performs on a query
 REVISIONS|Changes made to improve a draft|Edits applied after a first version|What a red pen leaves all over an essay
 SADDLE|A seat for riding a horse|Leather seat strapped to a horse|Bicycle's perch, too
+SADNESS|A feeling of unhappiness|The emotion behind tears|A quiet heaviness after a loss
 SAFARI|An expedition to view wildlife|African wildlife-viewing trip|Web browser named after this adventure
+SAILORS|Crew members on a ship|Those who navigate the seas for a living|Ones who follow the wind for a career
 SALARY|Fixed regular pay for work|Annual pay for a job|What arrives every payday, typically
 SALMON|A pink-fleshed fish|Fish that swims upstream to spawn|Color between pink and orange, named for this fish
 SALOON|An old-fashioned bar, especially out West|Wild West watering hole|Swinging doors mark this drinking spot
+SALOONS|Old western bars|Frontier watering holes with swinging doors|Vintage names for certain sedan cars
 SALUTE|A gesture of respect, often military|Hand-to-brow greeting for an officer|Raise a glass in someone's honor
 SAMPLE|A small representative portion|Free taste at a grocery store|A snippet of a song reused in another track
+SAMPLED|Tried a small portion|Tasted a bit before buying|Borrowed a snippet of a song for a remix
+SAMPLES|Small portions for testing|Free tastes at a grocery store|Data points collected for a study
 SANDAL|An open shoe with straps|Warm-weather footwear with straps|Flip-flop's fancier cousin
+SANDBOX|A play area filled with sand|A children's pit for digging|A safe space to test new code
 SANDSTONE|A soft, layered rock common in desert cliffs|A common sedimentary rock used in old buildings|What canyons like the Grand Canyon are largely carved from
+SATCHEL|A bag carried over the shoulder|A schoolbag with a flap|An old-fashioned messenger's carrying case
 SATELLITE|An object orbiting a planet|A device that relays signals from space|What beams a TV signal down from orbit
 SATIRE|Humor that mocks folly or vice|Comedy that pokes fun at society|What a political cartoon often delivers
+SATISFY|To fulfill a need|To meet someone's expectations|To pay off a debt in full
 SATURATED|Completely soaked or filled|Unable to absorb any more of something|What a sponge becomes after enough water
+SAUCERS|Small dishes under teacups|Round plates for a cup|Unidentified flying discs, in old slang
+SAUSAGE|A ground meat in a casing|A breakfast link on a plate|A tightly packed item, likened by shape
 SAVAGE|Fierce and wild|Brutally fierce, uncivilized|Harshly critical, in modern slang
+SAVINGS|Money set aside for later|What a bank account accumulates|The amount cut from an original price
 SAVORY|Salty or spicy rather than sweet|Flavorful in a non-sweet way|Bacon's flavor profile, typically
+SAWDUST|Fine wood particles from cutting|Shavings swept from a workshop floor|What a magician's trick box seems full of
 SCALED|Climbed, as a cliff|Adjusted in proportion|Covered in fish-like plates
 SCALES|Instruments for weighing|What a fish is covered in|Balance used by justice, symbolically
+SCANDAL|A shocking public disgrace|A tabloid headline's favorite topic|A cover-up that eventually leaks out
 SCARED|Frightened|Filled with fear|Jumped at a shadow, feeling this way
+SCARLET|A vivid shade of red|The color of a fire truck|A mark of shame in an old novel's title
+SCATTER|To spread in different directions|To toss seeds across a field|To flee in a sudden panic
 SCATTERED|Spread out in random places|Dispersed over a wide area|What leaves are after a strong gust
+SCENERY|A landscape's visual beauty|What a road trip is enjoyed for|Backdrops used on a theater stage
 SCHEDULED|Planned for a specific time|Set on a timetable in advance|What a flight delay disrupts
 SCHEME|A secret plan, often devious|A crafty plot|Color arrangement in a design, or a con artist's plot
+SCHOLAR|A learned academic|One who studies deeply in a field|A recipient of a merit-based award
 SCHOLARLY|Relating to serious study or learning|Academic in tone or approach|What a footnote-heavy essay aims to be
 SCHOOL|A place of education|Institution for teaching students|A group of fish swimming together
+SCOLDED|Rebuked sharply|Told off by a parent|Given a talking-to for misbehaving
+SCOOTER|A two-wheeled ride with a footboard|A child's kick-powered vehicle|A compact motorbike used in cities
 SCORCH|To burn the surface of|Char slightly with heat|What a hot iron does to left-behind fabric
 SCORES|Numerical results of a game|Tallies in a contest|A great many, in an old-fashioned way of counting
+SCORING|Tallying points in a game|Composing music for a film|Making a shallow cut before breaking material
 SCOUTS|People who search out talent or terrain|Explorers sent ahead to gather information|Young campers earning merit badges
 SCRAPBOOK|An album for pasting in photos and mementos|An album of keepsakes assembled by hand|Where a ticket stub might end up after the show
 SCRAPE|To drag roughly across a surface|Graze a knee on pavement|A tight, awkward situation, informally
+SCRATCH|To mark a surface with claws|An itch you rub with a nail|To cancel an event at the last minute
 SCREAM|A loud, sharp cry|Shriek of terror or excitement|What a roller coaster drop produces
 SCREAMING|Crying out loudly|Shouting in fear, pain, or excitement|What a roller coaster drop tends to trigger
 SCREEN|A flat display surface|Monitor for a computer or TV|To filter out unwanted calls or candidates
+SCREENS|Displays on devices|What filters unwanted callers|Shields dividing a room, or vets applicants
 SCREWS|Threaded metal fasteners|Twist-in fasteners for wood|What a hardware store sells by the box
+SCRIPTS|Written texts for a play|What actors memorize lines from|Sets of instructions a program follows
 SCROLL|To move text up or down a screen|An ancient rolled document|Swipe a finger down a webpage
 SCULPT|To shape, as clay or stone|Carve or model into a form|Chisel a statue from marble
 SEALED|Closed tightly|Made airtight, as a jar|Closed with a kiss, in a classic phrase
@@ -1614,34 +1859,60 @@ SEASHELLS|Hard coverings found on beaches|Remnants of mollusks collected along t
 SEASON|A time of year, or to add spice|One of four yearly divisions|Add salt and pepper to a dish
 SEASONING|Spices or herbs added to food|Flavoring used to enhance a dish|What a chef reaches for before tasting again
 SECOND|The unit after a minute, or runner-up|Sixtieth of a minute|To support a motion at a meeting
+SECONDS|Sixty of them make a minute|A brief unit of time|A helping taken after the first plate
 SECRET|Something kept hidden|Confidential information|What a diary is meant to keep
 SECRETARY|An office worker who handles correspondence|An assistant who manages schedules and records|Who takes the minutes at a board meeting
+SECRETS|Hidden pieces of information|What a diary is meant to keep|Confidences shared only with a close friend
+SECTION|A distinct part of a whole|A chapter or division of a document|A slice viewed under a microscope
 SECTOR|A distinct part of an economy or area|A specific segment of an industry|Pie-slice division on a chart
 SECURE|Safe and protected|Firmly fastened|Lock down a deal, or a building
 SEDATE|Calm and unhurried, or to calm with drugs|Give a tranquilizer to|Keep a nervous patient calm before surgery
+SEEKING|Looking for something|Searching for a lost item|Pursuing a goal with quiet determination
 SEESAW|A playground plank that tilts up and down|Playground ride that balances two riders|To go back and forth indecisively
+SEGMENT|A part of a larger whole|A portion of an orange|A distinct piece of a television broadcast
 SEIZED|Grabbed forcefully|Took hold of suddenly|Confiscated by customs officials
+SEIZURE|A sudden medical episode|An abrupt loss of control in the brain|The forceful confiscation of contraband
 SELDOM|Not often|Rarely, if ever|How often a solar eclipse occurs, relatively
 SELECT|To choose|Pick from a group of options|Handpicked and exclusive, as a top few might be
 SELECTION|A choice made from several options|A range of items to pick from|What a menu offers before the waiter returns
 SENATE|An upper legislative body|One chamber of a legislature|Rome's ancient governing council
+SENATOR|An elected upper-house lawmaker|A member of a national assembly|One who serves a six-year term, typically
 SENIOR|Older or higher in rank|A final-year student|Discount category for retirees
 SENSOR|A device that detects signals|Instrument that detects light, motion, or heat|What triggers a motion light in the dark
+SENSORS|Devices that detect changes|What triggers an automatic door|Components that read light, heat, or motion
 SENTENCED|Given a punishment by a court|Ordered to serve a specific penalty|What a judge does after the gavel falls
 SEPARATED|Kept apart from each other|Divided into distinct parts|What egg whites and yolks are, once cracked
+SEQUELS|Follow-up films or books|Continuations of a popular story|Second chapters that rarely top the original
 SERIES|A set of related items in sequence|Sequence of connected events or shows|What decides baseball's champion each fall
 SERMON|A religious speech given in church|A preacher's address to a congregation|Long lecture from a disappointed parent, informally
+SERPENT|A snake, in old writing|A tempter in a garden story|A winding river, described poetically
+SERVANT|A household worker|One who attends to another's needs|A public official, in the phrase civil one
 SERVED|Provided food or assistance|Delivered a dish to the table|Hit the ball to start a tennis point
 SERVER|One who waits tables, or a computer|Restaurant staff who takes your order|Computer that hosts a website
+SERVING|Providing food to someone|A single portion of a dish|Hitting the ball to start a tennis point
 SETTLE|To resolve, or come to rest|Reach an agreement, as in a lawsuit|Pay off a debt in full
+SEVERAL|More than two, but not many|A handful, roughly speaking|An indefinite but noticeable quantity
 SEVERE|Extremely serious or harsh|Very strict or intense|As grave as an extreme weather alert
 SEWAGE|Wastewater from homes and businesses|Waste carried through a sewer system|What a treatment plant processes and cleans
 SHADED|Protected from direct sunlight|Blocked from bright light|Colored in with a pencil, as a drawing
 SHADOW|A dark shape cast by blocked light|Silhouette formed when light is blocked|To secretly follow someone
-SHIPWRECK|The remains of a sunken vessel|A vessel destroyed by sinking or crashing|What divers explore on the ocean floor
+SHADOWS|Dark shapes cast by light|What follows you on a sunny day|Traces of a former presence, figuratively
+SHALLOW|Not deep|A wading pool's depth|Lacking depth of thought or feeling
+SHAMPOO|A liquid for washing hair|What lathers in the shower|A car wash treatment for upholstery
+SHATTER|To break into many pieces|What glass does when dropped|To destroy an illusion completely
+SHELVES|Flat surfaces for storing books|What a bookcase is made of|Puts a plan on hold indefinitely
+SHERIFF|A county's top law officer|An elected keeper of the peace|The badge-wearing figure in a western
+SHINING|Giving off light|Sparkling clean|Standing out as exceptionally talented
+SHIPPED|Sent by carrier|Delivered by freight|Rooted for a couple to get together, online
+SHIVERS|Trembles from cold|Small shakes down the spine|A chill of fear rather than temperature
+SHOCKED|Utterly surprised|Stunned by sudden news|Jolted by an electrical current
 SHOELACES|Strings used to fasten shoes|Cords threaded through eyelets on footwear|What comes undone at the worst possible moment
 SHORTCUTS|Quicker routes to a destination|Faster ways of getting something done|What a hiker takes to skip the switchbacks
+SHORTEN|To make briefer|To hem a pair of pants|To abbreviate a long word
 SHOULDERS|The joints connecting arms to the body|The upper part of the body, on both sides of the neck|What a heavy backpack rests upon
+SHOUTED|Yelled loudly|Raised one's voice in anger|Called out across a noisy room
+SHOVELS|Digging tools|What clears snow from a driveway|Scoops up dirt for a garden bed
+SHOWING|Displaying something|A screening of a movie|Demonstrating proof of one's work
 SIDEWALKS|Paved paths for pedestrians|Walkways running alongside a street|Where chalk drawings often appear in summer
 SIGNATURE|A person's handwritten name|A mark used to authorize a document|What a forger tries hardest to copy
 SITUATION|A set of circumstances|The state of affairs at a given moment|What a crisis manager is called in to handle
@@ -1650,10 +1921,7 @@ SMUGGLING|Illegally moving goods across a border|Secretly transporting banned it
 SNOWFLAKE|A single ice crystal that falls in winter|A delicate piece of frozen precipitation|What no two are ever alike, they say
 SNOWPLOWS|Vehicles that clear wintry roads of drifts|Trucks fitted with blades to push aside winter drifts|What keeps highways open after a blizzard
 SOMEWHERE|At an unspecified place|In some location, not specified|What a treasure map marks with an X, vaguely
-SOUVENIRS|Items kept to remember a trip|Mementos bought while traveling|What clutters a suitcase on the way home
-SPACESHIP|A vehicle that travels beyond Earth's atmosphere|A craft built for travel beyond the atmosphere|What ferries astronauts past the stratosphere
 SPARKLING|Shining with small flashes of light|Glittering or fizzy, like certain drinks|What a diamond does under a jeweler's lamp
-SPECTATOR|Someone who watches an event|An onlooker at a game or performance|Who fills the bleachers but never plays
 SPLINTERS|Small sharp fragments of wood|Thin shards that can lodge in skin|What a barefoot walk on an old deck risks
 SPRINKLER|A device that waters a lawn|A fixture that sprays water in fine drops|What a fire code requires on a ceiling
 STAIRCASE|A set of steps between floors|A structure for moving between levels of a building|What a grand entrance often descends by
@@ -1661,41 +1929,64 @@ STATEMENT|A spoken or written declaration|An official account given to the publi
 STATIONED|Placed in a fixed post or location|Assigned to a particular post, often military|What a sentry is at a guardhouse
 TABLET|A flat electronic touchscreen device|Small handheld computer with a touchscreen|Pill in a small hard form, or an iPad-like device
 TACKLE|To bring down, as in football|Take on a difficult task|Fishing gear kept in a box
+TACKLED|Brought down a runner|Grabbed and stopped a ball carrier|Took on a difficult task head-on
 TAILOR|One who makes and alters clothing|Custom clothes-maker|Adjust to fit a specific need, as a plan
+TAILORS|Those who fit and sew clothing|Craftsmen who adjust a suit's fit|Custom-fits, as one might a plan to a need
 TALENT|A natural ability or skill|Innate gift for a particular skill|What a scout looks for at an audition
 TAMPER|To interfere improperly with something|Meddle with evidence, for instance|Mess with a lock, illegally
 TANGERINE|A small, sweet citrus fruit|A loose-skinned orange relative|A fruit that also names a shade of orange
 TANGLE|A confused mass of threads or hair|Knotted mess of string or hair|Get caught up in a messy dispute
+TANGLED|Twisted together messily|Knotted, like cord left in a drawer|Complicated by conflicting details
 TANKER|A ship or truck that carries liquid|Large vessel that transports oil|Vehicle that delivers gasoline to a station
+TANKERS|Large ships carrying liquid cargo|Vessels hauling crude oil|Trucks that deliver fuel to stations
 TAPPED|Struck lightly|Selected for a special role or task|Chosen to be next in line, informally
+TAPPING|Lightly striking something|Drumming fingers on a desk|Secretly monitoring a phone line
 TARANTULA|A large, hairy spider|A big arachnid often kept as an exotic pet|What a jungle explorer hopes not to find in a boot
 TARGET|An object aimed at|The bullseye you aim for|Goal a marketer wants to reach
+TARGETS|Objects aimed at|Goals a company hopes to hit|Marks used for archery practice
+TARNISH|To dull a metal's shine|What silverware does over time|To damage a once-good reputation
 TASTED|Sampled the flavor of|Sampled with the tongue|Took a small sip to check the flavor
 TASTES|Flavors, or personal preferences|Personal likes and dislikes|What a wine expert samples for a living
 TATTOO|Permanent ink art on skin|Body art applied with a needle|Rhythmic tapping, or a military drum performance
 TAVERN|An old-fashioned pub or inn|A place to drink and lodge travelers|Colonial-era watering hole
+TEACHER|One who instructs students|A classroom's leading figure|A mentor guiding a hard lesson
 TEACUP|A small cup for hot beverages|Small handled cup for a hot drink|Storm brewed in a small container, proverbially
+TEARING|Ripping apart|Pulling a page out roughly|Moving at a reckless, hurried pace
 TEASED|Playfully mocked|Poked fun at gently|Backcombed hair for volume
+TEENAGE|Relating to adolescent years|Describing a middle or high schooler|Marked by moody, in-between angst
 TELEPHONE|A device used to talk to someone far away|An instrument for voice communication over distance|What rings just as you sit down to eat
 TELEVISED|Shown to home audiences via broadcast|Broadcast live or recorded for home viewing|What a live sports final almost always is
+TELLING|Revealing something clearly|Narrating a story aloud|Quite significant, as in a detail
 TEMPER|One's disposition, or to moderate|A tendency toward anger|To harden steel with heat and cooling
 TEMPLE|A place of worship, or part of the head|Building devoted to religious worship|Side of the head near the eye
+TEMPLES|Places of worship|Sites for religious ceremonies|The flat areas beside each eye
 TEMPORARY|Lasting only for a limited time|Not permanent, meant to be replaced later|What a substitute teacher's assignment usually is
 TENANT|One who rents property|A renter of an apartment|Landlord's counterpart in a lease
+TENANTS|Renters of a property|Those paying monthly to a landlord|Occupants bound by a lease agreement
 TENDER|Soft and gentle, or an offer of payment|Delicate and easily chewed|What cash must be accepted as, by law
-TENNIS|A racket sport played on a court|Sport played with a racket and net|Wimbledon's featured sport
 TENSED|Grew tight or stressed|Stiffened with strain|Flexed a muscle before a big lift
 TENSES|Grammatical forms showing time|Past, present, and future, grammatically|What a verb changes to show when something happened
+TENSION|Strain between opposing forces|The mood before an argument erupts|The pull that keeps a rope taut
+TERRACE|A raised flat outdoor platform|A patio attached to a house|A stepped level cut into a hillside
+TERRAIN|The physical features of land|What a hiking map details|The rugged ground a vehicle must cross
 TERRIFIED|Extremely frightened|Overcome with fear|What a jump scare leaves the audience
 TERRITORY|An area of land under someone's control|A region claimed or occupied by a group|What a guard dog patrols and defends
 TERROR|Extreme fear|Intense dread or fright|A mischievous toddler, affectionately called this
 TESTED|Examined for quality or knowledge|Given an exam|Tried out a recipe before serving guests
+TESTIFY|To give evidence in court|To speak under oath|To vouch strongly for someone's character
+TESTING|Evaluating with an exam|Trying out a new product|Trying one's patience, in a phrase
+TEXTILE|Woven cloth material|What a loom produces|An industry built on fabric and thread
 THANKLESS|Not appreciated despite effort|Unrewarding no matter how well done|What a janitor's overnight shift can feel like
 THANKS|Expressions of gratitude|Words said in appreciation|What you give before digging into a big meal
+THEATER|A venue for live performances|Where a play is staged|A region of active military operations
 THEORY|An explanation based on reasoning|A proposed explanation for how something works|Einstein's relativity, for one
+THERAPY|Treatment for mental or physical issues|A session with a counselor|A hobby that soothes stress, informally
+THICKEN|To make denser|To add flour to a sauce|For a plot to grow more complicated
+THIEVES|Those who steal|Burglars caught in the act|Ones who take credit undeserved
 THIGHS|The upper parts of the legs|Body part above the knee|Chicken part often fried alongside drumsticks
 THINGS|Objects or matters in general|Items or matters, unspecified|Stuff or matters, when everything is considered
 THIRST|A need to drink|Craving for liquid|Strong desire for knowledge, figuratively
+THIRSTY|Needing a drink|Parched after exercise|Eager for attention, in slang
 THORNS|Sharp points on a plant stem|Prickly parts of a rose stem|Points that make picking roses risky
 THOUGH|Despite the fact that|However, in a sentence|Word that softens a contradiction
 THREAD|A thin strand of fiber, or a topic online|Fine cord used in sewing|A single online conversation string
@@ -1711,11 +2002,20 @@ THRUST|A forceful push forward|Sudden forward force|Main point of an argument, f
 THUMBS|The short digits opposite the fingers|Short, opposable digits on the hand|What hitchhikers stick out for a ride
 THUMPS|Heavy dull sounds or blows|Dull repeated knocking sounds|What a rabbit's foot does on the ground
 TICKED|Made a small clicking sound|Made a small check mark|Did what a bomb or a checkbox does
-TICKET|A slip granting admission|Pass for a movie or concert|What a cop writes for speeding
+TICKETS|Passes for admission|Slips bought for a concert|Citations issued for a traffic stop
+TIGHTEN|To make more secure|To turn a bolt further|To cut down on spending
 TIGHTROPE|A tautly stretched wire walked by performers|A thin cable used in a balancing act|What a circus act wobbles across, high above the crowd
+TIMBERS|Wooden beams for building|Logs cut for construction|A pirate's exclamation about shivering ones
+TIPPING|Leaving extra money for service|Nearly toppling over|Being the deciding factor, as a point
+TISSUES|Soft paper for wiping|What a cold calls for by the box|Groups of similar cells in biology
+TOASTED|Browned by heat|Warmed bread until crisp|Honored with a raised glass
+TOASTER|A kitchen appliance for bread|What browns two slices at once|A device that pops up breakfast
 TOLERATED|Allowed to continue despite disapproval|Put up with, though not enjoyed|What a noisy neighbor's music barely is
+TOOLBOX|A container for hardware|What a handyman carries to a job|A set of methods available to solve a problem
 TOOTHACHE|Pain in or around a molar|A dental problem that sends you to the dentist|What too much candy can eventually cause
+TOPPING|What covers a dessert|Sauce or sprinkles added last|Exceeding a previous record
 TORNADOES|Violently rotating columns of air|Destructive funnel-shaped windstorms|What storm chasers drive straight toward
+TORRENT|A rushing stream of water|A downpour in a storm|An overwhelming flood of comments online
 TRADEMARK|A symbol identifying a company's product|A registered sign or logo of a brand|What a burger chain's golden arches double as
 TRAGEDIES|Deeply sad events or stories|Dramatic works ending in disaster or loss|What Shakespeare wrote alongside his comedies
 TRANSFERS|Moves from one place to another|Shifts of funds, staff, or ownership|What a wired payment does between accounts
@@ -1726,76 +2026,118 @@ TRIANGLES|Three-sided geometric shapes|Figures with three angles and three sides
 TRIGGERED|Set off or caused to happen|Prompted into action suddenly|What a tripwire does to an alarm
 UMBRELLAS|Devices that shield you from rain|Folding canopies carried for wet weather|What pops open at the first sign of a drizzle
 UNABLE|Lacking the means to do something|Lacking the capacity to act|Without the power to comply, formally
+UNAWARE|Not knowing something|Ignorant of a fact|Caught off guard, without any warning
 UNCERTAIN|Not sure or confident|Lacking clear knowledge of an outcome|What a weather forecast often admits to being
 UNCLES|Brothers of one's parents|Male relatives one generation up|Sam who wants you, familiarly
+UNCOVER|To reveal something hidden|To expose a secret plot|To remove a lid or cover from a dish
 UNDERDOGS|Competitors expected to lose|Teams given little chance of winning|Who the crowd secretly roots for at the finals
+UNDERGO|To experience something difficult|To go through a process|To be subjected to a medical procedure
 UNDERPASS|A road or path that goes beneath another|A tunnel allowing traffic to cross beneath a road|What lets a pedestrian avoid a busy intersection
 UNDERWEAR|Clothing kept hidden beneath outer garments|Garments closest to the skin, beneath the rest|What a superhero oddly displays on the outside
 UNDONE|Not completed, or unfastened|Left incomplete|Unraveled, as stitching in a sweater
 UNFAIR|Not just or equitable|Lacking a level playing field|Rigged, as a slanted game
 UNFOLD|To open out from a compact, closed state|Spread open, as a map|Reveal itself gradually, as a story does
 UNFOLDING|Opening up gradually|Developing or revealing itself over time|What a map does across a car's dashboard
+UNIFORM|Consistent throughout|The same in every case|What a soldier or student wears to school
 UNIONS|Organizations protecting workers' rights|Labor groups representing employees|Marriages, in a legal sense
 UNIQUE|One of a kind|Unlike anything else|Not to be duplicated, as a fingerprint
 UNISON|Perfect agreement or harmony|Speaking or singing together as one|All voices in a choir sound this way, together
 UNITED|Joined together as one|Combined in purpose|Airline name shared with a soccer club, commonly
 UNIVERSAL|Applying to everyone or everything|Common to all cases without exception|What a remote control claims to be for every TV
 UNKIND|Lacking warmth toward others|Not gentle or considerate|Cruel in a small, everyday way
+UNKNOWN|Not familiar or identified|A mystery yet to be solved|The variable a math student solves for
 UNLIMITED|Having no cap or restriction at all|Having no fixed boundary or cap|What a buffet's refills promise to be
+UNLOADS|Removes cargo from a vehicle|Empties a truck at a dock|Vents frustration onto someone else
 UNLOCK|To open with a key or code|Release something secured shut|Achieve a new level in a video game
 UNPACKING|Taking items out of boxes or bags|Removing belongings after a move or trip|What follows a long vacation, reluctantly
+UNUSUAL|Not common|Out of the ordinary|Worth a second glance for its oddity
+UPGRADE|An improved version|A better seat given at check-in|To install a newer piece of software
+UPRIGHT|Standing straight|Vertical in position|Morally honest and principled
+UPROOTS|Pulls out by the root|Displaces someone from their home|Tears a plant from the ground entirely
+UTENSIL|A tool used in the kitchen|A fork, spoon, or spatula|An implement for eating or cooking
+UTILIZE|To make practical use of|To put a resource to work|To employ a tool for its intended purpose
+VACANCY|An unoccupied room or job opening|A hotel sign lit up at night|A gap needing to be filled on staff
 VACANT|Empty and unoccupied|Not currently occupied|Blank stare, described as this
 VACATIONS|Trips taken for rest and leisure|Periods away from work or school|What a travel agent helps you plan
 VACCINATE|To give a shot that prevents disease|To administer immunity-boosting medicine|What a nurse does with a needle before travel abroad
 VACUUM|A space empty of matter, or a cleaning device|Appliance that sucks up dust|Nature abhors this kind of empty space
-VALLEY|A low area between hills|Low land between two mountains|California tech hub named for its low-lying land
+VACUUMS|Machines that suck up dust|What you run over carpet weekly|Empty spaces left after a sudden departure
 VALUED|Regarded as important|Held in high esteem|Appraised at a certain worth
 VALUES|Principles or worth|Core beliefs one holds dear|Numbers plugged into an equation
 VANISH|To disappear suddenly|Fade from sight completely|What a magician makes an assistant do
 VANISHING|Disappearing from sight|Fading away until nothing remains|What a magician's assistant appears to do in a box
 VANITY|Excessive pride in oneself|Excessive self-admiration|Bathroom counter with a mirror, so named
 VAPORS|Gaseous forms of a substance|Mist or fumes given off by a liquid|What rises from a boiling kettle
+VARIANT|A slightly different version|An alternate form of the same thing|A mutated strain of a virus
 VARIATION|A change or difference in form|A version that differs slightly from the norm|What a theme gets in a set of musical movements
 VARIED|Showing diversity|Having many different forms|Mixed, as in a broad selection
 VARIES|Changes or differs|Fluctuates from one to another|Shifts depending on the circumstances
-VEGETABLE|An edible plant, like a carrot or potato|A plant food often eaten with dinner|What a picky child pushes to the plate's edge
+VARIETY|A range of different types|The spice of life, proverbially|A stage show mixing several acts
+VEHICLE|A machine for transport|A car, truck, or van|A means of conveying an idea or message
+VENDORS|Sellers at a market|Stalls offering food or goods|Companies supplying parts to a manufacturer
 VENTILATE|To let fresh air circulate|To supply a room with air flow|What an open window does for a stuffy attic
+VENTURE|A risky business undertaking|A startup seeking funding|To dare go somewhere unfamiliar
+VERSION|One account of an event|A particular edition of software|One side's account of an argument
+VERTIGO|A spinning sense of dizziness|The feeling atop a tall ledge|A classic film about obsession and heights
+VICTORY|A win in competition|The outcome of a successful battle|The final score that ends a losing streak
 VILLAGERS|People who live in a small rural community|Residents of a small settlement|Who gather at the well in an old folk tale
 VINEYARDS|Fields where grapes are grown|Rows of grapevines cultivated on sloping land|What rolling hills in grape country are covered in
 VOLUNTEER|Someone who offers to help without pay|A person who freely gives their time to a cause|Who raises a hand before being asked
-WAFFLE|A grid-patterned breakfast cake|Breakfast food cooked in a grid iron|To be indecisive about a choice
+WAFFLES|Griddled breakfast squares|A syrup-topped brunch item|Speaks evasively without committing
 WAGONS|Four-wheeled carts for hauling|Carts pulled by horses on the old frontier|Circle these for defense, in Western films
 WAITED|Stayed in expectation|Remained until something happened|Served tables, in a job sense
 WAITER|A restaurant server|One who takes your food order|Person hoping for a good tip
 WALKED|Moved on foot|Took a stroll|Was awarded first base, in baseball
 WALKER|One who walks, or a mobility aid|A frame that helps one move around|Zombie's nickname on a certain TV show
+WALKWAY|A path for pedestrians|A paved route between buildings|The strip a model struts along
 WALLET|A small case for money and cards|Where you keep your cash and cards|What a pickpocket targets
+WALLETS|Small cases for cash and cards|What holds a driver's license|Personal finances, spoken of collectively
 WALNUT|A wrinkled brown nut|Nut often used in banana bread|Wood prized for fine furniture
 WANDER|To roam without a fixed course|Stroll aimlessly|Let one's mind drift off-topic
+WARDENS|Prison overseers|Officials who enforce local rules|Guardians of a nature reserve
 WAREHOUSE|A large building used for storing goods|A facility that stockpiles merchandise|What a forklift spends all day driving through
+WARFARE|Armed conflict between nations|The strategy and tactics of battle|Rivalry so intense it is called a type of war
 WARMED|Heated up|Raised in temperature|Grew fond of an idea, gradually
+WARMING|Becoming less cold|What a blanket does on a chilly night|The gradual heating of the planet's climate
 WARMTH|The quality of being warm|A comforting degree of heat|Kindness felt in someone's welcome
 WARNED|Informed of possible danger|Given advance notice of risk|Told twice before a final penalty
-WATERFALL|A natural cascade dropping from a rocky ledge|A river's sudden plunge over a steep drop|What a rainbow often appears near, on a sunny day
+WARNING|An alert of danger ahead|A yellow light before a red one|A caution given before a penalty
+WATCHES|Timepieces worn on the wrist|What a jeweler repairs|Keeps a close eye on someone's actions
 WATERMARK|A faint design embedded in paper|A faint design used to verify a document's authenticity|What proves a banknote isn't a photocopy
+WEALTHY|Having great riches|Financially well off|Rich in a nonmonetary sense, as in culture
+WEATHER|Daily atmospheric conditions|What a forecaster predicts|To endure a hardship successfully
 WEATHERED|Worn down by exposure to the elements|Showing signs of long exposure to sun and rain|What an old barn's paint becomes after decades
-WHIRLWIND|A fast-spinning column of air|A brief, intense flurry of activity|What a lightning-fast courtship is often called
+WEDDING|A marriage ceremony|The event before a honeymoon|A merging of two families' traditions
+WEEKEND|Saturday and Sunday|The break from the workweek|A brief getaway trip taken twice monthly
 WHISTLING|Making a musical sound by pushing air through pursed lips|Producing a shrill tone without an instrument|What a kettle does right before it's taken off the stove
 WINDMILLS|Structures with blades turned by moving air|Towers with blades that generate power or grind grain|What a deluded knight once mistook for giants
 WORKSHOPS|Sessions where people learn a skill together|Rooms or events for hands-on training|What a hands-on seminar is usually called
 WRESTLING|A sport involving grappling opponents|Combat sport where competitors try to pin each other|What siblings do on the living room floor, informally
+YAMMERS|Talks on and on complainingly|Chatters incessantly about a gripe|Whines persistently about a minor issue
 YARDSTICK|A long rod marked off for measuring length|A standard used for comparison|What a critic judges every sequel against
 YAWNED|Opened the mouth wide from tiredness|Showed sleepiness with an open mouth|Reacted to a dull meeting, perhaps
+YAWNING|Opening the mouth from tiredness|What boredom often triggers|Gaping widely, as a chasm might
+YEARNED|Longed deeply for something|Ached for a distant home|Pined for a love long since gone
 YEARNS|Longs for deeply|Aches with desire for something|Pines away for a lost love
+YELLING|Shouting loudly|Raising one's voice in anger|Cheering wildly from the stands
 YELLOW|The color of ripe bananas|Bright color between green and orange|Cowardly, in old slang
 YESTERDAY|The date immediately before this one|The 24 hours right before the present one|What becomes ancient history by tomorrow morning
+YIELDED|Gave way to pressure|Produced a harvest or a result|Surrendered the right of way at a sign
 YIELDS|Produces or gives way|Surrenders the right of way|Crop output from a farm
+YOGHURT|A cultured dairy food|A tangy breakfast with fruit mixed in|A probiotic snack sold in small tubs
 YOGURT|A tangy fermented dairy food|Creamy cultured milk product|Breakfast parfait's main ingredient
 YOUNGSTER|A child, especially a small one|A person still in their early years|What a coach calls a rookie half their age
+YOWLING|Crying out in a long wail|What an upset cat does at night|Complaining loudly and mournfully
+ZAPPING|Striking with electric current|Heating food quickly in a microwave|Flipping rapidly through television channels
+ZEALOUS|Full of enthusiastic devotion|Eager beyond the ordinary|Fervently devoted to a cause, perhaps too much
 ZENITH|The highest point|The peak of one's career|Point directly overhead in the sky
+ZEPHYRS|Gentle breezes|Soft winds from the west, poetically|Light gusts that barely stir a leaf
+ZIGZAGS|Moves in sharp alternating turns|A pattern of sudden direction changes|What a skier does down a slalom course
 ZIPPED|Fastened with a sliding closure|Closed up a jacket quickly|Moved rapidly past, in a flash
 ZIPPER|A sliding fastener with teeth|Interlocking fastener on a jacket|What you might get stuck in a coat
+ZIPPERS|Fasteners with interlocking teeth|What you pull up on a jacket|Closures that replaced buttons on many garments
 ZODIAC|The twelve astrological signs|Circle of constellations tied to birth dates|Chart consulted for a horoscope
+ZOMBIES|Reanimated undead in horror films|Shuffling monsters craving flesh|Sluggish, unresponsive people before coffee
 `;
 
 function parse(text) {
