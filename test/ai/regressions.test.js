@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import {mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {openApplicationDatabase, applyMigrations} from '../server/sqlite-database.js';
-import {SqliteGenerationStore, MAX_RESPONSE_BODY} from '../server/sqlite-generation-store.js';
-import {D1GenerationStore} from '../worker/d1-generation-store.js';
-import {handleWords, requestFingerprint} from '../server/handler.js';
-import {isWordsPath} from '../server/index.js';
-import {MAX_PROVIDER_RESPONSE_BODY, PROMPT_VERSION, readCappedProviderBody, readUsage, WORD_PROFILE_VERSION} from '../server/words.js';
-import worker from '../worker/index.js';
+import {openApplicationDatabase, applyMigrations} from '../../server/sqlite-database.js';
+import {SqliteGenerationStore, MAX_RESPONSE_BODY} from '../../server/sqlite-generation-store.js';
+import {D1GenerationStore} from '../../worker/d1-generation-store.js';
+import {handleWords, requestFingerprint} from '../../server/handler.js';
+import {isWordsPath} from '../../server/index.js';
+import {MAX_PROVIDER_RESPONSE_BODY, PROMPT_VERSION, readCappedProviderBody, readUsage, WORD_PROFILE_VERSION} from '../../server/words.js';
+import worker from '../../worker/index.js';
 
 async function tempDatabase(t) {
   const directory = await mkdtemp(join(tmpdir(), 'crossfolk-regression-'));

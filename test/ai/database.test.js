@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {openApplicationDatabase} from '../server/sqlite-database.js';
-import {SqliteGenerationStore} from '../server/sqlite-generation-store.js';
-import {handleWords, requestFingerprint} from '../server/handler.js';
-import {PROMPT_VERSION, WORD_PROFILE_VERSION} from '../server/words.js';
+import {openApplicationDatabase} from '../../server/sqlite-database.js';
+import {SqliteGenerationStore} from '../../server/sqlite-generation-store.js';
+import {handleWords, requestFingerprint} from '../../server/handler.js';
+import {PROMPT_VERSION, WORD_PROFILE_VERSION} from '../../server/words.js';
 
 async function tempDatabase(t) {
   const directory = await mkdtemp(join(tmpdir(), 'crossfolk-db-'));

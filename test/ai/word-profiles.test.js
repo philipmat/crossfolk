@@ -8,9 +8,9 @@ import {
   generateWords,
   parseStoredProviderResponse,
   validateOptions,
-} from '../server/words.js';
-import {handleWords, requestFingerprint} from '../server/handler.js';
-import {themeSlotSignatures} from '../public/layouts/american-patterns.js';
+} from '../../server/words.js';
+import {handleWords, requestFingerprint} from '../../server/handler.js';
+import {themeSlotSignatures} from '../../public/layouts/american-patterns.js';
 
 function aiResponse(words) {
   return new Response(JSON.stringify({

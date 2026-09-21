@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {D1GenerationStore} from '../worker/d1-generation-store.js';
+import {D1GenerationStore} from '../../worker/d1-generation-store.js';
 
 class FakeD1 {
   constructor() { this.calls = []; this.request = null; }

@@ -42,6 +42,7 @@ Adapters stay thin: they supply environment access, rate limiting, and static fi
 
 ## Verification
 
+- Favor `npm test` as the standard test suite for routine verification. Only run `npm run test:ai` when changes directly affect AI generation, OpenRouter integration, prompts, word profiles, or generation storage, avoiding unnecessary resource and budget consumption.
 - Run `npm test` after changing generation, vocabulary, patterns, or fallback data. Add focused regression coverage for changed requirements rather than weakening tests to accept a regression.
 - For UI changes, check desktop keyboard navigation and letter entry, then a phone-width layout and touch keyboard. Confirm errors and loading states remain usable.
 - For server changes, run `npm test` (it covers the handler, the `public/` allowlist, and the local HTTP bridge), then check public assets, blocked private paths, and API error handling over HTTP. Live AI verification requires configured credentials; distinguish that from local tests. A deployed worker can be checked with `npx wrangler dev`.

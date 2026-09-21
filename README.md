@@ -110,17 +110,22 @@ for account-specific D1 provisioning and migration steps.
 
 ```sh
 npm test
+npm run test:ai
 ```
 
-Tests cover connected grids, legal placement and crossings, numbering, sizes, difficulty, history, custom themed words,
-invalid input, at least 90% crossed minis built from AI-sized themed pools, at least 90% crossed hard minis with a strict
-thematic majority across all built-in themes, and repeat-game variety. They also cover the generation API — request
-methods, body size caps, every validation rule, model fallback, answer normalisation, the `public/` allowlist, and the
-local server's HTTP bridge to the portable handler — using a stubbed OpenRouter. Desktop and 390px phone layouts were
-reviewed in the browser. Keyboard entry, touch keyboard, answer checking, letter reveal, puzzle regeneration, large
-size, and hard clues were exercised; HTTP smoke checks cover public assets and blocked private paths.
+`npm test` runs non-AI tests covering connected grids, legal placement and crossings, numbering, sizes, difficulty,
+history, custom themed words, invalid input, at least 90% crossed minis built from AI-sized themed pools, at least 90%
+crossed hard minis with a strict thematic majority across all built-in themes, repeat-game variety, the `public/`
+allowlist, and the local server's HTTP bridge.
 
-`npm test` runs its files one at a time. The Free-form parity lock and the American time budget both measure wall-clock
+`npm run test:ai` runs tests covering OpenRouter theme generation, style profiles, prompt versioning, request deduplication,
+provider retry/fallback logic, token usage accounting, and SQLite/D1 generation store persistence.
+
+Desktop and 390px phone layouts were reviewed in the browser. Keyboard entry, touch keyboard, answer checking,
+letter reveal, puzzle regeneration, large size, and hard clues were exercised; HTTP smoke checks cover public
+assets and blocked private paths.
+
+`npm test` and `npm run test:ai` run their files one at a time. The Free-form parity lock and the American time budget both measure wall-clock
 behaviour, and running the suites concurrently changes what a seeded generation produces inside a fixed deadline.
 
 ```sh
