@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto';
+import {usageQuery, usageRow} from './generation-policy.js';
 
 const MAX_DIAGNOSTIC_JSON = 16 * 1024;
 const MAX_RESPONSE_BODY = 256 * 1024;
@@ -76,6 +77,16 @@ export class SqliteGenerationStore {
 
   async getRequest(id) {
     return rowWithAttempts(this.connection, id);
+  }
+
+  /** Operator-tunable settings, read live so a policy change needs no redeploy. */
+  async readSetting(key) {
+    return this.connection.prepare('SELECT key, value_json, updated_at_ms FROM app_settings WHERE key = ?').get(key) ?? null;
+  }
+
+  async usageSince(span) {
+    const {sql, params} = usageQuery(span);
+    return usageRow(this.connection.prepare(sql).get(...params));
   }
 
   async beginAttempt(details) {

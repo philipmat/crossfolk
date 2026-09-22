@@ -1,3 +1,5 @@
+import {usageQuery, usageRow} from '../server/generation-policy.js';
+
 const MAX_DIAGNOSTIC_JSON = 16 * 1024;
 const MAX_RESPONSE_BODY = 256 * 1024;
 const MAX_REPLAY_JSON = 512 * 1024;
@@ -51,6 +53,16 @@ export class D1GenerationStore {
     const result = await this.database.prepare('SELECT * FROM ai_generation_attempts WHERE request_id = ? ORDER BY attempt_number').bind(id).all();
     request.attempts = result.results || result;
     return request;
+  }
+
+  /** Operator-tunable settings, read live so a policy change needs no redeploy. */
+  async readSetting(key) {
+    return (await first(this.database.prepare('SELECT key, value_json, updated_at_ms FROM app_settings WHERE key = ?').bind(key))) ?? null;
+  }
+
+  async usageSince(span) {
+    const {sql, params} = usageQuery(span);
+    return usageRow(await first(this.database.prepare(sql).bind(...params)));
   }
 
   async claimRequest(details) {

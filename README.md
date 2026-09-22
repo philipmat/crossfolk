@@ -106,6 +106,50 @@ connecting IP with `REQUESTER_HASH_SECRET`; local runs use the constant requeste
 until manually pruned in this initial release. See [.local/cloudflare-manual-setup.md](.local/cloudflare-manual-setup.md)
 for account-specific D1 provisioning and migration steps.
 
+### Throttling AI generation
+
+How much AI generation the public API allows is one row in `app_settings`, not a deployed constant, so it changes with a
+single SQL statement and no redeploy. Each Worker isolate re-reads the row at most every 30 seconds, so an edit takes
+effect within about half a minute.
+
+```sh
+# Stop all AI generation now
+npx wrangler d1 execute crossfolk-db --remote --command \
+  "UPDATE app_settings SET value_json = '{\"mode\":\"off\"}', updated_at_ms = unixepoch() * 1000 WHERE key = 'ai_generation_policy'"
+
+# Five generations per requester per hour, at most one every ten minutes, 500 per day overall
+npx wrangler d1 execute crossfolk-db --remote --command \
+  "UPDATE app_settings SET value_json = '{\"mode\":\"limited\",\"perRequester\":{\"limit\":5,\"windowSec\":3600,\"minIntervalSec\":600},\"global\":{\"limit\":500,\"windowSec\":86400}}', updated_at_ms = unixepoch() * 1000 WHERE key = 'ai_generation_policy'"
+
+# Back to no throttle
+npx wrangler d1 execute crossfolk-db --remote --command \
+  "UPDATE app_settings SET value_json = '{\"mode\":\"unrestricted\"}', updated_at_ms = unixepoch() * 1000 WHERE key = 'ai_generation_policy'"
+```
+
+| Field                     | Meaning                                                                             |
+|---------------------------|-------------------------------------------------------------------------------------|
+| `mode`                    | `unrestricted` (no counting at all), `off` (kill switch), or `limited`               |
+| `perRequester`            | Rule applied to one requester key; `global` is the same rule shape applied to all     |
+| `limit` + `windowSec`     | At most `limit` generations in a rolling window of `windowSec` seconds                |
+| `minIntervalSec`          | Minimum gap between two generations; usable alone or with a limit                     |
+| `message`                 | Optional replacement for the generated user-facing text                               |
+
+`limited` needs at least one of `perRequester` or `global`, and `limit` requires a `windowSec`. A `limit` of `0` blocks
+that scope outright. The per-requester rule is evaluated first, so a user sees their own limit rather than the shared
+one. An unparseable row is refused: the isolate logs it and keeps the last policy it read successfully, falling back to
+`unrestricted` only when it has never read a valid one — verify an edit with
+`npx wrangler d1 execute crossfolk-db --remote --command "SELECT value_json FROM app_settings"`.
+
+The throttle is charged once per generation, when the row is created. Polling a pending `requestId`, retrying it, or
+recovering an expired lease all reuse the existing row and are never charged again, and a denial is stored with outcome
+`throttled` so repeat polls replay it while it stays out of the usage counts. A denied request answers `429` with
+`Retry-After` (or `503` when `mode` is `off`); the browser treats both as "AI unavailable", builds the puzzle from the
+local word bank, and shows the API's message. This is the per-generation budget and is separate from the `WORDS_LIMIT`
+binding, which stays in front of it as a per-IP burst guard.
+
+The requester key is the Worker's HMAC of the connecting IP. Without `REQUESTER_HASH_SECRET` every caller shares the key
+`unknown`, which collapses `perRequester` into a second global rule; local runs share the constant key `local`.
+
 ## Verify
 
 ```sh
@@ -160,7 +204,8 @@ pre-deploy smoke check.
 
 `public/` is served as Workers Static Assets, so asset requests never reach the Worker. `worker/index.js` handles
 `/api/words` and returns a JSON 404 for anything else. The `WORDS_LIMIT` binding in `wrangler.jsonc` allows 20 requests
-per minute per IP.
+per minute per IP; the AI generation budget on top of that is runtime-tunable and documented in
+[Throttling AI generation](#throttling-ai-generation).
 
 ```sh
 npx wrangler secret put OPENROUTER_API_KEY
@@ -299,6 +344,12 @@ FROM ai_generation_attempts GROUP BY model ORDER BY tokens DESC;
 SELECT requester_key, COUNT(*) AS requests, SUM(known_total_tokens) AS tokens
 FROM ai_generation_requests WHERE started_at_ms >= (strftime('%s','now') * 1000 - 3600000)
 GROUP BY requester_key;
+
+-- Active throttle policy and who is hitting it
+SELECT value_json, updated_at_ms FROM app_settings WHERE key = 'ai_generation_policy';
+SELECT requester_key, error_category, COUNT(*) AS denials
+FROM ai_generation_requests WHERE outcome = 'throttled'
+GROUP BY requester_key, error_category ORDER BY denials DESC LIMIT 25;
 ```
 
 ### Layout
@@ -318,6 +369,7 @@ test/      Automated tests
 | `public/index.html`, `public/style.css`, `public/app.js`                                           | Page structure, responsive styling, and game interaction                             |
 | `server/handler.js`                                                                                | Platform-neutral Web handler for `POST /api/words`                                   |
 | `server/words.js`                                                                                  | Platform-neutral OpenRouter request, validation, and model fallback                  |
+| `server/generation-policy.js`                                                                       | Runtime-tunable AI throttle: policy parsing, the usage query, and the decision        |
 | `server/index.js`                                                                                  | Local development server: static-file allowlist plus a bridge to `server/handler.js` |
 | `worker/index.js`                                                                                  | Cloudflare adapter around `server/handler.js`                                         |
 | `public/puzzle-worker.js`, `public/engine.js`, `public/dense.js`                                   | Worker boundary, shared input preparation, and the style-neutral constraint solver   |
@@ -331,6 +383,7 @@ test/      Automated tests
 | `scripts/`                                                                                         | Dictionary and fallback-data generation utilities                                    |
 | `test/engine.test.js`                                                                              | Grid validity, theme majority, crossing coverage, and variety tests                  |
 | `test/handler.test.js`                                                                             | API validation, model fallback, `public/` allowlist, and the local HTTP bridge       |
+| `test/generation-policy.test.js`                                                                    | Throttle policy parsing, decisions, caching, and the handler's denial responses       |
 
 When adding a browser-loaded module, also add it to `PUBLIC_FILES` in `server/index.js` and place the file in `public/`.
 That allowlist is also what must match the contents of `public/` exactly — the CDN serves the directory wholesale in

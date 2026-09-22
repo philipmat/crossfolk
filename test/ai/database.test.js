@@ -16,15 +16,15 @@ async function tempDatabase(t) {
   return database;
 }
 
-test('application database applies the AI logging migration and can replay it', async (t) => {
+test('application database applies the committed migrations and can replay them', async (t) => {
   const database = await tempDatabase(t);
 
   const tables = database.connection.prepare("SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name").all().map((row) => row.name);
-  assert.deepEqual(tables, ['ai_generation_attempts', 'ai_generation_requests', 'schema_migrations']);
-  assert.equal(database.connection.prepare('SELECT count(*) AS count FROM schema_migrations').get().count, 1);
+  assert.deepEqual(tables, ['ai_generation_attempts', 'ai_generation_requests', 'app_settings', 'schema_migrations']);
+  assert.equal(database.connection.prepare('SELECT count(*) AS count FROM schema_migrations').get().count, 2);
 
   database.applyMigrations();
-  assert.equal(database.connection.prepare('SELECT count(*) AS count FROM schema_migrations').get().count, 1);
+  assert.equal(database.connection.prepare('SELECT count(*) AS count FROM schema_migrations').get().count, 2);
 
   const indexes = database.connection.prepare("SELECT name FROM sqlite_master WHERE type = 'index' AND name LIKE 'idx_ai_generation_%' ORDER BY name").all().map((row) => row.name);
   assert.ok(indexes.includes('idx_ai_generation_requests_requester_started'));

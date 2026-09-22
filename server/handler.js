@@ -2,6 +2,7 @@
 // adapter; `rateLimit` is an optional `(request) => Promise<boolean>` "allowed" check.
 import {generateWords, parseModels, parseStoredProviderResponse, PROMPT_VERSION, validateOptions, WORD_PROFILE_VERSION} from './words.js';
 import {logger as defaultLogger} from './logger.js';
+import {THROTTLED_OUTCOME} from './generation-policy.js';
 
 export const MAX_BODY = 32_000;
 
@@ -119,7 +120,7 @@ async function readCappedBody(request) {
   return new TextDecoder().decode(bytes);
 }
 
-export async function handleWords(request, {env = {}, rateLimit, fetchImpl, logger = defaultLogger, generationStore} = {}) {
+export async function handleWords(request, {env = {}, rateLimit, fetchImpl, logger = defaultLogger, generationStore, generationPolicy} = {}) {
   if (request.method !== 'POST') return json(405, {error: 'Method not allowed.'});
   if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY) return json(413, {error: 'Request body is too large.'});
 
@@ -157,12 +158,37 @@ export async function handleWords(request, {env = {}, rateLimit, fetchImpl, logg
     }
     if (claim?.conflict) return json(409, {error: 'This requestId was already used for different generation inputs.', requestId});
 
+    // The throttle is charged exactly once per generation, at creation: a poll of a
+    // pending requestId or a recovered lease reuses the same row and is never charged
+    // again. A denial is stored like any other outcome so repeat polls replay it, and
+    // `throttled` rows are excluded from the usage counts so a denial cannot feed itself.
+    if (claim?.created && generationPolicy) {
+      let decision;
+      try {
+        decision = await generationPolicy.check({store: generationStore, requesterKey: details.requesterKey, excludeId: requestId});
+      } catch (error) {
+        logger.error(`Request ${requestId}: failed to read the generation policy:`, error);
+        return json(503, {error: 'Theme generation storage is temporarily unavailable.', retryable: true, requestId}, {'retry-after': '1'});
+      }
+
+      if (!decision.allowed) {
+        const status = decision.reason === 'disabled' ? 503 : 429;
+        const body = {error: decision.message, requestId, ...(decision.retryAfterMs ? {retryAfterMs: decision.retryAfterMs} : {})};
+        try {
+          await generationStore.finishRequest({id: requestId, leaseToken: claim.leaseToken, completedAtMs: Date.now(), durationMs: Date.now() - details.startedAtMs,
+            outcome: THROTTLED_OUTCOME, httpStatus: status, errorCategory: decision.reason === 'disabled' ? 'generation_disabled' : `rate_limited_${decision.scope}`,
+            errorMessage: decision.message, responseJson: JSON.stringify(body), attemptCount: 0, usageComplete: true});
+        } catch (error) { logger.error(`Request ${requestId}: failed to record a throttled request:`, error); }
+        return json(status, body, decision.retryAfterMs ? {'retry-after': String(Math.ceil(decision.retryAfterMs / 1000))} : {});
+      }
+    }
+
     const current = claim?.request;
     if (!claim?.created && !claim?.acquired) {
       if (current?.outcome === 'succeeded' && current.response_json) {
         try { return json(Number(current.http_status) || 200, JSON.parse(current.response_json)); } catch {}
       }
-      if (current?.outcome && ['failed', 'aborted', 'invalid', 'unconfigured'].includes(current.outcome)) {
+      if (current?.outcome && ['failed', 'aborted', 'invalid', 'unconfigured', THROTTLED_OUTCOME].includes(current.outcome)) {
         if (current.response_json) {
           try { return json(Number(current.http_status) || 502, JSON.parse(current.response_json)); } catch {}
         }

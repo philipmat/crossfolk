@@ -1,5 +1,10 @@
 import {handleWords} from '../server/handler.js';
+import {createGenerationPolicy} from '../server/generation-policy.js';
 import {D1GenerationStore} from './d1-generation-store.js';
+
+// Module scope so the cached policy row outlives a single request: an isolate re-reads
+// `app_settings` at most every POLICY_CACHE_MS, so a live edit lands within ~30 seconds.
+const generationPolicy = createGenerationPolicy();
 
 async function requesterMetadata(request, env) {
   const ip = request.headers.get('cf-connecting-ip');
@@ -22,6 +27,6 @@ export default {
     const requester = await requesterMetadata(request, env);
     const requestEnv = {...env, RUNTIME: 'cloudflare', REQUESTER_KEY: requester.key, REQUESTER_KEY_VERSION: requester.version};
     const generationStore = new D1GenerationStore(env.APP_DB, {requesterKey: requester.key, requesterKeyVersion: requester.version});
-    return handleWords(request, {env: requestEnv, rateLimit, generationStore});
+    return handleWords(request, {env: requestEnv, rateLimit, generationStore, generationPolicy});
   }
 };

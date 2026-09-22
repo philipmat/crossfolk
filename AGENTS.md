@@ -39,6 +39,7 @@ Adapters stay thin: they supply environment access, rate limiting, and static fi
 - AI supplies candidate answers and clues; local code constructs the grid. Preserve the explicit unconfigured-AI fallback and useful errors for unsupported or unsatisfiable themes.
 - Prefer editing curated vocabulary files for targeted word/clue fixes. Regenerate `public/wordnet-words.js` with `scripts/build-wordnet.mjs` when changing dictionary selection logic, and preserve the embedded WordNet license and `public/WORDNET-LICENSE.txt`.
 - Validate generated fallback puzzles against current theme and crossing rules; historical generated data is not automatically valid after rules change.
+- AI generation throttling is data, not code. The policy lives in the `app_settings` row `ai_generation_policy` and is read at request time, so an operator can retune or stop generation without a redeploy; do not move limits into `wrangler.jsonc`, environment variables, or constants. Charge the throttle only where a request row is created, keep `throttled` rows out of the usage counts, and keep `server/generation-policy.js` free of platform imports like the rest of the core.
 
 ## Verification
 

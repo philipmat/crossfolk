@@ -38,3 +38,24 @@ test('D1 generation store uses bound values and never stores requester IP metada
   await store.checkpointAttemptResponse({requestId: id, attemptNumber: 1, providerResponseBody: '{"safe":true}', providerHttpStatus: 200});
   assert.ok(database.calls.every(({values}) => values.every((value) => value !== 'OPENROUTER_API_KEY')));
 });
+
+test('D1 policy reads bind every filter value and return normalized usage', async () => {
+  const calls = [];
+  const database = {
+    prepare(sql) {
+      return {
+        bind(...values) { calls.push({sql, values}); return this; },
+        async first() { return /app_settings/.test(sql) ? {key: 'ai_generation_policy', value_json: '{"mode":"off"}'} : {count: 3, oldest: 7, latest: 9}; }
+      };
+    }
+  };
+  const store = new D1GenerationStore(database, {requesterKey: 'hmac-value'});
+
+  assert.equal((await store.readSetting('ai_generation_policy')).value_json, '{"mode":"off"}');
+  assert.deepEqual(await store.usageSince({sinceMs: 5, windowStartMs: 6, requesterKey: 'hmac-value', excludeId: 'request-id'}),
+    {count: 3, oldestStartedAtMs: 7, latestStartedAtMs: 9});
+
+  const usage = calls.at(-1);
+  assert.match(usage.sql, /FROM ai_generation_requests WHERE requester_key = \? AND started_at_ms >= \? AND outcome != 'throttled' AND id != \?/);
+  assert.deepEqual(usage.values, [6, 6, 'hmac-value', 5, 'request-id']);
+});

@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {handleWords, MAX_BODY} from './handler.js';
 import {logger} from './logger.js';
 import {parseModels} from './words.js';
+import {createGenerationPolicy} from './generation-policy.js';
 import {openApplicationDatabase} from './sqlite-database.js';
 import {SqliteGenerationStore} from './sqlite-generation-store.js';
 
@@ -56,7 +57,7 @@ async function toWebRequest(request) {
   });
 }
 
-function createLocalRequestHandler({env = process.env, generationStore} = {}) {
+function createLocalRequestHandler({env = process.env, generationStore, generationPolicy} = {}) {
   return async function apiWords(request, response) {
   let webRequest;
   try {
@@ -66,7 +67,7 @@ function createLocalRequestHandler({env = process.env, generationStore} = {}) {
     if (error.tooLarge) return json(response, 413, {error: 'Request body is too large.'});
     return json(response, 400, {error: 'Invalid request.'});
   }
-  const webResponse = await handleWords(webRequest, {env: {...env, RUNTIME: 'local', REQUESTER_KEY: 'local', REQUESTER_KEY_VERSION: 'v1'}, generationStore});
+  const webResponse = await handleWords(webRequest, {env: {...env, RUNTIME: 'local', REQUESTER_KEY: 'local', REQUESTER_KEY_VERSION: 'v1'}, generationStore, generationPolicy});
   response.writeHead(webResponse.status, Object.fromEntries(webResponse.headers));
   response.end(Buffer.from(await webResponse.arrayBuffer()));
   };
@@ -88,9 +89,10 @@ async function staticFile(request, response) {
   }
 }
 
-export function createLocalServer({env = process.env, database, generationStore} = {}) {
+export function createLocalServer({env = process.env, database, generationStore, generationPolicy} = {}) {
   const store = generationStore || (database ? new SqliteGenerationStore(database.connection, {runtime: 'local'}) : undefined);
-  const apiWords = createLocalRequestHandler({env, generationStore: store});
+  // One policy instance per server so the cached `app_settings` row is shared by requests.
+  const apiWords = createLocalRequestHandler({env, generationStore: store, generationPolicy: store ? (generationPolicy || createGenerationPolicy()) : undefined});
   return createServer(async (request, response) => {
     if (isWordsPath(request.url)) return apiWords(request, response);
     if (request.method !== 'GET' && request.method !== 'HEAD') return json(response, 405, {error: 'Method not allowed.'});
