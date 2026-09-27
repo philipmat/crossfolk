@@ -3,6 +3,8 @@
   "name": "crossfolk",
   "main": "./worker/index.js",
   "compatibility_date": "2026-09-07",
+  "workers_dev": true,
+  "preview_urls": false,
   "assets": {
     "directory": "./public"
   },
@@ -19,12 +21,14 @@
   },
   // After the first deploy, add OPENROUTER_SITE_URL to vars with the app's primary public URL.
   "vars": {
-    "OPENROUTER_MODELS": ""
+    "OPENROUTER_MODELS": "",
+    "OPENROUTER_SITE_URL": "https://crossfolk.ipod-raft-flyable.workers.dev"
   },
   "d1_databases": [
     {
       "binding": "APP_DB",
       "database_name": "crossfolk-db",
+      "database_id": "e10dd1b7-95f6-4903-acc4-579c3a7a5665",
       "migrations_dir": "migrations"
     }
   ],
