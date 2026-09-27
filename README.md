@@ -212,12 +212,6 @@ pre-deploy smoke check.
 per minute per IP; the AI generation budget on top of that is runtime-tunable and documented in
 [Throttling AI generation](#throttling-ai-generation).
 
-```sh
-npx wrangler secret put OPENROUTER_API_KEY
-npx wrangler secret put REQUESTER_HASH_SECRET
-npx wrangler deploy
-```
-
 Create the shared D1 database and apply committed migrations before the first deployment that writes logs:
 
 ```sh
@@ -228,6 +222,40 @@ npx wrangler d1 migrations apply crossfolk-db --remote
 
 Do not invent a `database_id`; put the ID returned by Wrangler into `wrangler.jsonc` under `APP_DB`. The full
 operator-owned runbook is [.local/cloudflare-manual-setup.md](.local/cloudflare-manual-setup.md).
+
+After the remote migrations are applied, set the Worker runtime secrets and deploy:
+
+```sh
+npx wrangler secret put OPENROUTER_API_KEY
+npx wrangler secret put REQUESTER_HASH_SECRET
+./scripts/deploy-cloudflare.sh
+```
+
+### GitHub Actions deployment
+
+Pull requests run `npm run test`. Pushing or merging to `main` runs the Cloudflare deployment through
+[`scripts/deploy-cloudflare.sh`](scripts/deploy-cloudflare.sh). The script applies pending remote D1 migrations before
+deploying the Worker and `public/` assets, so `wrangler.jsonc` must contain the real production `database_id` for
+`crossfolk-db`.
+
+Add these GitHub Actions repository secrets before enabling deployments:
+
+| Secret | Purpose |
+|--------|---------|
+| `CLOUDFLARE_API_TOKEN` | Authenticates Wrangler. Grant access to the target account, Workers deployment permissions, and D1 Write access for remote migrations. |
+| `CLOUDFLARE_ACCOUNT_ID` | Selects the Cloudflare account that owns the Worker and D1 database. |
+
+The Worker runtime secrets `OPENROUTER_API_KEY` and `REQUESTER_HASH_SECRET` are stored in Cloudflare, not GitHub Actions;
+set them with `npx wrangler secret put` as described in the manual setup guide. Configure the non-secret
+`OPENROUTER_SITE_URL` Worker variable in `wrangler.jsonc` once the public URL is known.
+
+To deploy manually from a local checkout, install the locked dependencies and run the same script. Authenticate first
+with `npx wrangler login` or export the same Cloudflare token and account ID used by CI:
+
+```sh
+npm ci
+./scripts/deploy-cloudflare.sh
+```
 
 ### Docker
 
