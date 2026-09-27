@@ -133,6 +133,10 @@ export function createGenerationPolicy({cacheMs = POLICY_CACHE_MS, now = Date.no
   }
 
   return {
+    async availability({store} = {}) {
+      const policy = store ? await current(store) : DEFAULT_POLICY;
+      return {enabled: policy.mode !== 'off'};
+    },
     async check({store, requesterKey = null, excludeId = null} = {}) {
       const policy = await current(store);
       if (policy.mode === 'unrestricted') return {allowed: true};

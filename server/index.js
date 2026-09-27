@@ -2,7 +2,7 @@ import {createServer} from 'node:http';
 import {readFile, stat} from 'node:fs/promises';
 import {extname, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {handleWords, MAX_BODY} from './handler.js';
+import {handleGenerationStatus, handleWords, MAX_BODY} from './handler.js';
 import {logger} from './logger.js';
 import {parseModels} from './words.js';
 import {createGenerationPolicy} from './generation-policy.js';
@@ -23,6 +23,10 @@ export const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style
 
 export function isWordsPath(url) {
   return new URL(url, 'http://localhost').pathname === '/api/words';
+}
+
+export function isGenerationStatusPath(url) {
+  return new URL(url, 'http://localhost').pathname === '/api/generation-status';
 }
 
 function json(response, status, body) {
@@ -92,9 +96,19 @@ async function staticFile(request, response) {
 export function createLocalServer({env = process.env, database, generationStore, generationPolicy} = {}) {
   const store = generationStore || (database ? new SqliteGenerationStore(database.connection, {runtime: 'local'}) : undefined);
   // One policy instance per server so the cached `app_settings` row is shared by requests.
-  const apiWords = createLocalRequestHandler({env, generationStore: store, generationPolicy: store ? (generationPolicy || createGenerationPolicy()) : undefined});
+  const localPolicy = store ? (generationPolicy || createGenerationPolicy()) : undefined;
+  const apiWords = createLocalRequestHandler({env, generationStore: store, generationPolicy: localPolicy});
+  const apiGenerationStatus = async (request, response) => {
+    const webResponse = await handleGenerationStatus(new Request(new URL(request.url, `http://localhost:${PORT}`), {method: request.method}), {
+      generationStore: store,
+      generationPolicy: localPolicy
+    });
+    response.writeHead(webResponse.status, Object.fromEntries(webResponse.headers));
+    response.end(Buffer.from(await webResponse.arrayBuffer()));
+  };
   return createServer(async (request, response) => {
     if (isWordsPath(request.url)) return apiWords(request, response);
+    if (isGenerationStatusPath(request.url)) return apiGenerationStatus(request, response);
     if (request.method !== 'GET' && request.method !== 'HEAD') return json(response, 405, {error: 'Method not allowed.'});
     return staticFile(request, response);
   });

@@ -41,7 +41,41 @@ for(const style of layoutStyles){const opt=document.createElement('option');opt.
 $('#layout-style').value=preferredLayoutStyle;
 function updateLayoutStyleHint() {const style=layoutStyles.find(s=>s.id===preferredLayoutStyle);const note=availabilityNote(preferredLayoutStyle,size);const hint=$('#layout-style-hint');hint.textContent=style.helper+(note?` ⚠ ${note}`:'');hint.classList.toggle('is-note',Boolean(note));}
 $('#layout-style').onchange=e=>{preferredLayoutStyle=e.target.value;updateLayoutStyleHint();};
-function setControlsDisabled(disabled) {$('#layout-style').disabled=disabled;$('#theme-preset').disabled=disabled;$('#theme').disabled=disabled;for(const b of $('#sizes').children)b.disabled=disabled;for(const b of $('#difficulties').children)b.disabled=disabled;}
+let customThemesOff = false;
+let controlsBusy = false;
+
+function setControlsDisabled(disabled) {
+ controlsBusy = disabled;
+ $('#layout-style').disabled = disabled;
+ $('#theme-preset').disabled = disabled;
+ $('#theme').disabled = disabled || customThemesOff;
+ for (const button of $('#sizes').children) button.disabled = disabled;
+ for (const button of $('#difficulties').children) button.disabled = disabled;
+}
+
+function setCustomThemeAvailability(enabled) {
+ customThemesOff = !enabled;
+ $('#theme').disabled = controlsBusy || customThemesOff;
+ $('#theme').placeholder = customThemesOff ? 'Custom themes currently off' : 'Choose a theme or create your own';
+ $('#theme-label').textContent = customThemesOff ? 'Choose a built-in theme' : 'Choose a theme or create your own';
+ $('#theme-hint').textContent = customThemesOff ? 'Custom theme creation currently off. Built-in themes are still available.' : 'A few words. A whole world to explore.';
+ $('#theme-preset option[value=""]').disabled = customThemesOff;
+
+ if (customThemesOff) {
+  $('#theme').value = '';
+  if (!$('#theme-preset').value) $('#theme-preset').value = 'ocean';
+ }
+}
+
+async function refreshCustomThemeAvailability() {
+ try {
+  const response = await fetch('/api/generation-status', {signal: AbortSignal.timeout(5000)});
+  if (!response.ok) return;
+
+  const status = await response.json();
+  if (typeof status.enabled === 'boolean') setCustomThemeAvailability(status.enabled);
+ } catch { /* The server still enforces the policy if status cannot be read. */ }
+}
 updateLayoutStyleHint();
 const key = (r,c) => `${r},${c}`;
 const cellsFor = e => [...e.answer].map((_,i)=>key(e.row+(e.direction==='down'?i:0),e.col+(e.direction==='across'?i:0)));
@@ -92,7 +126,7 @@ function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.len
  });
  $('#sizes').onclick=e=>{const b=e.target.closest('[data-size]');if(!b)return;size=Number(b.dataset.size);for(const x of $('#sizes').children){x.classList.toggle('chosen',x===b);x.setAttribute('aria-pressed',String(x===b));}updateLayoutStyleHint();};
  $('#difficulties').onclick=e=>{const b=e.target.closest('[data-difficulty]');if(!b)return;difficulty=b.dataset.difficulty;for(const x of $('#difficulties').children){x.classList.toggle('chosen',x===b);x.setAttribute('aria-pressed',String(x===b));}};
-async function create(initial=false){const theme=selectedTheme($('#theme').value,$('#theme-preset').value);if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;setControlsDisabled(true);$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
+async function create(initial=false){const theme=selectedTheme(customThemesOff?'':$('#theme').value,$('#theme-preset').value);if(!theme){$('#theme').setCustomValidity('Enter a few words for your theme.');$('#theme').reportValidity();return;}$('#theme').setCustomValidity('');$('#generate').disabled=true;setControlsDisabled(true);$('#generate').textContent='Connecting the clues…';$('#error').textContent='';
  // One frozen snapshot drives both the AI request and the worker call, so a control changed mid-flight cannot pair mismatched requests.
  const layoutStyle=effectiveLayoutStyle(preferredLayoutStyle,size);const wordProfile=wordProfileFor(layoutStyle);
  const requestId=newRequestId();const requestPayload=Object.freeze({theme,size,difficulty,exclude:history.slice(-8).flat().slice(-100),wordProfile});
@@ -102,10 +136,10 @@ async function create(initial=false){const theme=selectedTheme($('#theme').value
  if(!initial&&!resolveCuratedTheme(theme)){
   $('#ai-note').hidden=false;$('#ai-note-text').textContent='Asking the AI for theme words…';
   try {const data=await fetchThemeWords(requestPayload,requestId);words=data.words;source=data.source||null;}
-  catch(error){if((error.status===503||error.status===429)&&!error.retryable){aiUnavailable=true;aiNotice=error.message;}else throw error;}
+  catch(error){if((error.status===503||error.status===429)&&!error.retryable){aiUnavailable=true;aiNotice=error.message;if(error.status===503)await refreshCustomThemeAvailability();}else throw error;}
  }
  const next=await generatePuzzle({...intent,history,words,deadline:Date.now()+13500});puzzle={...next,difficulty,source};letters={};elapsed=0;solved=false;wrong.clear();active=0;selected=cellsFor(puzzle.entries[0])[0];history.push(puzzle.entries.map(e=>e.answer));$('#game-message').textContent='';$('#error').textContent=aiNotice;render();updateTimer();
- }catch(error){showSource(puzzle?.source);const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const codeMessage=CODE_MESSAGES[error.code];const message=codeMessage||(error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.');$('#error').textContent=needsAi?`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`:message;}finally{$('#generate').disabled=false;setControlsDisabled(false);$('#generate').innerHTML='Create my crossword <span>→</span>';}}
+ }catch(error){showSource(puzzle?.source);const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const codeMessage=CODE_MESSAGES[error.code];const message=codeMessage||(error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.');$('#error').textContent=needsAi?(customThemesOff?`${aiNotice} Choose a built-in theme.`:`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`):message;}finally{$('#generate').disabled=false;setControlsDisabled(false);$('#generate').innerHTML='Create my crossword <span>→</span>';}}
  $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme-preset').onchange=()=>{$('#theme').value='';$('#theme').setCustomValidity('');};$('#theme').oninput=()=>{$('#theme-preset').value='';$('#theme').setCustomValidity('');};
  $('#check').onclick=()=>{wrong.clear();for(const [k,v]of Object.entries(letters)){const[r,c]=k.split(',').map(Number);if(v!==puzzle.grid[r][c])wrong.add(k);}$('#game-message').textContent=wrong.size?`${wrong.size} ${wrong.size===1?'letter needs':'letters need'} another look. Marked in red.`:Object.keys(letters).length?'Looking good. Your filled letters are correct!':'Add a few letters, then check your work.';render();};
  $('#reveal').onclick=()=>{const[r,c]=selected.split(',').map(Number);letters[selected]=puzzle.grid[r][c];wrong.delete(selected);$('#game-message').textContent='A little nudge. One letter revealed.';render();};
@@ -116,3 +150,5 @@ async function create(initial=false){const theme=selectedTheme($('#theme').value
  setInterval(()=>{if(puzzle&&!solved&&!document.hidden&&!dialog.open){elapsed++;updateTimer();if(elapsed%5===0)save();}},1000);
  try{const saved=JSON.parse(localStorage.getItem('crossfolk-game'));if(saved?.puzzle?.entries?.length&&saved.puzzle.grid){({puzzle,letters,elapsed,active,selected,solved}=saved);size=puzzle.size;difficulty=puzzle.difficulty||'easy';preferredLayoutStyle=puzzle.layoutStyle??'freeform';$('#layout-style').value=preferredLayoutStyle;const themeSelection=restoredThemeSelection(puzzle.theme);$('#theme-preset').value=themeSelection.preset;$('#theme').value=themeSelection.custom;document.querySelector(`[data-size="${size}"]`).click();document.querySelector(`[data-difficulty="${difficulty}"]`).click();render();updateTimer();}}catch{puzzle=null;}
  if(!puzzle)create(true);
+ void refreshCustomThemeAvailability();
+ window.addEventListener('focus', () => { void refreshCustomThemeAvailability(); });

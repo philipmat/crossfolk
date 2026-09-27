@@ -10,6 +10,18 @@ const json = (status, body, extraHeaders = {}) => Response.json(body, {status, h
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const LEASE_MS = 120_000;
 
+export async function handleGenerationStatus(request, {generationStore, generationPolicy, logger = defaultLogger} = {}) {
+  if (request.method !== 'GET') return json(405, {error: 'Method not allowed.'});
+  if (!generationPolicy) return json(200, {enabled: true});
+
+  try {
+    return json(200, await generationPolicy.availability({store: generationStore}));
+  } catch (error) {
+    logger.error('Failed to read the generation policy availability:', error);
+    return json(503, {error: 'Theme generation status is temporarily unavailable.', retryable: true}, {'retry-after': '1'});
+  }
+}
+
 export function canonicalThemeKey(theme) {
   return String(theme ?? '').trim().replace(/\s+/g, ' ').toLowerCase();
 }

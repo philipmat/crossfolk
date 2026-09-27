@@ -18,7 +18,9 @@ the code guide.
 
 Choose a theme, size, difficulty, and grid style. Small is 5×5, Medium is 9×9, and Large is 13×13; Small and Easy are
 the initial settings. Ten curated theme families work without an API key: nature, ocean, space, food, music, travel,
-sports, animals, weather, and garden. Custom themes need configured AI generation. See [DEPLOYMENT.md](DEPLOYMENT.md)
+sports, animals, weather, and garden.  
+Custom themes need configured AI generation. When the generation policy is off, the
+custom-theme field is disabled and built-in themes remain available. See [DEPLOYMENT.md](DEPLOYMENT.md)
 for credentials, database setup, and generation policy.
 
 Click a clue or cell and type. Arrow keys move through the grid, Space switches direction at an intersection, and Tab

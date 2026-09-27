@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createGenerationPolicy, DEFAULT_POLICY, evaluatePolicy, parsePolicy, POLICY_KEY, spanFor, usageQuery} from '../server/generation-policy.js';
-import {handleWords} from '../server/handler.js';
+import {handleGenerationStatus, handleWords} from '../server/handler.js';
 import {createLogger} from '../server/logger.js';
+import worker from '../worker/index.js';
 
 const WORDS_URL = 'http://localhost/api/words';
 const REQUEST_ID = '11111111-1111-4111-8111-111111111111';
@@ -11,6 +12,40 @@ const silent = createLogger({log: () => {}});
 function post(body) {
   return new Request(WORDS_URL, {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(body)});
 }
+
+test('generation status reports off without reading quota usage', async () => {
+  const store = stubStore({setting: {value_json: '{"mode":"off"}'}});
+  const generationPolicy = createGenerationPolicy({logger: silent});
+  const response = await handleGenerationStatus(new Request('http://localhost/api/generation-status'), {generationStore: store, generationPolicy, logger: silent});
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.deepEqual(await response.json(), {enabled: false});
+  assert.deepEqual(store.calls, [['readSetting', POLICY_KEY]]);
+});
+
+test('generation status defaults to enabled and rejects other methods', async () => {
+  const enabled = await handleGenerationStatus(new Request('http://localhost/api/generation-status'));
+  const wrongMethod = await handleGenerationStatus(new Request('http://localhost/api/generation-status', {method: 'POST'}));
+
+  assert.deepEqual(await enabled.json(), {enabled: true});
+  assert.equal(wrongMethod.status, 405);
+});
+
+test('the Cloudflare adapter exposes the disabled policy status', async () => {
+  const appDb = {
+    prepare() {
+      return {
+        bind() { return this; },
+        async first() { return {value_json: '{"mode":"off"}'}; }
+      };
+    }
+  };
+  const response = await worker.fetch(new Request('https://crossfolk.example/api/generation-status'), {APP_DB: appDb});
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), {enabled: false});
+});
 
 function stubStore({setting, usage = {count: 0, oldestStartedAtMs: null, latestStartedAtMs: null}, request} = {}) {
   const calls = [];

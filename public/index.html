@@ -33,7 +33,7 @@
         <aside class="settings">
             <div class="section-heading"><span class="small-icon">✳</span>
                 <h2>Make it yours</h2></div>
-            <form id="settings-form"><label for="theme-preset">Choose a theme or create your own</label>
+            <form id="settings-form"><label id="theme-label" for="theme-preset">Choose a theme or create your own</label>
                 <div class="theme-wrap">
                     <select id="theme-preset" aria-label="Built-in theme">
                         <option value="">Custom theme…</option>
@@ -43,9 +43,9 @@
                         <option value="sports">Sports</option><option value="animals">Animals</option>
                         <option value="weather">Weather</option><option value="garden">Garden</option>
                     </select>
-                    <input id="theme" placeholder="Choose a theme or create your own" maxlength="100" aria-label="Custom theme">
+                    <input id="theme" placeholder="Choose a theme or create your own" maxlength="100" aria-label="Custom theme" aria-describedby="theme-hint">
                 </div>
-                <p class="field-hint">A few words. A whole world to explore.</p>
+                <p class="field-hint" id="theme-hint">A few words. A whole world to explore.</p>
                 <fieldset>
                     <legend>Puzzle size</legend>
                     <div class="segments" id="sizes">

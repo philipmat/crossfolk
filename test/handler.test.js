@@ -96,6 +96,11 @@ test('the local server bridges /api/words through the same handler', async (t) =
   t.after(() => new Promise((done) => server.close(done)));
   const base = `http://127.0.0.1:${server.address().port}`;
 
+  const status = await fetch(`${base}/api/generation-status`);
+  assert.equal(status.status, 200);
+  assert.equal(status.headers.get('cache-control'), 'no-store');
+  assert.deepEqual(await status.json(), {enabled: true});
+
   const nested = await fetch(`${base}/layouts/mask-analysis.js`);
   assert.equal(nested.status, 200);
   assert.equal(nested.headers.get('content-type'), 'text/javascript; charset=utf-8');

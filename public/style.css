@@ -243,6 +243,16 @@ label, legend {
     min-height: 44px
 }
 
+.theme-wrap input:disabled {
+    background: #eeeee8;
+    cursor: not-allowed
+}
+
+.theme-wrap input:disabled::placeholder {
+    color: #62695f;
+    opacity: 1
+}
+
 .field-hint {
     font-size: 10px;
     color: var(--muted);
