@@ -9,6 +9,7 @@ import {createSolver, isFullyChecked, makeSlots, normalizeWords, numberEntries, 
 import {LAYOUT_VERSION} from '../public/layouts/registry.js';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
+// The snapshots use the one-tick-per-read clock in generateSeededPuzzle.
 const fixture = JSON.parse(await readFile(resolve(ROOT, 'test/fixtures/freeform-seeded.json'), 'utf8'));
 
 function seededRandom(label) {
@@ -24,6 +25,20 @@ function seededRandom(label) {
   };
 }
 
+// The seed fixes candidate ordering, but elapsed time can still change which bounded
+// search attempt wins. Reset the clock for each puzzle and advance it on every read.
+function generateSeededPuzzle({theme, size, difficulty, seed, layoutStyle}) {
+  const realNow = Date.now;
+  let tick = 0;
+
+  Date.now = () => tick++;
+  try {
+    return generatePuzzle({theme, size, difficulty, layoutStyle, random: seededRandom(seed)});
+  } finally {
+    Date.now = realNow;
+  }
+}
+
 function importsOf(source) {
   return [...source.matchAll(/^\s*import[^;]*?from\s+'([^']+)'/gm)].map(([, specifier]) => specifier);
 }
@@ -31,24 +46,26 @@ function importsOf(source) {
 test('the recorded seeded Free-form puzzles are reproduced exactly', () => {
   assert.ok(fixture.length >= 12, 'the parity fixture should cover both sizes across every built-in theme');
 
-  for (const {theme, size, difficulty, seed, puzzle} of fixture) {
-    const produced = generatePuzzle({theme, size, difficulty, random: seededRandom(seed)});
+  for (const record of fixture) {
+    const {seed, puzzle} = record;
+    const produced = generateSeededPuzzle(record);
 
     assert.deepEqual(
       {size: produced.size, theme: produced.theme, layoutVersion: puzzle.layoutVersion, grid: produced.grid, entries: produced.entries},
       puzzle,
       `${seed} changed`
     );
-    // The recorded fixture predates the registry, which now stamps the current version on
-    // every new result. The grid and entries are what the lock is about.
+    // The fixture retains the historical version 3; new results must carry the
+    // registry's current version while preserving the recorded grid and entries.
     assert.equal(produced.layoutVersion, LAYOUT_VERSION, `${seed} layout version`);
   }
 });
 
 test('omitting layoutStyle and asking for freeform produce the same seeded puzzle', () => {
-  for (const {theme, size, difficulty, seed} of fixture.slice(0, 6)) {
-    const omitted = generatePuzzle({theme, size, difficulty, random: seededRandom(seed)});
-    const explicit = generatePuzzle({theme, size, difficulty, layoutStyle: 'freeform', random: seededRandom(seed)});
+  for (const record of fixture.slice(0, 6)) {
+    const {seed} = record;
+    const omitted = generateSeededPuzzle(record);
+    const explicit = generateSeededPuzzle({...record, layoutStyle: 'freeform'});
 
     assert.deepEqual(explicit.grid, omitted.grid, `${seed} grid`);
     assert.deepEqual(explicit.entries, omitted.entries, `${seed} entries`);

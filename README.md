@@ -172,8 +172,10 @@ Desktop and 390px phone layouts were reviewed in the browser. Keyboard entry, to
 letter reveal, puzzle regeneration, large size, and hard clues were exercised; HTTP smoke checks cover public
 assets and blocked private paths.
 
-`npm test` and `npm run test:ai` run their files one at a time. The Free-form parity lock and the American time budget both measure wall-clock
-behaviour, and running the suites concurrently changes what a seeded generation produces inside a fixed deadline.
+`npm test` and `npm run test:ai` run their files one at a time. The Free-form parity lock fixes candidate ordering with a
+seeded random generator and advances a virtual clock at each clock read, so its recorded grids are reproducible across
+machines. The American time budget measures wall-clock behaviour, so running the suites concurrently can affect its
+timing results.
 
 ```sh
 npm run verify:american
