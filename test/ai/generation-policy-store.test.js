@@ -36,11 +36,11 @@ function setPolicy(connection, policy) {
   connection.prepare('UPDATE app_settings SET value_json = ?, updated_at_ms = ? WHERE key = ?').run(policy, Date.now(), POLICY_KEY);
 }
 
-test('the migration seeds an unrestricted policy that parses', async (t) => {
+test('the migrations leave AI generation disabled by default', async (t) => {
   const database = await tempDatabase(t);
   const store = new SqliteGenerationStore(database.connection);
   const row = await store.readSetting(POLICY_KEY);
-  assert.equal(parsePolicy(row.value_json).mode, 'unrestricted');
+  assert.equal(parsePolicy(row.value_json).mode, 'off');
   assert.equal(await store.readSetting('missing-key'), null);
 });
 

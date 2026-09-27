@@ -41,7 +41,9 @@ npm start
 ```
 
 Put the key in `.env` (loaded by `npm start`, gitignored) or export it. When it is missing, themes outside the curated
-families report that AI generation is not configured instead of falling back to a curated bank.
+families report that AI generation is not configured instead of falling back to a curated bank. The application database
+starts with AI generation switched off; an operator must enable it with the `ai_generation_policy` setting described
+below before arbitrary themes can call OpenRouter.
 
 Optionally set `OPENROUTER_MODELS` to a comma-separated, preference-ordered list of models (default
 `deepseek/deepseek-v4-flash,openai/gpt-5.6-luna,openai/gpt-4.1-mini`; each must support structured JSON schema output).
@@ -110,7 +112,8 @@ for account-specific D1 provisioning and migration steps.
 
 How much AI generation the public API allows is one row in `app_settings`, not a deployed constant, so it changes with a
 single SQL statement and no redeploy. Each Worker isolate re-reads the row at most every 30 seconds, so an edit takes
-effect within about half a minute.
+effect within about half a minute. Migration `0002_app_settings.sql` sets this row to `off` on new and existing
+databases. AI generation remains disabled until an operator chooses another policy.
 
 ```sh
 # Stop all AI generation now

@@ -17,7 +17,7 @@
       "head_sampling_rate": 0.1
     }
   },
-  // Set OPENROUTER_SITE_URL in the dashboard to the app's primary public URL for OpenRouter attribution.
+  // After the first deploy, add OPENROUTER_SITE_URL to vars with the app's primary public URL.
   "vars": {
     "OPENROUTER_MODELS": ""
   },
