@@ -19,7 +19,7 @@ const TYPES = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png'
 };
-export const PUBLIC_FILES = new Set(['index.html', 'app.js', 'engine.js', 'style.css', 'dense.js', 'fill-words.js', 'puzzle-worker.js', 'theme-fill.js', 'themes.js', 'wordnet-words.js', 'WORDNET-LICENSE.txt', 'mini-patterns.js', 'theme-plurals.js', 'theme-clues.js', 'dense-fallbacks.js', 'layouts/mask-analysis.js', 'layouts/american-patterns.js', 'layouts/freeform.js', 'layouts/american.js', 'layouts/american-fill-words.js', 'layouts/american-theme-words.js', 'layouts/errors.js', 'layouts/registry.js', 'layouts/styles.js']);
+export const PUBLIC_FILES = new Set(['index.html', 'favicon.svg', 'app.js', 'engine.js', 'style.css', 'dense.js', 'fill-words.js', 'puzzle-worker.js', 'theme-fill.js', 'themes.js', 'wordnet-words.js', 'WORDNET-LICENSE.txt', 'mini-patterns.js', 'theme-plurals.js', 'theme-clues.js', 'dense-fallbacks.js', 'layouts/mask-analysis.js', 'layouts/american-patterns.js', 'layouts/freeform.js', 'layouts/american.js', 'layouts/american-fill-words.js', 'layouts/american-theme-words.js', 'layouts/errors.js', 'layouts/registry.js', 'layouts/styles.js']);
 
 export function isWordsPath(url) {
   return new URL(url, 'http://localhost').pathname === '/api/words';
