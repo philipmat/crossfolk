@@ -81,7 +81,7 @@ const key = (r,c) => `${r},${c}`;
 const cellsFor = e => [...e.answer].map((_,i)=>key(e.row+(e.direction==='down'?i:0),e.col+(e.direction==='across'?i:0)));
 function save() { try { localStorage.setItem('crossfolk-game',JSON.stringify({puzzle,letters,elapsed,active,selected,solved})); localStorage.setItem('crossfolk-history',JSON.stringify(history.slice(-100))); } catch {} }
 function selectEntry(i,cell) { active=i; selected=cell || cellsFor(puzzle.entries[i]).find(k=>!letters[k]) || cellsFor(puzzle.entries[i])[0]; render(); }
-function selectCell(k) { const matches=puzzle.entries.map((e,i)=>cellsFor(e).includes(k)?i:-1).filter(i=>i>=0); if(k===selected && matches.length>1) active=matches.find(i=>i!==active); else if(!matches.includes(active)) active=matches[0]; selected=k; render(); }
+function selectCell(k) { const matches=puzzle.entries.map((e,i)=>cellsFor(e).includes(k)?i:-1).filter(i=>i>=0); if(k===selected && matches.length>1) active=matches.find(i=>i!==active); else if(!matches.includes(active)) active=matches.find(i=>puzzle.entries[i].direction===puzzle.entries[active]?.direction)??matches[0]; selected=k; render(); }
 function render() {
  if(!puzzle)return;
  const restoreFocus = document.activeElement?.closest('#board');
