@@ -895,6 +895,33 @@ dialog ul {
         padding: 8px 12px 18px
     }
 
+    .board-column {
+        display: flex;
+        flex-direction: column
+    }
+
+    .board-column > * {
+        order: 5
+    }
+
+    .board-column > .board-actions {
+        order: 1;
+        margin: 0 0 12px
+    }
+
+    .board-column > .board-scroll {
+        order: 2
+    }
+
+    .board-column > .active-clue {
+        order: 3;
+        margin: 12px 0 0
+    }
+
+    .board-column > .keyboard {
+        order: 4
+    }
+
     .key-row {
         display: flex;
         justify-content: center;
