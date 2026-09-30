@@ -475,7 +475,7 @@ fieldset {
     gap: 10px;
     align-items: center;
     padding: 11px 12px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.45;
     margin-bottom: 16px;
     border-radius: 3px
@@ -633,7 +633,7 @@ fieldset {
 }
 
 .clue b {
-    font-size: 11px;
+    font-size: 14px;
     min-width: 10px;
     margin-top: 1px
 }
