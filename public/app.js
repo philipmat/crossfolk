@@ -34,7 +34,7 @@ async function fetchThemeWords(payload, requestId) {
  throw new Error('Could not generate this theme. Please try again.');
 }
 $('.board-actions').after($('#keyboard'));
-let size = 5, difficulty = 'easy', puzzle, letters = {}, selected = null, active = 0, elapsed = 0, solved = false, wrong = new Set(), history = [];
+let size = 5, difficulty = 'easy', puzzle, letters = {}, selected = null, active = 0, elapsed = 0, solved = false, wrong = new Set(), history = [], outcome = null;
 try { history = JSON.parse(localStorage.getItem('crossfolk-history') || '[]'); if (!Array.isArray(history)) history=[]; } catch {}
 let preferredLayoutStyle=DEFAULT_LAYOUT_STYLE;
 for(const style of layoutStyles){const opt=document.createElement('option');opt.value=style.id;opt.textContent=style.label;$('#layout-style').append(opt);}
@@ -94,13 +94,13 @@ function render() {
  $('#crossing-count').textContent=`${Math.round([...coverage.values()].filter(n=>n===2).length/coverage.size*100)}% crossed`;
  showSource(puzzle.source);
  $('#active-clue').replaceChildren(); const b=document.createElement('b'); b.textContent=`${entry.number} ${entry.direction==='across'?'→':'↓'}`; const t=document.createElement('span');t.textContent=entry.clue;$('#active-clue').append(b,t);
- const board=$('#board');board.style.setProperty('--size',puzzle.size);board.replaceChildren();$('.board-scroll').className=`board-scroll ${puzzle.size===13?'large':puzzle.size===9?'medium':''}`;
+ const board=$('#board');board.style.setProperty('--size',puzzle.size);board.replaceChildren();board.dataset.outcome=outcome||'';outcome=null;$('.board-scroll').className=`board-scroll ${puzzle.size===13?'large':puzzle.size===9?'medium':''}`;
  let filled=0,total=0,correct=0;
  puzzle.grid.forEach((row,r)=>row.forEach((answer,c)=>{
  const k=key(r,c), cell=document.createElement(answer?'button':'div');cell.className='cell';
  if(!answer){cell.classList.add('block');cell.setAttribute('aria-hidden','true');}
  else {total++;if(letters[k])filled++;if(letters[k]===answer)correct++;
- cell.type='button';cell.dataset.large=puzzle.size>5;cell.tabIndex=k===selected?0:-1;
+ cell.style.setProperty('--i',r+c);cell.type='button';cell.dataset.large=puzzle.size>5;cell.tabIndex=k===selected?0:-1;
  if(current.includes(k))cell.classList.add('in-word');if(k===selected)cell.classList.add('selected');if(wrong.has(k))cell.classList.add('wrong');
  const start=puzzle.entries.find(e=>e.row===r&&e.col===c);if(start){const n=document.createElement('small');n.textContent=start.number;cell.append(n);}const letter=document.createElement('span');letter.textContent=letters[k]||'';cell.append(letter);
  cell.setAttribute('aria-label',`Row ${r+1}, column ${c+1}${start?`, clue ${start.number}`:''}: ${letters[k]||'empty'}${wrong.has(k)?', incorrect':''}`);cell.setAttribute('aria-pressed',String(k===selected));cell.addEventListener('click',()=>selectCell(k));}
@@ -112,11 +112,17 @@ function render() {
  save();
  if(restoreFocus)$('#board .selected')?.focus({preventScroll:true});
 }
+function autoCheck() {
+ const cells=puzzle.grid.flatMap((row,r)=>row.flatMap((a,c)=>a?[[key(r,c),a]]:[]));
+ if(!cells.every(([k])=>letters[k]))return;
+ if(cells.some(([k,a])=>letters[k]!==a)){outcome='fail';$('#game-message').textContent='Every square is filled, but something isn’t right. Press Check to see which letters.';}
+ else if(!solved)outcome='win';
+}
 function enter(value) {if(!puzzle||!selected)return;const cells=cellsFor(puzzle.entries[active]);let pos=cells.indexOf(selected);wrong.delete(selected);$('#game-message').textContent='';
  if(value==='Backspace'){if(!letters[selected]&&pos>0)selected=cells[--pos];delete letters[selected];wrong.delete(selected);}
  else if(value==='Delete'){delete letters[selected];}
  else if(/^[a-z]$/i.test(value)){letters[selected]=value.toUpperCase();if(pos<cells.length-1)selected=cells[pos+1];}
- else return;render();}
+ else return;autoCheck();render();}
 function nextClue(back=false){selectEntry((active+(back?-1:1)+puzzle.entries.length)%puzzle.entries.length);}
  document.addEventListener('keydown',e=>{if(!puzzle||$('#help-dialog').open||e.target.matches('input,textarea,select')||e.ctrlKey||e.metaKey||e.altKey)return;if(e.target.closest('.settings')||e.target.closest('header'))return;
  if(e.key==='Tab' && e.target.closest('#board')){e.preventDefault();nextClue(e.shiftKey);$('#board .selected')?.focus({preventScroll:true});}
@@ -143,7 +149,7 @@ async function create(initial=false){const theme=selectedTheme(customThemesOff?'
  }catch(error){showSource(puzzle?.source);const needsAi=aiUnavailable&&error.code==='theme-words-unavailable';const codeMessage=CODE_MESSAGES[error.code];const message=codeMessage||(error.name==='TimeoutError'?'Theme generation took too long. Please try again.':error.message||'Something went wrong. Please try again.');$('#error').textContent=needsAi?(customThemesOff?`${aiNotice} Choose a built-in theme.`:`${error.message} To play any theme, set OPENROUTER_API_KEY (for example in .env) and restart the server.`):message;}finally{$('#generate').disabled=false;setControlsDisabled(false);$('#generate').innerHTML='Create my crossword <span>→</span>';}}
  $('#settings-form').onsubmit=e=>{e.preventDefault();create();};$('#theme-preset').onchange=()=>{$('#theme').value='';$('#theme').setCustomValidity('');};$('#theme').oninput=()=>{$('#theme-preset').value='';$('#theme').setCustomValidity('');};
  $('#check').onclick=()=>{wrong.clear();for(const [k,v]of Object.entries(letters)){const[r,c]=k.split(',').map(Number);if(v!==puzzle.grid[r][c])wrong.add(k);}$('#game-message').textContent=wrong.size?`${wrong.size} ${wrong.size===1?'letter needs':'letters need'} another look. Marked in red.`:Object.keys(letters).length?'Looking good. Your filled letters are correct!':'Add a few letters, then check your work.';render();};
- $('#reveal').onclick=()=>{const[r,c]=selected.split(',').map(Number);letters[selected]=puzzle.grid[r][c];wrong.delete(selected);$('#game-message').textContent='A little nudge. One letter revealed.';render();};
+ $('#reveal').onclick=()=>{const[r,c]=selected.split(',').map(Number);letters[selected]=puzzle.grid[r][c];wrong.delete(selected);$('#game-message').textContent='A little nudge. One letter revealed.';autoCheck();render();};
  $('#clear').onclick=()=>{if(!Object.keys(letters).length)return;if(confirm('Clear all your letters in this puzzle?')){letters={};wrong.clear();solved=false;$('#game-message').textContent='A fresh start. You’ve got this.';render();}};
  const dialog=$('#help-dialog');$('#help').onclick=()=>dialog.showModal();$('.close').onclick=()=>dialog.close();$('.close-help').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
  for(const row of ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM']){const div=document.createElement('div');div.className='key-row';for(const letter of row){const b=document.createElement('button');b.textContent=letter;b.setAttribute('aria-label',`Enter ${letter}`);b.onclick=()=>enter(letter);div.append(b);}if(row==='ZXCVBNM'){const next=document.createElement('button');next.textContent='Next';next.className='wide';next.onclick=()=>nextClue();div.prepend(next);const back=document.createElement('button');back.textContent='⌫';back.className='wide';back.setAttribute('aria-label','Backspace');back.onclick=()=>enter('Backspace');div.append(back);}$('#keyboard').append(div);}

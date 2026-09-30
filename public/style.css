@@ -1089,7 +1089,49 @@ dialog ul {
     }
 }
 
+#board[data-outcome=win] {
+    animation: board-glow 1.4s ease-out
+}
+
+#board[data-outcome=win] .cell:not(.block) {
+    animation: cell-win .7s ease-out both;
+    animation-delay: calc(var(--i) * 60ms)
+}
+
+#board[data-outcome=fail] {
+    animation: board-shake .5s ease-in-out
+}
+
+@keyframes cell-win {
+    0% { transform: scale(1) }
+    40% { transform: scale(1.18); background: var(--yellow) }
+    100% { transform: scale(1) }
+}
+
+@keyframes board-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(120, 180, 90, 0) }
+    40% { box-shadow: 0 0 0 8px rgba(120, 180, 90, .55) }
+}
+
+@keyframes board-shake {
+    0%, 100% { transform: translateX(0) }
+    20%, 60% { transform: translateX(-8px) }
+    40%, 80% { transform: translateX(8px) }
+}
+
 @media (prefers-reduced-motion: reduce) {
+    #board, #board .cell {
+        animation: none !important
+    }
+
+    #board[data-outcome=win] {
+        border-color: #4f8a3c
+    }
+
+    #board[data-outcome=fail] {
+        border-color: #b84231
+    }
+
     * {
         transition: none !important;
         scroll-behavior: auto !important
