@@ -475,7 +475,7 @@ fieldset {
     gap: 10px;
     align-items: center;
     padding: 11px 12px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.45;
     margin-bottom: 16px;
     border-radius: 3px
@@ -550,7 +550,8 @@ fieldset {
 
 .board-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: center;
     margin: 14px 0 21px;
     gap: 4px
 }
@@ -565,6 +566,10 @@ fieldset {
     display: flex;
     gap: 6px;
     align-items: center
+}
+
+.board-actions .timer {
+    margin-right: auto
 }
 
 .board-actions button:hover {
@@ -633,7 +638,7 @@ fieldset {
 }
 
 .clue b {
-    font-size: 11px;
+    font-size: 14px;
     min-width: 10px;
     margin-top: 1px
 }
@@ -808,11 +813,16 @@ dialog ul {
     }
 
     main {
-        padding: 0 24px 24px
+        padding: 0 0 24px
     }
 
     .intro {
-        padding: 35px 0
+        padding: 35px 0;
+        text-align: center
+    }
+
+    .intro .eyebrow {
+        justify-content: center
     }
 
     .intro-art {
@@ -828,7 +838,7 @@ dialog ul {
     }
 
     .settings {
-        padding: 20px
+        padding: 10px
     }
 
     .section-heading {
@@ -890,6 +900,33 @@ dialog ul {
         padding: 8px 12px 18px
     }
 
+    .board-column {
+        display: flex;
+        flex-direction: column
+    }
+
+    .board-column > * {
+        order: 5
+    }
+
+    .board-column > .board-actions {
+        order: 1;
+        margin: 0 0 12px
+    }
+
+    .board-column > .board-scroll {
+        order: 2
+    }
+
+    .board-column > .active-clue {
+        order: 3;
+        margin: 12px 0 0
+    }
+
+    .board-column > .keyboard {
+        order: 4
+    }
+
     .key-row {
         display: flex;
         justify-content: center;
@@ -905,7 +942,8 @@ dialog ul {
         background: #e9edde;
         border: 1px solid #d7dfcd;
         border-radius: 4px;
-        font-size: 14px
+        font-size: 14px;
+        touch-action: manipulation
     }
 
     .key-row button.wide {
@@ -920,11 +958,12 @@ dialog ul {
 
 @media (max-width: 540px) {
     main {
-        padding: 0 16px 20px
+        padding: 0 0 20px
     }
 
     header {
-        padding: 0 18px
+        padding: 0 18px;
+        height: 50px;
     }
 
     .brand {
@@ -932,15 +971,25 @@ dialog ul {
     }
 
     .intro {
-        padding: 30px 2px
+        padding: 10px 0
     }
 
     .intro .eyebrow {
-        font-size: 9px
+        display: none;
+        /*font-size: 9px*/
     }
 
     h1 {
-        font-size: 42px
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .settings {
+        padding: 8px
+    }
+
+    .section-heading {
+        padding-top: 10px;
     }
 
     .intro p {
@@ -950,7 +999,7 @@ dialog ul {
 
     .game-body {
         grid-template-columns:1fr;
-        padding: 18px;
+        padding: 8px;
         gap: 24px
     }
 
@@ -969,8 +1018,16 @@ dialog ul {
 
     .board-actions button {
         min-height: 44px;
+        min-width: 44px;
+        height: 44px;
+        line-height: 1;
+        justify-content: center;
         padding: 8px 12px;
-        font-size: 12px
+        font-size: 22px
+    }
+
+    .board-actions button span {
+        display: none
     }
 
     .cell {
@@ -1032,7 +1089,49 @@ dialog ul {
     }
 }
 
+#board[data-outcome=win] {
+    animation: board-glow 1.4s ease-out
+}
+
+#board[data-outcome=win] .cell:not(.block) {
+    animation: cell-win .7s ease-out both;
+    animation-delay: calc(var(--i) * 60ms)
+}
+
+#board[data-outcome=fail] {
+    animation: board-shake .5s ease-in-out
+}
+
+@keyframes cell-win {
+    0% { transform: scale(1) }
+    40% { transform: scale(1.18); background: var(--yellow) }
+    100% { transform: scale(1) }
+}
+
+@keyframes board-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(120, 180, 90, 0) }
+    40% { box-shadow: 0 0 0 8px rgba(120, 180, 90, .55) }
+}
+
+@keyframes board-shake {
+    0%, 100% { transform: translateX(0) }
+    20%, 60% { transform: translateX(-8px) }
+    40%, 80% { transform: translateX(8px) }
+}
+
 @media (prefers-reduced-motion: reduce) {
+    #board, #board .cell {
+        animation: none !important
+    }
+
+    #board[data-outcome=win] {
+        border-color: #4f8a3c
+    }
+
+    #board[data-outcome=fail] {
+        border-color: #b84231
+    }
+
     * {
         transition: none !important;
         scroll-behavior: auto !important

@@ -86,7 +86,6 @@
                     <p class="ai-note" id="ai-note" hidden><span class="ai-tag">AI</span><span
                         id="ai-note-text"></span></p>
                 </div>
-                <div class="timer"><span>◷</span> <span id="timer">00:00</span></div>
             </div>
             <div class="game-body">
                 <div class="board-column">
@@ -95,9 +94,10 @@
                         <div id="board" role="group" aria-label="Crossword grid"></div>
                     </div>
                     <div class="board-actions">
-                        <button id="check">✓ <span>Check</span></button>
-                        <button id="reveal">☀ <span>Reveal letter</span></button>
-                        <button id="clear">↺ <span>Clear</span></button>
+                        <div class="timer"><span>◷</span> <span id="timer">00:00</span></div>
+                        <button id="check" aria-label="Check">✓ <span>Check</span></button>
+                        <button id="reveal" aria-label="Reveal letter">☀ <span>Reveal letter</span></button>
+                        <button id="clear" aria-label="Clear">↺ <span>Clear</span></button>
                     </div>
                     <div class="progress-row"><span id="progress-label">Your next little win starts here.</span><span
                         id="progress-count">0%</span></div>
