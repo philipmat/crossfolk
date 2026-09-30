@@ -808,11 +808,16 @@ dialog ul {
     }
 
     main {
-        padding: 0 24px 24px
+        padding: 0 0 24px
     }
 
     .intro {
-        padding: 35px 0
+        padding: 35px 0;
+        text-align: center
+    }
+
+    .intro .eyebrow {
+        justify-content: center
     }
 
     .intro-art {
@@ -828,7 +833,7 @@ dialog ul {
     }
 
     .settings {
-        padding: 20px
+        padding: 10px
     }
 
     .section-heading {
@@ -920,11 +925,12 @@ dialog ul {
 
 @media (max-width: 540px) {
     main {
-        padding: 0 16px 20px
+        padding: 0 0 20px
     }
 
     header {
-        padding: 0 18px
+        padding: 0 18px;
+        height: 50px;
     }
 
     .brand {
@@ -932,15 +938,25 @@ dialog ul {
     }
 
     .intro {
-        padding: 30px 2px
+        padding: 10px 0
     }
 
     .intro .eyebrow {
-        font-size: 9px
+        display: none;
+        /*font-size: 9px*/
     }
 
     h1 {
-        font-size: 42px
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .settings {
+        padding: 8px
+    }
+
+    .section-heading {
+        padding-top: 10px;
     }
 
     .intro p {
@@ -950,7 +966,7 @@ dialog ul {
 
     .game-body {
         grid-template-columns:1fr;
-        padding: 18px;
+        padding: 8px;
         gap: 24px
     }
 
