@@ -937,7 +937,8 @@ dialog ul {
         background: #e9edde;
         border: 1px solid #d7dfcd;
         border-radius: 4px;
-        font-size: 14px
+        font-size: 14px;
+        touch-action: manipulation
     }
 
     .key-row button.wide {
