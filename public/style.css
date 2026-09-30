@@ -550,7 +550,8 @@ fieldset {
 
 .board-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: center;
     margin: 14px 0 21px;
     gap: 4px
 }
@@ -565,6 +566,10 @@ fieldset {
     display: flex;
     gap: 6px;
     align-items: center
+}
+
+.board-actions .timer {
+    margin-right: auto
 }
 
 .board-actions button:hover {
@@ -1013,8 +1018,16 @@ dialog ul {
 
     .board-actions button {
         min-height: 44px;
+        min-width: 44px;
+        height: 44px;
+        line-height: 1;
+        justify-content: center;
         padding: 8px 12px;
-        font-size: 12px
+        font-size: 22px
+    }
+
+    .board-actions button span {
+        display: none
     }
 
     .cell {
